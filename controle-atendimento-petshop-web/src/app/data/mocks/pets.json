@@ -1,0 +1,36 @@
+[
+    {
+        "id": 1,
+        "nome": "Caramelo",
+        "dataNascimento": "2020-06-13",
+        "cliente": {
+            "id": 1,
+            "nome": "Rosana Costa",
+            "perfil": "cliente",
+            "senha": "123",
+            "dataCadastro": "2025-01-27",
+            "contatos": [
+                {
+                    "id": 1,
+                    "tipo": "e-mail",
+                    "valor": "rosanacosta@gmail.com",
+                    "tag": "#gmail"
+                }
+            ],
+            "enderecos": [
+                {
+                    "id": 1,
+                    "logradouro": "Avenida Rio de Janeiro, Nº227",
+                    "cidade": "Curitiba - PR",
+                    "bairro": "Jardim Botânico",
+                    "complemento": "Casa",
+                    "tag": "#curitibaregiao #capital"
+                }
+            ]
+        },
+        "raca": {
+            "id": 1,
+            "descricao": "Vira-lata"
+        }
+    }
+]
