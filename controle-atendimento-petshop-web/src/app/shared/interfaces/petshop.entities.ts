@@ -25,6 +25,7 @@ export interface Usuario {
     cpf?: number;
     perfil: Perfil | string;
     senha: string;
+    foto: string;
 }
 
 export interface Cliente extends Usuario {
@@ -44,6 +45,7 @@ export interface Pet {
     dataNascimento: Date | string;
     cliente: Cliente;
     raca: Raca;
+    foto: string;
 }
 
 export interface Atendimento {

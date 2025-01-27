@@ -51,7 +51,7 @@ export class PetshopService {
     console.log(atendimento);
   }
 
-  listarClientes(filter: Cliente, pagination: PageParams): Observable<Cliente[]> {
+  listarClientes(filters: PageParams<Cliente>): Observable<Cliente[]> {
     return of(clientes.map<Cliente>(cliente => ({
       ...cliente,
       dataCadastro: new Date(cliente.dataCadastro),
@@ -62,7 +62,7 @@ export class PetshopService {
     })));
   }
 
-  listarAtendimentos(filter: Atendimento, pagination: PageParams): Observable<Atendimento[]> {
+  listarAtendimentos(filters: PageParams<Atendimento>): Observable<Atendimento[]> {
     return of(atendimentos.map<Atendimento>(atendimento => ({
       ...atendimento,
       data: new Date(atendimento.data),
@@ -73,14 +73,14 @@ export class PetshopService {
     })));
   }
 
-  listarPets(filter: Pet, pagination: PageParams): Observable<Pet[]> {
+  listarPets(filters: PageParams<Pet>): Observable<Pet[]> {
     return of(pets.map<Pet>(pet => ({
       ...pet,
       dataNascimento: new Date(pet.dataNascimento)
     })));
   }
 
-  listarRacas(filter: Raca, pagination: PageParams): Observable<Raca[]> {
+  listarRacas(filters: PageParams<Raca>): Observable<Raca[]> {
     return of(racas);
   }
 }

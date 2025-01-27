@@ -1,4 +1,5 @@
-export interface PageParams {
-    page: number;
-    qtd: number;
+export interface PageParams<T> {
+    page?: number;
+    qtd?: number;
+    filter?: T;
 }
