@@ -3,11 +3,15 @@ import { PetshopService } from '../../../shared/services/petshop.service';
 import { Atendimento, Raca } from '../../../shared/interfaces/petshop.entities';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CurrencyPipe } from '@angular/common';
+import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { CadastroAtendimentoComponent } from '../../cadastros/cadastro-atendimento/cadastro-atendimento.component';
 
 @Component({
   selector: 'app-visualizar-atendimentos',
   imports: [
-    CurrencyPipe
+    CurrencyPipe,
+    ModalComponent,
+    CadastroAtendimentoComponent
   ],
   templateUrl: './visualizar-atendimentos.component.html',
   styleUrl: './visualizar-atendimentos.component.css'
@@ -18,6 +22,8 @@ export class VisualizarAtendimentosComponent implements OnInit {
   atendimentos: Atendimento[] = [];
 
   isLoading = false;
+
+  openModalCriarAtendimento = false;
 
   ngOnInit(): void {
     this.isLoading = true;

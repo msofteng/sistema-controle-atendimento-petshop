@@ -1,4 +1,13 @@
 <h3>Atendimentos</h3>
+<button (click)="openModalCriarAtendimento = true">Criar Atendimento</button>
+
+<app-modal [(openModal)]="openModalCriarAtendimento">
+    <h2>Atendimento</h2>
+    
+    <app-cadastro-atendimento></app-cadastro-atendimento>
+</app-modal>
+
+<br><br>
 
 @if (isLoading) {
     <b>Carregando ...</b>

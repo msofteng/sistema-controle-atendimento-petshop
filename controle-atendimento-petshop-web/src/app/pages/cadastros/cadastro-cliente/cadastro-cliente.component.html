@@ -1,1 +1,101 @@
-<p>cadastro-cliente works!</p>
+<fieldset>
+    <legend>Adicionar Cliente</legend>
+    <form>
+        Nome: <b title="Obrigatório" class="required">*</b><br>
+        <input type="text">
+
+        <br><br>
+        CPF: <br>
+        <input type="text" maxlength="14">
+
+        <br><br>
+        Senha: <b title="Obrigatório" class="required">*</b><br>
+        <input type="text" value="23349394993" disabled>
+
+        <br><br>
+        Foto: <br>
+        <input type="file" accept="image/*">
+
+        <br><br>
+
+        <fieldset>
+            <legend>Adicionar Contato</legend>
+
+            <app-cadastro-contato></app-cadastro-contato>
+
+            <br>
+
+            <fieldset>
+                <legend>Contatos (Cliente)</legend>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Contato</th>
+                            <th>Tipo</th>
+                            <th>Tag</th>
+                            <th>Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>(51) 99870-4593</td>
+                            <td>Telefone</td>
+                            <td>#telefone #RS</td>
+                            <td>
+                                <button>Alterar</button>
+                                &nbsp;
+                                <button>Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </fieldset>
+
+        <br>
+
+        <fieldset>
+            <legend>Adicionar Endereço</legend>
+
+            <app-cadastro-endereco></app-cadastro-endereco>
+
+            <br><br>
+
+            <fieldset>
+                <legend>Endereços (Cliente)</legend>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Logradouro</th>
+                            <th>Cidade</th>
+                            <th>Bairro</th>
+                            <th>Complemento</th>
+                            <th>Tag</th>
+                            <th>Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Avenida Rio de Janeiro, Nº227</td>
+                            <td>Curitiba - PR</td>
+                            <td>Jardim Botânico</td>
+                            <td>Casa</td>
+                            <td>#curitibaregiao #capital</td>
+                            <td>
+                                <button>Alterar</button>
+                                &nbsp;
+                                <button>Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </fieldset>
+
+        <br>
+
+        <button>Adicionar Cliente</button>
+    </form>
+</fieldset>

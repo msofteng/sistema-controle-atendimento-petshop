@@ -1,1 +1,36 @@
-<p>cadastro-pet works!</p>
+<fieldset>
+    <legend>Adicionar Pet</legend>
+    <form>
+        Nome: <b title="Obrigatório" class="required">*</b><br>
+        <input type="text">
+
+        <br><br>
+        Data de Nascimento: <b title="Obrigatório" class="required">*</b><br>
+        <input type="date">
+
+        <br><br>
+        Raça: <b title="Obrigatório" class="required">*</b><br>
+        <select multiple>
+            <option value="Vira-lata">Vira-lata</option>
+        </select>
+
+        <br><br>
+
+        &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
+        ou
+
+        <br><br>
+
+        <app-cadastro-raca></app-cadastro-raca>
+
+        <br>
+
+        Foto: <br>
+        <input type="file" accept="image/*">
+
+        <br><br>
+
+        <button>Adicionar Pet</button>
+    </form>
+</fieldset>

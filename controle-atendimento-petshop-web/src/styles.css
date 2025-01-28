@@ -3,3 +3,11 @@
     height: 70px;
     display: block;
 }
+
+b.required {
+    color: rgb(211, 47, 47);
+}
+
+form fieldset legend {
+    padding: 0px 10px;
+}

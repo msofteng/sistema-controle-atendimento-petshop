@@ -1,1 +1,56 @@
-<p>cadastro-atendimento works!</p>
+<fieldset>
+    <legend>Criar Atendimento</legend>
+    <form>
+        Descrição: <b title="Obrigatório" class="required">*</b><br>
+        <textarea></textarea>
+
+        <br><br>
+        Valor: <b title="Obrigatório" class="required">*</b><br>
+        <input type="number" step="0.01">
+
+        <br><br>
+        Data: <b title="Obrigatório" class="required">*</b><br>
+        <input type="date" disabled>
+
+        <br><br>
+
+        Selecionar (Cliente): <br><br>
+        <select>
+            <option value="">--- Selecione ---</option>
+            <option value="Ricardo">Ricardo</option>
+        </select>
+
+        <br><br>
+
+        &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
+        ou
+
+        <br><br>
+
+        <app-cadastro-cliente></app-cadastro-cliente>
+
+        <br><br>
+
+        Selecionar Pets (Cliente): <b title="Obrigatório" class="required">*</b><br>
+        <select multiple>
+            <option value="">--- Selecione ---</option>
+            <option value="Bombom">Bombom</option>
+            <option value="Caramelo">Caramelo</option>
+        </select>
+
+        <br><br>
+
+        &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
+        ou
+
+        <br><br>
+
+        <app-cadastro-pet></app-cadastro-pet>
+
+        <br>
+
+        <button>Criar Atendimento</button>
+    </form>
+</fieldset>

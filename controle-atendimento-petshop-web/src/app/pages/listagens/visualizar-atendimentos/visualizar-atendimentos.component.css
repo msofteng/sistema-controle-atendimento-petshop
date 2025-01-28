@@ -9,17 +9,17 @@
     gap: 30px 10px;
 }
 
-fieldset legend {
+.grid-list fieldset legend {
     padding: 0px 10px;
 }
 
-fieldset legend {
+.grid-list fieldset legend {
     width: auto;
     margin-left: auto;
     margin-right: auto;
 }
 
-fieldset button:nth-of-type(2) {
+.grid-list fieldset button:nth-of-type(2) {
     margin: 0px 5px;
 }
 
@@ -40,14 +40,14 @@ fieldset button:nth-of-type(2) {
     margin-top: 20px;
 }
 
-button.page:nth-child(2) {
+.pagination button.page:nth-child(2) {
     margin-left: 15px;
 }
 
-button.page:nth-last-child(2) {
+.pagination button.page:nth-last-child(2) {
     margin-right: 15px;
 }
 
-button.page:not(:nth-child(2)) {
+.pagination button.page:not(:nth-child(2)) {
     margin-left: 5px;
 }
