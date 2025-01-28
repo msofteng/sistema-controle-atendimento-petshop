@@ -32,6 +32,7 @@ export interface Cliente extends Usuario {
     dataCadastro: Date | string;
     contatos: Contato[];
     enderecos: Endereco[];
+    pets?: Pet[];
 }
 
 export interface Raca {
@@ -44,7 +45,7 @@ export interface Pet {
     nome: string;
     dataNascimento: Date | string;
     cliente: Cliente;
-    raca: Raca;
+    raca: Raca[];
     foto: string;
 }
 
@@ -53,5 +54,5 @@ export interface Atendimento {
     descricao: string;
     valor: number;
     data: Date | string;
-    pet: Pet;
+    pets: Pet[];
 }

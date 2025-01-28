@@ -30,9 +30,11 @@
                 }
             ]
         },
-        "raca": {
-            "id": 1,
-            "descricao": "Vira-lata"
-        }
+        "raca": [
+            {
+                "id": 1,
+                "descricao": "Vira-lata"
+            }
+        ]
     }
 ]

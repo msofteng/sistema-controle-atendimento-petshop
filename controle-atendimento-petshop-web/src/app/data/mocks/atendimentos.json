@@ -4,41 +4,45 @@
         "descricao": "Banho e remoção de carrapatos",
         "valor": 500.00,
         "data": "2025-01-27",
-        "pet": {
-            "id": 1,
-            "nome": "Caramelo",
-            "dataNascimento": "2020-06-13",
-            "foto": "data:image/png;base64,...",
-            "cliente": {
+        "pets": [
+            {
                 "id": 1,
-                "nome": "Rosana Costa",
-                "perfil": "cliente",
-                "senha": "123",
-                "dataCadastro": "2025-01-27",
+                "nome": "Caramelo",
+                "dataNascimento": "2020-06-13",
                 "foto": "data:image/png;base64,...",
-                "contatos": [
+                "cliente": {
+                    "id": 1,
+                    "nome": "Rosana Costa",
+                    "perfil": "cliente",
+                    "senha": "123",
+                    "dataCadastro": "2025-01-27",
+                    "foto": "data:image/png;base64,...",
+                    "contatos": [
+                        {
+                            "id": 1,
+                            "tipo": "e-mail",
+                            "valor": "rosanacosta@gmail.com",
+                            "tag": "#gmail"
+                        }
+                    ],
+                    "enderecos": [
+                        {
+                            "id": 1,
+                            "logradouro": "Avenida Rio de Janeiro, Nº227",
+                            "cidade": "Curitiba - PR",
+                            "bairro": "Jardim Botânico",
+                            "complemento": "Casa",
+                            "tag": "#curitibaregiao #capital"
+                        }
+                    ]
+                },
+                "raca": [
                     {
                         "id": 1,
-                        "tipo": "e-mail",
-                        "valor": "rosanacosta@gmail.com",
-                        "tag": "#gmail"
-                    }
-                ],
-                "enderecos": [
-                    {
-                        "id": 1,
-                        "logradouro": "Avenida Rio de Janeiro, Nº227",
-                        "cidade": "Curitiba - PR",
-                        "bairro": "Jardim Botânico",
-                        "complemento": "Casa",
-                        "tag": "#curitibaregiao #capital"
+                        "descricao": "Vira-lata"
                     }
                 ]
-            },
-            "raca": {
-                "id": 1,
-                "descricao": "Vira-lata"
             }
-        }
+        ]
     }
 ]

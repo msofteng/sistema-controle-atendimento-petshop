@@ -14,6 +14,7 @@
     pkgs.temurin-bin-17
     pkgs.spring-boot-cli
     pkgs.maven
+    pkgs.typescript
   ];
 
   # Sets environment variables in the workspace

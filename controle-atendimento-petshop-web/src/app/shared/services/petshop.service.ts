@@ -80,10 +80,10 @@ export class PetshopService {
     return of(atendimentos.map<Atendimento>(atendimento => ({
       ...atendimento,
       data: new Date(atendimento.data),
-      pet: {
-        ...atendimento.pet,
-        dataNascimento: new Date(atendimento.pet.dataNascimento)
-      }
+      pets: atendimento.pets.map<Pet>(pet => ({
+        ...pet,
+        dataNascimento: new Date(pet.dataNascimento)
+      }))
     }))).pipe(delay(this.seconds));
   }
 
