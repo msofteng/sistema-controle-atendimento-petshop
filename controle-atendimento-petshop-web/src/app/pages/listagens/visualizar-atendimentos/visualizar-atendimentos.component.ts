@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { PetshopService } from '../../../shared/services/petshop.service';
 
 @Component({
   selector: 'app-visualizar-atendimentos',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './visualizar-atendimentos.component.css'
 })
 export class VisualizarAtendimentosComponent {
-
+  service: PetshopService = inject(PetshopService);
 }

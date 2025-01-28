@@ -1,1 +1,19 @@
-<p>header works!</p>
+<h2 routerLink="">
+    Sistema de Atendimento - PET SHOP
+</h2>
+
+<ul class="links">
+    <li routerLink="/login">Login</li>
+    <li routerLink="/cadastro">Cadastro</li>
+</ul>
+
+<span></span>
+
+<div class="menu-container" (click)="toggleMenu($event)">
+<img src="assets/img/woman.png" alt="mulher" />
+
+<ul [class.menu]="true" [class.show]="showMenu">
+    <li routerLink="/dashboard">Painel (Atendimento)</li>
+    <li routerLink="/login">Sair</li>
+</ul>
+</div>

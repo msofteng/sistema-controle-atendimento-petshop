@@ -1,0 +1,9 @@
+<app-header/>
+<div class="spacer-y"></div>
+<div class="main-wrapper">
+    <button (click)="openSidebar = true">Abrir</button>
+    @if (openSidebar) {
+        <app-sidebar [(openMenu)]="openSidebar"/>
+    }
+    <router-outlet/>
+</div>
