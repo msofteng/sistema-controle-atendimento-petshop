@@ -1,18 +1,30 @@
-<form>
+<form [formGroup]="contatoForm" (submit)="adicionarContato($event)">
     Contato: <b title="Obrigatório" class="required">*</b><br>
-    <input type="text">
+    <input type="text" formControlName="valor">
+
+    @if (contatoForm.get('valor')?.touched && contatoForm.get('valor')?.hasError('required')) {
+        <br>
+        <sup>O contato não pode ficar em branco</sup>
+    }
 
     <br><br>
     Tipo: <b title="Obrigatório" class="required">*</b><br>
-    <select>
+    <select formControlName="tipo">
         <option value="">--- Selecione ---</option>
         <option value="telefone">Telefone</option>
-        <option value="email">E-mail</option>
+        <option value="e-mail">E-mail</option>
     </select>
+
+    @if (contatoForm.get('tipo')?.touched && contatoForm.get('tipo')?.hasError('required')) {
+        <br>
+        <sup>O tipo do contato não pode ficar em branco</sup>
+    }
 
     <br><br>
     Tag: <br>
-    <input type="text">
+    <input type="text" formControlName="tag">
+
+    <input type="hidden" formControlName="id">
 
     <br><br>
     <button>Adicionar Contato</button>
