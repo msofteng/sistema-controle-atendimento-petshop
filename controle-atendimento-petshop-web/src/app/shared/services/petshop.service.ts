@@ -9,19 +9,19 @@ import clientes from '../../data/mocks/clientes.json';
 import pets from '../../data/mocks/pets.json';
 import racas from '../../data/mocks/racas.json';
 import { LoginParams } from '../interfaces/login-params';
+import { corrigeData } from '../functions/date';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PetshopService {
   seconds = 5000;
-  // constructor() {}
 
   login(data: LoginParams): Observable<Usuario> {
     let usuario = clientes[0];
     return of({
       ...usuario,
-      dataCadastro: new Date(usuario.dataCadastro),
+      dataCadastro: corrigeData(new Date(usuario.dataCadastro)),
       contatos: usuario.contatos.map<Contato>(contato => ({
         ...contato,
         tipo: (contato.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE
@@ -68,7 +68,7 @@ export class PetshopService {
   listarClientes(filters: PageParams<Cliente>): Observable<Cliente[]> {
     return of(clientes.map<Cliente>(cliente => ({
       ...cliente,
-      dataCadastro: new Date(cliente.dataCadastro),
+      dataCadastro: corrigeData(new Date(cliente.dataCadastro)),
       contatos: cliente.contatos.map<Contato>(contato => ({
         ...contato,
         tipo: (contato.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE
@@ -79,10 +79,10 @@ export class PetshopService {
   listarAtendimentos(filters: PageParams<Atendimento>): Observable<Atendimento[]> {
     return of(atendimentos.map<Atendimento>(atendimento => ({
       ...atendimento,
-      data: new Date(atendimento.data),
+      data: corrigeData(new Date(atendimento.data)),
       pets: atendimento.pets.map<Pet>(pet => ({
         ...pet,
-        dataNascimento: new Date(pet.dataNascimento)
+        dataNascimento: corrigeData(new Date(pet.dataNascimento))
       }))
     }))).pipe(delay(this.seconds));
   }
@@ -90,7 +90,7 @@ export class PetshopService {
   listarPets(filters: PageParams<Pet>): Observable<Pet[]> {
     return of(pets.map<Pet>(pet => ({
       ...pet,
-      dataNascimento: new Date(pet.dataNascimento)
+      dataNascimento: corrigeData(new Date(pet.dataNascimento))
     }))).pipe(delay(this.seconds));
   }
 

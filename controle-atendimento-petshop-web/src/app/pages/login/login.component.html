@@ -1,1 +1,21 @@
-login works!
+<form [formGroup]="loginForm" (submit)="enviarLogin($event)">
+    Nome ou CPF: <br>
+    <input type="text" formControlName="nomeCpf">
+    
+    @if (loginForm.get('nomeCpf')?.touched && loginForm.get('nomeCpf')?.hasError('required')) {
+        <br>
+        <sup>O nome ou CPF não pode ficar em branco</sup>
+    }
+
+    <br>
+    Senha: <br>
+    <input type="password" formControlName="senha">
+    
+    @if (loginForm.get('senha')?.touched && loginForm.get('senha')?.hasError('required')) {
+        <br>
+        <sup>A senha não pode ficar em branco</sup>
+    }
+    
+    <br><br>
+    <button type="submit" [disabled]="btnDisabled">Enviar</button>
+</form>
