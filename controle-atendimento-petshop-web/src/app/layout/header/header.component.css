@@ -16,6 +16,7 @@ span {
 img {
     width: 50px;
     border-radius: 100%;
+    cursor: pointer;
 }
 
 ul.links {
