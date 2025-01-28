@@ -1,1 +1,41 @@
-<p>visualizar-clientes works!</p>
+<h3>Clientes</h3>
+
+@if (isLoading) {
+    <b>Carregando ...</b>
+}
+
+@if (clientes.length > 0) {
+    <div class="grid-list">
+        @for (cliente of clientes; track $index) {
+            <fieldset>
+                <legend>
+                    <img src="assets/img/woman.png" alt="imagem">
+                </legend>
+
+                {{ cliente.nome }} <br>
+
+                <sup>{{ cliente.cpf | cpf }}</sup>
+
+                <br>
+                <button>Editar</button>
+                <button>Excluir</button>
+            </fieldset>
+        }
+    </div>
+
+    <div class="pagination">
+        <button>Anterior</button>
+
+        <button class="page">1</button>
+        <button class="page">2</button>
+        <button class="page">3</button>
+        <button class="page">4</button>
+        <button class="page">5</button>
+        <button class="page">6</button>
+        <button class="page">7</button>
+        <button class="page">8</button>
+        <button class="page">9</button>
+
+        <button>Próximo</button>
+    </div>
+}

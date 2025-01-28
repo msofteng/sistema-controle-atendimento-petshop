@@ -1,0 +1,51 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);  /* Cria colunas de 100px, adaptando-se ao tamanho da tela */
+    gap: 30px 10px;
+}
+
+fieldset {
+    text-align: center;
+}
+
+fieldset button:not(:first-child) {
+    margin-right: 5px;
+}
+
+fieldset button:not(:last-child) {
+    margin-left: 5px;
+}
+
+fieldset legend {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+fieldset legend img {
+    width: 50px;
+    border-radius: 100%;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+button.page:nth-child(2) {
+    margin-left: 15px;
+}
+
+button.page:nth-last-child(2) {
+    margin-right: 15px;
+}
+
+button.page:not(:nth-child(2)) {
+    margin-left: 5px;
+}

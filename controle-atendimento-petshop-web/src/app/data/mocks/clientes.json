@@ -6,6 +6,7 @@
         "senha": "123",
         "dataCadastro": "2025-01-27",
         "foto": "data:image/png;base64,...",
+        "cpf": 54956792492,
         "contatos": [
             {
                 "id": 1,

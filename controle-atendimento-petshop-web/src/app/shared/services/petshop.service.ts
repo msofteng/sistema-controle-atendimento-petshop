@@ -68,33 +68,48 @@ export class PetshopService {
   }
 
   listarClientes(filters: PageParams<Cliente>): Observable<Cliente[]> {
-    return of(clientes.map<Cliente>(cliente => ({
-      ...cliente,
-      perfil: (cliente.perfil === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN,
-      dataCadastro: corrigeData(new Date(cliente.dataCadastro)),
-      contatos: cliente.contatos.map<Contato>(contato => ({
-        ...contato,
-        tipo: (contato.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE
-      }))
-    }))).pipe(delay(this.seconds));
+    return of(
+      Array.from({ length: 30 }).map((_, index) => (
+        {
+          ...clientes[0],
+          id: (index + 1),
+          perfil: (clientes[0].perfil === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN,
+          dataCadastro: corrigeData(new Date(clientes[0].dataCadastro)),
+          contatos: clientes[0].contatos.map<Contato>(contato => ({
+            ...contato,
+            tipo: (contato.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE
+          }))
+        }
+      ))
+    ).pipe(delay(this.seconds));
   }
 
   listarAtendimentos(filters: PageParams<Atendimento>): Observable<Atendimento[]> {
-    return of(atendimentos.map<Atendimento>(atendimento => ({
-      ...atendimento,
-      data: corrigeData(new Date(atendimento.data)),
-      pets: atendimento.pets.map<Pet>(pet => ({
-        ...pet,
-        dataNascimento: corrigeData(new Date(pet.dataNascimento))
-      }))
-    }))).pipe(delay(this.seconds));
+    return of(
+      Array.from({ length: 30 }).map((_, index) => (
+        {
+          ...atendimentos[0],
+          id: (index + 1),
+          data: corrigeData(new Date(atendimentos[0].data)),
+          pets: atendimentos[0].pets.map<Pet>(pet => ({
+            ...pet,
+            dataNascimento: corrigeData(new Date(pet.dataNascimento))
+          }))
+        }
+      ))
+    ).pipe(delay(this.seconds));
   }
 
   listarPets(filters: PageParams<Pet>): Observable<Pet[]> {
-    return of(pets.map<Pet>(pet => ({
-      ...pet,
-      dataNascimento: corrigeData(new Date(pet.dataNascimento))
-    }))).pipe(delay(this.seconds));
+    return of(
+      Array.from({ length: 30 }).map((_, index) => (
+        {
+          ...pets[0],
+          id: (index + 1),
+          dataNascimento: corrigeData(new Date(pets[0].dataNascimento))
+        }
+      ))
+    ).pipe(delay(this.seconds));
   }
 
   listarRacas(filters: PageParams<Raca>): Observable<Raca[]> {

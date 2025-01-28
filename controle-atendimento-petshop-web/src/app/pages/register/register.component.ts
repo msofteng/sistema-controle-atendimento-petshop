@@ -40,12 +40,8 @@ export class RegisterComponent {
         next: (value: Usuario) => {
           console.log(value);
         },
-        error: (err: HttpErrorResponse) => {
-          console.log(err);
-        },
-        complete: () => {
-          this.btnDisabled = false;
-        },
+        error: (err: HttpErrorResponse) => console.log(err),
+        complete: () => this.btnDisabled = false,
       });
     } else {
       this.cadastroForm.markAllAsTouched();

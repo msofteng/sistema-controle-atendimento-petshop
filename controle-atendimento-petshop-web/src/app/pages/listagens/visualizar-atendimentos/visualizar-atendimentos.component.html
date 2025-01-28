@@ -1,1 +1,49 @@
-<p>visualizar-atendimentos works!</p>
+<h3>Atendimentos</h3>
+
+@if (isLoading) {
+    <b>Carregando ...</b>
+}
+
+@if (atendimentos.length > 0) {
+    <div class="grid-list">
+        @for (atendimento of atendimentos; track $index) {
+            <fieldset>
+                <legend>
+                    <b>#{{ atendimento.id }} - Atendimento</b>
+                </legend>
+                
+                <b>Descrição:</b> {{ atendimento.descricao }}<br>
+                <b>Valor:</b> {{ atendimento.valor | currency:'BRL' }}<br>
+                <b>Data:</b> {{ atendimento.data.toLocaleString().replace(', 00:00:00', '') }}<br>
+                <hr>
+                @for (pet of atendimento.pets; track $index) {
+                    <fieldset>
+                        <legend>Cliente: {{ pet.cliente.nome }}</legend>
+                        Nome (Pet): {{ pet.nome }}<br>
+                        Raça: {{ formatarRacas(pet.raca) }}
+                    </fieldset>
+                }
+                <br>
+                <button>Visualizar</button>
+                <button>Alterar</button>
+                <button>Excluir</button>
+            </fieldset>
+        }
+    </div>
+
+    <div class="pagination">
+        <button>Anterior</button>
+
+        <button class="page">1</button>
+        <button class="page">2</button>
+        <button class="page">3</button>
+        <button class="page">4</button>
+        <button class="page">5</button>
+        <button class="page">6</button>
+        <button class="page">7</button>
+        <button class="page">8</button>
+        <button class="page">9</button>
+
+        <button>Próximo</button>
+    </div>
+}
