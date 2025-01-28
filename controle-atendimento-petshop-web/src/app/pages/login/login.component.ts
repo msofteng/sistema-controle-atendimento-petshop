@@ -1,15 +1,13 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { PetshopService } from '../../shared/services/petshop.service';
-import { ToastrService } from 'ngx-toastr';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoginParams } from '../../shared/interfaces/login-params';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
+import { PetshopService } from '../../shared/services/petshop.service';
 
 @Component({
   selector: 'app-login',
   imports: [
-    FormsModule,
     ReactiveFormsModule
   ],
   templateUrl: './login.component.html',

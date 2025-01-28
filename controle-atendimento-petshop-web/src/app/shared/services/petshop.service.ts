@@ -10,6 +10,7 @@ import pets from '../../data/mocks/pets.json';
 import racas from '../../data/mocks/racas.json';
 import { LoginParams } from '../interfaces/login-params';
 import { corrigeData } from '../functions/date';
+import { Perfil } from '../enums/perfil';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class PetshopService {
     let usuario = clientes[0];
     return of({
       ...usuario,
+      perfil: (usuario.perfil === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN,
       dataCadastro: corrigeData(new Date(usuario.dataCadastro)),
       contatos: usuario.contatos.map<Contato>(contato => ({
         ...contato,
@@ -68,6 +70,7 @@ export class PetshopService {
   listarClientes(filters: PageParams<Cliente>): Observable<Cliente[]> {
     return of(clientes.map<Cliente>(cliente => ({
       ...cliente,
+      perfil: (cliente.perfil === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN,
       dataCadastro: corrigeData(new Date(cliente.dataCadastro)),
       contatos: cliente.contatos.map<Contato>(contato => ({
         ...contato,
