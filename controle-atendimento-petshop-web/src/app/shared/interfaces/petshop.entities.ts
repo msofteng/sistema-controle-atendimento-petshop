@@ -6,8 +6,8 @@ export interface Endereco {
     logradouro: string;
     cidade: string;
     bairro: string;
-    complemento: string;
-    tag: string;
+    tag?: string;
+    complemento?: string;
     cliente?: Cliente;
 }
 

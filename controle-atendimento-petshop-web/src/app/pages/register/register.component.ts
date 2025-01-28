@@ -1,11 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PetshopService } from '../../shared/services/petshop.service';
-import { convertFileToBase64 } from '../../shared/utils/util';
-import { TipoContato } from '../../shared/enums/tipo-contato';
 import { Perfil } from '../../shared/enums/perfil';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
-import { HttpErrorResponse } from '@angular/common/http';
+import { PetshopService } from '../../shared/services/petshop.service';
+import { convertFileToBase64 } from '../../shared/utils/util';
 
 @Component({
   selector: 'app-register',
