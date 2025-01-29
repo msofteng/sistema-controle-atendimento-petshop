@@ -21,7 +21,7 @@ export class CadastroClienteComponent {
   clienteForm: FormGroup = new FormGroup({
     id: new FormControl<number>(0, []),
     nome: new FormControl<string>('', [Validators.required]),
-    perfil: new FormControl<Perfil>(Perfil.CLIENTE, [Validators.required]),
+    perfil: new FormControl<Perfil>(Perfil.CLIENTE, []),
     senha: new FormControl<string>({ value: '', disabled: true }, [Validators.required]),
     cpf: new FormControl<string>('', [Validators.required]),
     foto: new FormControl<string>('', []),
@@ -115,26 +115,14 @@ export class CadastroClienteComponent {
 
       this.clienteAdicionado.emit(this.clienteForm.value);
 
-      this.limparForm();
+      this.clienteForm.reset();
+
+      this.clienteForm.get('perfil')?.setValue(Perfil.CLIENTE);
+      this.clienteForm.get('dataCadastro')?.setValue(new Date());
+      this.fotoCliente.nativeElement.value = '';
     } else {
       this.clienteForm.markAllAsTouched();
     }
-  }
-
-  limparForm() {
-    this.clienteForm.get('id')?.setValue(0);
-    this.clienteForm.get('nome')?.setValue('');
-    this.clienteForm.get('perfil')?.setValue(Perfil.CLIENTE);
-    this.clienteForm.get('senha')?.setValue('');
-    this.clienteForm.get('cpf')?.setValue('');
-    this.clienteForm.get('foto')?.setValue('');
-    this.clienteForm.get('dataCadastro')?.setValue(new Date());
-    this.contatos.clear();
-    this.enderecos.clear();
-
-    this.clienteForm.markAsUntouched();
-
-    this.fotoCliente.nativeElement.value = '';
   }
 
   atualizarSenha(event: FocusEvent) {
