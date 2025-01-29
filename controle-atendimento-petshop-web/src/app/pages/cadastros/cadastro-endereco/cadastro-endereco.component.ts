@@ -38,7 +38,9 @@ export class CadastroEnderecoComponent {
       if (!this.enderecoForm.value.complemento) delete this.enderecoForm.value.complemento;
       if (!this.enderecoForm.value.tag) delete this.enderecoForm.value.tag;
 
-      console.log(this.enderecoForm.value);
+      this.enderecoAdicionado.emit(this.enderecoForm.value);
+
+      this.enderecoForm.reset();
     } else {
       this.enderecoForm.markAllAsTouched();
     }

@@ -39,6 +39,8 @@ export class CadastroContatoComponent implements OnChanges {
       if (!this.contatoForm.value.tag) delete this.contatoForm.value.tag;
       
       this.contatoAdicionado.emit(this.contatoForm.value);
+
+      this.contatoForm.reset();
     } else {
       this.contatoForm.markAllAsTouched();
     }
