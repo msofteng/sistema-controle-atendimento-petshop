@@ -127,7 +127,10 @@ export class CadastroClienteComponent {
     return this.clienteForm.get('contatos') as FormArray;
   }
 
-  removerContato(index: number) {
+  removerContato(event: MouseEvent, index: number) {
+    event.preventDefault();
+    event.stopPropagation();
+
     if (index !== -1) {
       this.contatos.removeAt(index);
     }
