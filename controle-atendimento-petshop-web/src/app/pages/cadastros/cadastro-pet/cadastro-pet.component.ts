@@ -40,7 +40,10 @@ export class CadastroPetComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pet']?.previousValue !== changes['pet']?.currentValue && this.pet) {
       this.petForm.patchValue(this.pet);
-      this.racas = this.pet.raca;
+      this.petForm.get('dataNascimento')?.setValue((this.pet.dataNascimento as Date).toISOString().split('T')[0]);
+      let options = this.pet.raca.map<HTMLOptionElement>(r => Array.from(this.selectRacas.nativeElement.options).find(option => option.textContent?.trim() === r.descricao.trim()) as HTMLOptionElement);
+
+      options.forEach(option => option.selected = true);
 
       if (this.pet.foto) {
         const dataTransfer = new DataTransfer();

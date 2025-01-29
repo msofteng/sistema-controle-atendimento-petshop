@@ -6,6 +6,7 @@ import { corrigeData } from '../functions/date';
 import { LoginParams } from '../interfaces/login-params';
 import { Observable, delay, of } from 'rxjs';
 import { Atendimento, Cliente, Contato, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
+
 import atendimentos from '../../data/mocks/atendimentos.json';
 import clientes from '../../data/mocks/clientes.json';
 import pets from '../../data/mocks/pets.json';
@@ -42,6 +43,10 @@ export class PetshopService {
     return of(atendimento).pipe(delay(this.seconds));
   }
 
+  cadastrarPet(pet: Pet): Observable<Pet> {
+    return of(pet).pipe(delay(this.seconds));
+  }
+
   atualizarFuncionario(usuario: Usuario): Observable<Usuario> {
     return of(usuario).pipe(delay(this.seconds));
   }
@@ -63,6 +68,10 @@ export class PetshopService {
   }
 
   excluirAtendimento(atendimento: Atendimento): Observable<boolean> {
+    return of(true);
+  }
+
+  excluirPet(pet: Pet): Observable<boolean> {
     return of(true);
   }
 

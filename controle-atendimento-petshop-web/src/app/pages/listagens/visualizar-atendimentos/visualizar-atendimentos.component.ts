@@ -70,8 +70,6 @@ export class VisualizarAtendimentosComponent implements OnInit {
   }
 
   atendimentoAdicionado(atendimento: Atendimento) {
-    console.log(atendimento);
-
     this.service.cadastrarAtendimento(atendimento).subscribe({
       next: (data: Atendimento) => console.log('sucesso'),
       error: (err: HttpErrorResponse) => console.error(err),

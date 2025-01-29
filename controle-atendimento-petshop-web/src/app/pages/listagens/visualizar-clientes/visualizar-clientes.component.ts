@@ -38,8 +38,6 @@ export class VisualizarClientesComponent implements OnInit {
   }
 
   clienteAdicionado(cliente: Cliente) {
-    console.log(cliente);
-
     this.service.cadastrarCliente(cliente).subscribe({
       next: (data: Cliente) => console.log('sucesso'),
       error: (err: HttpErrorResponse) => console.error(err),

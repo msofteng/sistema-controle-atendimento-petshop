@@ -1,10 +1,16 @@
 <h3>Pets</h3>
 
+<app-modal [(openModal)]="openModalAtualizarPet">
+    <h2>Atualizar Pet</h2>
+
+    <app-cadastro-pet [pet]="atualizarPet" [racas]="racas" (petAdicionado)="petAdicionado($event)"></app-cadastro-pet>
+</app-modal>
+
 @if (isLoading) {
     <b>Carregando ...</b>
 }
 
-@if (pets.length > 0) {
+@if (pets.length > 0 && !isLoading) {
     <div class="grid-list">
         @for (pet of pets; track $index) {
             <fieldset>
@@ -17,8 +23,8 @@
                 <b>Raça:</b> {{ formatarRacas(pet.raca) }} <br>
                 <b>Cliente: </b> {{ pet.cliente.nome }} <hr>
 
-                <button>Editar</button>
-                <button>Excluir</button>
+                <button (click)="editarPet(pet)">Editar</button>
+                <button (click)="excluirPet(pet)">Excluir</button>
             </fieldset>
         }
     </div>
