@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Perfil } from '../../shared/enums/perfil';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
@@ -19,7 +19,7 @@ export class RegisterComponent {
 
   cadastroForm: FormGroup = new FormGroup({
     nome: new FormControl<string>('', [Validators.required]),
-    perfil: new FormControl<string>('', [Validators.required]),
+    perfil: new FormControl<Perfil>(Perfil.ADMIN, [Validators.required]),
     senha: new FormControl<string>('', [Validators.required]),
     cpf: new FormControl<string>('', []),
     foto: new FormControl<string>('', [])
@@ -27,9 +27,16 @@ export class RegisterComponent {
 
   btnDisabled = false;
 
+  @ViewChild('fotoUsuario')
+  private fotoUsuario!: ElementRef<HTMLInputElement>;
+
   enviarCadastro(event: SubmitEvent) {
     if (this.cadastroForm.valid) {
       this.cadastroForm.get('perfil')?.setValue((this.cadastroForm.get('perfil')?.value === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN);
+
+      if (!isNaN(this.cadastroForm.get('cpf')?.value) && this.cadastroForm.get('cpf')?.value.length === 11) {
+        this.cadastroForm.get('cpf')?.setValue(Number(this.cadastroForm.value.nomeCpf));
+      }
       
       if (!this.cadastroForm.value.foto) delete this.cadastroForm.value.foto;
 
@@ -38,6 +45,8 @@ export class RegisterComponent {
       this.service.cadastrarFuncionario(this.cadastroForm.value).subscribe({
         next: (value: Usuario) => {
           console.log(value);
+          this.cadastroForm.reset();
+          this.fotoUsuario.nativeElement.value = '';
         },
         error: (err: HttpErrorResponse) => console.log(err),
         complete: () => this.btnDisabled = false,

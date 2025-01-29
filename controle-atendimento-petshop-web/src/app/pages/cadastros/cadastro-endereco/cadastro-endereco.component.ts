@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Endereco } from '../../../shared/interfaces/petshop.entities';
 
 @Component({
   selector: 'app-cadastro-endereco',
@@ -18,6 +19,18 @@ export class CadastroEnderecoComponent {
     complemento: new FormControl<string>('', []),
     tag: new FormControl<string>('', [])
   });
+
+  @Input()
+  endereco?: Endereco;
+
+  @Output()
+  enderecoAdicionado: EventEmitter<Endereco> = new EventEmitter<Endereco>();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['endereco'].previousValue !== changes['endereco'].currentValue && this.endereco) {
+      this.enderecoForm.patchValue(this.endereco);
+    }
+  }
 
   adicionarEndereco(event: SubmitEvent) {
     if (this.enderecoForm.valid) {

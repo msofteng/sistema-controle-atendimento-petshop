@@ -1,27 +1,37 @@
 <fieldset>
     <legend>Adicionar Cliente</legend>
-    <form>
+    <form [formGroup]="clienteForm" (submit)="adicionarCliente($event)">
         Nome: <b title="Obrigatório" class="required">*</b><br>
-        <input type="text">
+        <input type="text" formControlName="nome">
+
+        @if (clienteForm.get('nome')?.touched && clienteForm.get('nome')?.hasError('required')) {
+            <br>
+            <sup>O nome não pode ficar em branco</sup>
+        }
+        
+        <br><br>
+        Senha: <b title="Obrigatório" class="required">*</b><br>
+        <input type="text" formControlName="senha">
 
         <br><br>
         CPF: <br>
-        <input type="text" maxlength="14">
+        <input type="text" formControlName="cpf" maxlength="14" (blur)="atualizarSenha($event)">
 
-        <br><br>
-        Senha: <b title="Obrigatório" class="required">*</b><br>
-        <input type="text" value="23349394993" disabled>
+        @if (clienteForm.get('cpf')?.touched && clienteForm.get('cpf')?.hasError('required')) {
+            <br>
+            <sup>O CPF não pode ficar em branco</sup>
+        }
 
         <br><br>
         Foto: <br>
-        <input type="file" (change)="onImagePicked($event)" accept="image/*">
+        <input type="file" (change)="onImagePicked($event)" accept="image/*" #fotoCliente>
 
         <br><br>
 
         <fieldset>
             <legend>Adicionar Contato</legend>
 
-            <app-cadastro-contato></app-cadastro-contato>
+            <app-cadastro-contato (contatoAdicionado)="adicionarContato($event)"></app-cadastro-contato>
 
             <br>
 
@@ -58,7 +68,7 @@
         <fieldset>
             <legend>Adicionar Endereço</legend>
 
-            <app-cadastro-endereco></app-cadastro-endereco>
+            <app-cadastro-endereco (enderecoAdicionado)="adicionarEndereco($event)"></app-cadastro-endereco>
 
             <br><br>
 
@@ -96,6 +106,6 @@
 
         <br>
 
-        <button>Adicionar Cliente</button>
+        <button type="submit">Adicionar Cliente</button>
     </form>
 </fieldset>

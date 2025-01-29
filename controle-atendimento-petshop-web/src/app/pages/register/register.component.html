@@ -8,19 +8,6 @@
     }
 
     <br><br>
-    Perfil: <br>
-
-    <select formControlName="perfil">
-        <option value="cliente" disabled>Cliente</option>
-        <option value="administrador">Funcionário</option>
-    </select>
-
-    @if (cadastroForm.get('perfil')?.touched && cadastroForm.get('perfil')?.hasError('required')) {
-        <br>
-        <sup>Selecione um perfil</sup>
-    }
-
-    <br><br>
     Senha: <br>
     <input type="password" formControlName="senha">
 
@@ -35,7 +22,7 @@
 
     <br><br>
     Foto: <br>
-    <input type="file" (change)="onImagePicked($event)" accept="image/*">
+    <input type="file" (change)="onImagePicked($event)" accept="image/*" #fotoUsuario>
 
     <br><br>
     <button type="submit" [disabled]="btnDisabled">Cadastrar</button>

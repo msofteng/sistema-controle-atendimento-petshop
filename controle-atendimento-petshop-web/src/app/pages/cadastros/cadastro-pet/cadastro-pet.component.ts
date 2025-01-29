@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { CadastroRacaComponent } from "../cadastro-raca/cadastro-raca.component";
 import { Pet, Raca } from '../../../shared/interfaces/petshop.entities';
-import { FormControl, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { base64ToFile, convertFileToBase64 } from '../../../shared/utils/util';
 
 @Component({
@@ -18,7 +18,7 @@ export class CadastroPetComponent implements OnChanges {
     id: new FormControl<number>(0, []),
     nome: new FormControl<string>('', [Validators.required]),
     dataNascimento: new FormControl<Date | string>('', [Validators.required]),
-    raca: new FormControl<Raca[]>([], []),
+    raca: new FormArray([], []),
     foto: new FormControl('', []),
   });
 
