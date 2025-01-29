@@ -34,19 +34,19 @@ export class VisualizarAtendimentosComponent implements OnInit {
 
     this.service.listarAtendimentos({ qtd: 10, page: 1 }).subscribe({
       next: (atendimentos: Atendimento[]) => this.atendimentos = atendimentos,
-      error: (err: HttpErrorResponse) => console.log(err),
+      error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
     });
 
     this.service.listarClientes({ qtd: 10, page: 1 }).subscribe({
       next: (clientes: Cliente[]) => this.clientes = clientes,
-      error: (err: HttpErrorResponse) => console.log(err),
+      error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
     });
 
     this.service.listarRacas({ qtd: 10, page: 1 }).subscribe({
       next: (racas: Raca[]) => this.racas = racas,
-      error: (err: HttpErrorResponse) => console.log(err),
+      error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
     });
   }
@@ -55,12 +55,15 @@ export class VisualizarAtendimentosComponent implements OnInit {
     return racas.map(r => r.descricao).join(', ');
   }
 
-  buscarAnimaisCliente(cliente: Cliente) {
-    this.service.listarPets({ qtd: 10, page: 1, filter: { cliente: cliente } }).subscribe({
-      next: (pets: Pet[]) => this.pets = pets,
-      error: (err: HttpErrorResponse) => console.log(err),
-      complete: () => this.isLoading = false,
-    });
+  buscarAnimaisCliente(cliente?: Cliente) {
+    this.pets = [];
+    if (cliente) {
+      this.service.listarPets({ qtd: 10, page: 1, filter: { cliente: cliente } }).subscribe({
+        next: (pets: Pet[]) => this.pets = pets,
+        error: (err: HttpErrorResponse) => console.error(err),
+        complete: () => this.isLoading = false,
+      });
+    }
   }
 
   atendimentoAdicionado(atendimento: Atendimento) {

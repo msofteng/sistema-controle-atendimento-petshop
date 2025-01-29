@@ -36,7 +36,7 @@ export class LoginComponent {
         next: (value: Usuario) => {
           console.log(value);
         },
-        error: (err: HttpErrorResponse) => console.log(err),
+        error: (err: HttpErrorResponse) => console.error(err),
         complete: () => this.btnDisabled = false,
       });
     } else {

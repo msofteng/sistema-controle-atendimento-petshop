@@ -24,7 +24,7 @@ export class VisualizarClientesComponent implements OnInit {
 
     this.service.listarClientes({ qtd: 10, page: 1 }).subscribe({
       next: (clientes: Cliente[]) => this.clientes = clientes,
-      error: (err: HttpErrorResponse) => console.log(err),
+      error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
     })
   }

@@ -21,7 +21,7 @@ export class VisualizarPetsComponent implements OnInit {
 
     this.service.listarPets({ qtd: 10, page: 1 }).subscribe({
       next: (pets: Pet[]) => this.pets = pets,
-      error: (err: HttpErrorResponse) => console.log(err),
+      error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
     })
   }

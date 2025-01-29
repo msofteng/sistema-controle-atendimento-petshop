@@ -10,7 +10,7 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } fr
     ReactiveFormsModule,
     CadastroClienteComponent,
     CadastroPetComponent
-],
+  ],
   templateUrl: './cadastro-atendimento.component.html',
   styleUrl: './cadastro-atendimento.component.css'
 })
@@ -50,7 +50,18 @@ export class CadastroAtendimentoComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['atendimento']?.previousValue !== changes['atendimento']?.currentValue && this.atendimento) {
       this.atendimentoForm.patchValue(this.atendimento);
-      this.pets = this.atendimento.pets;
+
+      this.atendimentoForm.get('cliente')?.setValue(this.atendimento.pets[0].cliente.nome);
+      this.atualizarCliente();
+
+      setTimeout(() => {
+        if (this.atendimento) {
+          for (let i = 0; i < this.atendimento.pets.length; i++) {
+            let index = Array.from(this.selectPets.nativeElement.options).findIndex(option => option.textContent?.trim() === this.atendimento?.pets[i].nome.trim());
+            this.selectPets.nativeElement.options.item(index)!.selected = true;
+          }
+        }
+      }, 5000);
     }
   }
 
@@ -62,20 +73,12 @@ export class CadastroAtendimentoComponent implements OnChanges {
 
       let cliente = this.clientes.find(cli => cli.nome === this.atendimentoForm.get('cliente')?.value) as Cliente;
 
-      this.pets = this.pets.map<Pet>(pet => {
-        pet.cliente = cliente;
-        return pet;
-      });
-
-      this.atendimentoForm.value.pets = this.pets;
+      this.atendimentoForm.value.pets = this.getPetsSelecionados().map<Pet>((petName) => this.pets.find(pet => pet.nome === petName) as Pet);
 
       this.atendimentoAdicionado.emit(this.atendimentoForm.value);
 
       this.atendimentoForm.reset();
       this.atendimentoForm.get('data')?.setValue(new Date());
-
-      // Array.from(this.selectPets.nativeElement.options).forEach((_, index) => this.selectPets.nativeElement.options.item(index)!.selected = false);
-      // Array.from(this.selectCliente.nativeElement.options).forEach((_, index) => this.selectCliente.nativeElement.options.item(index)!.selected = false);
     } else {
       this.atendimentoForm.markAllAsTouched();
     }
@@ -99,5 +102,9 @@ export class CadastroAtendimentoComponent implements OnChanges {
 
   atualizarCliente() {
     this.buscarPetsCliente.emit(this.clientes.find(cli => cli.nome === this.atendimentoForm.get('cliente')?.value));
+  }
+
+  getPetsSelecionados(): string[] {
+    return Array.from(this.selectPets.nativeElement.options).filter(option => option.selected).map(option => option.textContent ?? '');
   }
 }
