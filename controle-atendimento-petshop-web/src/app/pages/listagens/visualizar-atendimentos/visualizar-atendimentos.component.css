@@ -4,19 +4,15 @@
 }
 
 .grid-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 300px);  /* Cria colunas de 100px, adaptando-se ao tamanho da tela */
-    gap: 30px 10px;
+    grid-template-columns: repeat(auto-fill, 300px);
+}
+
+.grid-list fieldset {
+    text-align: left;
 }
 
 .grid-list fieldset legend {
     padding: 0px 10px;
-}
-
-.grid-list fieldset legend {
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .grid-list fieldset button:nth-of-type(2) {

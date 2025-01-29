@@ -8,6 +8,7 @@ import { VisualizarAtendimentosComponent } from './pages/listagens/visualizar-at
 import { VisualizarClientesComponent } from './pages/listagens/visualizar-clientes/visualizar-clientes.component';
 import { VisualizarPetsComponent } from './pages/listagens/visualizar-pets/visualizar-pets.component';
 import { PainelComponent } from './pages/painel/painel.component';
+import { VisualizarRacasComponent } from './pages/listagens/visualizar-racas/visualizar-racas.component';
 
 export const routes: Routes = [
     {
@@ -47,6 +48,10 @@ export const routes: Routes = [
             {
                 path: 'pets',
                 component: VisualizarPetsComponent
+            },
+            {
+                path: 'racas',
+                component: VisualizarRacasComponent
             }
         ]
     }

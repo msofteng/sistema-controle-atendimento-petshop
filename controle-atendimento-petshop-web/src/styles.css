@@ -8,14 +8,36 @@ b.required {
     color: rgb(211, 47, 47);
 }
 
-form fieldset legend {
-    padding: 0px 10px;
+.grid-list {
+    display: grid;
+    gap: 30px 10px;
 }
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+.grid-list fieldset {
+    text-align: center;
+}
+
+.grid-list fieldset legend {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grid-list fieldset button:not(:first-child) {
+    margin-right: 5px;
+}
+
+.grid-list fieldset button:not(:last-child) {
+    margin-left: 5px;
+}
+
+.grid-list fieldset legend img {
+    width: 50px;
+    border-radius: 100%;
+}
+
+form fieldset legend {
+    padding: 0px 10px;
 }
 
 .pagination {
