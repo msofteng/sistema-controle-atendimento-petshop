@@ -42,6 +42,7 @@ export class CadastroClienteComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['cliente'].previousValue !== changes['cliente'].currentValue && this.cliente) {
       this.clienteForm.patchValue(this.cliente);
+      this.contatos.patchValue(this.cliente.contatos);
 
       if (this.cliente.foto) {
         const dataTransfer = new DataTransfer();
