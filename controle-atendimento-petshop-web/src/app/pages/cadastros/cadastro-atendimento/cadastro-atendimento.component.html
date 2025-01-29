@@ -34,8 +34,7 @@
 
         Selecionar Pets (Cliente): <b title="Obrigatório" class="required">*</b><br>
         <select multiple>
-            <option value="">--- Selecione ---</option>
-            <option value="Bombom">Bombom</option>
+            
             <option value="Caramelo">Caramelo</option>
         </select>
 
@@ -47,7 +46,7 @@
 
         <br><br>
 
-        <app-cadastro-pet></app-cadastro-pet>
+        <app-cadastro-pet (petAdicionado)="adicionarPet($event)"></app-cadastro-pet>
 
         <br>
 

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Raca } from '../../../shared/interfaces/petshop.entities';
 
 @Component({
   selector: 'app-cadastro-raca',
@@ -9,16 +10,29 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
   templateUrl: './cadastro-raca.component.html',
   styleUrl: './cadastro-raca.component.css'
 })
-export class CadastroRacaComponent {
+export class CadastroRacaComponent implements OnChanges {
   racaForm: FormGroup = new FormGroup({
     id: new FormControl<number>(0, []),
     descricao: new FormControl<string>('', [Validators.required]),
   });
 
+  @Input()
+  raca?: Raca;
+
+  @Output()
+  racaAdicionada: EventEmitter<Raca> = new EventEmitter<Raca>();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['raca'].previousValue !== changes['raca'].currentValue && this.raca) {
+      this.racaForm.patchValue(this.raca);
+    }
+  }
+
   adicionarRaca(event: SubmitEvent) {
     if (this.racaForm.valid) {
       if (!this.racaForm.value.id) delete this.racaForm.value.id;
-      console.log(this.racaForm.value);
+      this.racaAdicionada.emit(this.racaForm.value);
+      this.racaForm.reset();
     } else {
       this.racaForm.markAllAsTouched();
     }

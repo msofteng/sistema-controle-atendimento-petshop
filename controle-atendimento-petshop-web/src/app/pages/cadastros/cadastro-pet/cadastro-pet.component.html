@@ -1,18 +1,39 @@
 <fieldset>
-    <legend>Adicionar Pet</legend>
-    <form>
+    <legend>{{ this.pet ? 'Atualizar' : 'Adicionar' }} Pet</legend>
+    <form [formGroup]="petForm" (submit)="adicionarPet($event)">
         Nome: <b title="Obrigatório" class="required">*</b><br>
-        <input type="text">
+        <input type="text" formControlName="nome">
+
+        @if (petForm.get('nome')?.touched && petForm.get('nome')?.hasError('required')) {
+            <br>
+            <sup>O nome do pet não pode ficar em branco</sup>
+        }
 
         <br><br>
         Data de Nascimento: <b title="Obrigatório" class="required">*</b><br>
-        <input type="date">
+        <input type="date" formControlName="dataNascimento">
+
+        @if (petForm.get('dataNascimento')?.touched && petForm.get('dataNascimento')?.hasError('required')) {
+            <br>
+            <sup>A data de nascimento do pet não pode ficar em branco</sup>
+        }
 
         <br><br>
         Raça: <b title="Obrigatório" class="required">*</b><br>
-        <select multiple>
-            <option value="Vira-lata">Vira-lata</option>
+        <select multiple #selectRacas>
+            @for (raca of racas; track $index) {
+                <option [value]="raca.id" [innerHTML]="raca.descricao"></option>
+            }
         </select>
+
+        @if (petForm.get('nome')?.touched && getRacasSelecionadas().length == 0) {
+            <br>
+            <sup>A raça do pet não pode ficar em branco</sup>
+        }
+
+        <br>
+
+        <button (click)="removerRacasSelecionadas($event)">Excluir Selecionados</button>
 
         <br><br>
 
@@ -22,15 +43,17 @@
 
         <br><br>
 
-        <app-cadastro-raca></app-cadastro-raca>
+        <app-cadastro-raca (racaAdicionada)="adicionarRacaPet($event)"></app-cadastro-raca>
 
         <br>
 
         Foto: <br>
-        <input type="file" accept="image/*">
+        <input type="file" (change)="onImagePicked($event)" accept="image/*" #fotoPet>
+
+        <input type="hidden" formControlName="id">
 
         <br><br>
 
-        <button>Adicionar Pet</button>
+        <button type="submit">{{ this.pet ? 'Atualizar' : 'Adicionar' }} Pet</button>
     </form>
 </fieldset>

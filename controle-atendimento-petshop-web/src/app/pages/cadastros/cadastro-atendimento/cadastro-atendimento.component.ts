@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CadastroClienteComponent } from "../cadastro-cliente/cadastro-cliente.component";
 import { CadastroPetComponent } from "../cadastro-pet/cadastro-pet.component";
+import { Pet } from '../../../shared/interfaces/petshop.entities';
 
 @Component({
   selector: 'app-cadastro-atendimento',
@@ -12,5 +13,7 @@ import { CadastroPetComponent } from "../cadastro-pet/cadastro-pet.component";
   styleUrl: './cadastro-atendimento.component.css'
 })
 export class CadastroAtendimentoComponent {
-
+  adicionarPet(pet: Pet) {
+    console.log(pet);
+  }
 }

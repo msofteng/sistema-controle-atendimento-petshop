@@ -1,5 +1,5 @@
 <fieldset>
-    <legend>Adicionar Raça</legend>
+    <legend>{{ this.raca ? 'Atualizar' : 'Adicionar' }} Raça</legend>
     <form [formGroup]="racaForm" (submit)="adicionarRaca($event)">
         Descrição: <b title="Obrigatório" class="required">*</b><br>
         <textarea formControlName="descricao"></textarea>
@@ -13,6 +13,6 @@
 
         <input type="hidden" formControlName="id">
 
-        <button type="submit">Adicionar Raça</button>
+        <button type="submit">{{ this.raca ? 'Atualizar' : 'Adicionar' }} Raça</button>
     </form>
 </fieldset>
