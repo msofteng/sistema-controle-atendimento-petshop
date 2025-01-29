@@ -27,27 +27,3 @@
     display: flex;
     justify-content: center;
 }
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.pagination button.page:nth-child(2) {
-    margin-left: 15px;
-}
-
-.pagination button.page:nth-last-child(2) {
-    margin-right: 15px;
-}
-
-.pagination button.page:not(:nth-child(2)) {
-    margin-left: 5px;
-}

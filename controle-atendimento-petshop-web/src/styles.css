@@ -11,3 +11,19 @@ b.required {
 form fieldset legend {
     padding: 0px 10px;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button:not(:first-child) {
+    margin-left: 10px;
+}
