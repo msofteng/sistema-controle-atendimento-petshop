@@ -28,7 +28,8 @@ export class CadastroPetComponent implements OnChanges {
   @Output()
   petAdicionado: EventEmitter<Pet> = new EventEmitter<Pet>();
 
-  racas: Raca[] = [];
+  @Input({ required: true })
+  racas!: Raca[];
 
   @ViewChild('selectRacas')
   private selectRacas!: ElementRef<HTMLSelectElement>;
@@ -37,7 +38,7 @@ export class CadastroPetComponent implements OnChanges {
   private fotoPet!: ElementRef<HTMLInputElement>;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['pet'].previousValue !== changes['pet'].currentValue && this.pet) {
+    if (changes['pet']?.previousValue !== changes['pet']?.currentValue && this.pet) {
       this.petForm.patchValue(this.pet);
       this.racas = this.pet.raca;
 

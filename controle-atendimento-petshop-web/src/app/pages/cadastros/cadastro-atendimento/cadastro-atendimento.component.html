@@ -1,24 +1,37 @@
 <fieldset>
     <legend>Criar Atendimento</legend>
-    <form>
+    <form [formGroup]="atendimentoForm" (submit)="adicionarAtendimento($event)">
         Descrição: <b title="Obrigatório" class="required">*</b><br>
-        <textarea></textarea>
+        <textarea formControlName="descricao"></textarea>
+
+        @if (atendimentoForm.get('descricao')?.touched && atendimentoForm.get('descricao')?.hasError('required')) {
+            <br>
+            <sup>A descrição não pode ficar em branco</sup>
+        }
 
         <br><br>
         Valor: <b title="Obrigatório" class="required">*</b><br>
-        <input type="number" step="0.01">
+        <input type="number" step="0.01" formControlName="valor">
+
+        @if (atendimentoForm.get('valor')?.touched && atendimentoForm.get('valor')?.hasError('required')) {
+            <br>
+            <sup>O valor não pode ficar em branco</sup>
+        }
 
         <br><br>
-        Data: <b title="Obrigatório" class="required">*</b><br>
-        <input type="date" disabled>
 
-        <br><br>
-
-        Selecionar (Cliente): <br><br>
-        <select>
+        Selecionar (Cliente): <b title="Obrigatório" class="required">*</b><br><br>
+        <select formControlName="cliente" (change)="atualizarCliente()" #selectCliente>
             <option value="">--- Selecione ---</option>
-            <option value="Ricardo">Ricardo</option>
+            @for (cliente of clientes; track $index) {
+                <option [value]="cliente.nome" [innerHTML]="cliente.nome"></option>
+            }
         </select>
+
+        @if (atendimentoForm.get('cliente')?.touched && atendimentoForm.get('cliente')?.hasError('required')) {
+            <br>
+            <sup>Selecione um cliente</sup>
+        }
 
         <br><br>
 
@@ -33,9 +46,10 @@
         <br><br>
 
         Selecionar Pets (Cliente): <b title="Obrigatório" class="required">*</b><br>
-        <select multiple>
-            
-            <option value="Caramelo">Caramelo</option>
+        <select multiple #selectPets>
+            @for (pet of pets; track $index) {
+                <option [value]="pet.nome" [innerHTML]="pet.nome"></option>
+            }
         </select>
 
         <br><br>
@@ -46,7 +60,7 @@
 
         <br><br>
 
-        <app-cadastro-pet (petAdicionado)="adicionarPet($event)"></app-cadastro-pet>
+        <app-cadastro-pet [racas]="racas" (petAdicionado)="adicionarPet($event)"></app-cadastro-pet>
 
         <br>
 

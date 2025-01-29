@@ -69,7 +69,7 @@ export class PetshopService {
 
   listarClientes(filters: PageParams<Cliente>): Observable<Cliente[]> {
     return of(
-      Array.from({ length: 30 }).map((_, index) => (
+      Array.from({ length: 1 }).map((_, index) => (
         {
           ...clientes[0],
           id: (index + 1),
@@ -102,7 +102,7 @@ export class PetshopService {
 
   listarPets(filters: PageParams<Pet>): Observable<Pet[]> {
     return of(
-      Array.from({ length: 30 }).map((_, index) => (
+      Array.from({ length: 1 }).map((_, index) => (
         {
           ...pets[0],
           id: (index + 1),
