@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Observable, delay, of } from 'rxjs';
-import { PageParams } from '../interfaces/page-params';
 import { TipoContato } from '../enums/tipo-contato';
+import { PageParams } from '../interfaces/page-params';
+import { Perfil } from '../enums/perfil';
+import { corrigeData } from '../functions/date';
+import { LoginParams } from '../interfaces/login-params';
+import { Observable, delay, of } from 'rxjs';
 import { Atendimento, Cliente, Contato, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
-
 import atendimentos from '../../data/mocks/atendimentos.json';
 import clientes from '../../data/mocks/clientes.json';
 import pets from '../../data/mocks/pets.json';
 import racas from '../../data/mocks/racas.json';
-import { LoginParams } from '../interfaces/login-params';
-import { corrigeData } from '../functions/date';
-import { Perfil } from '../enums/perfil';
 
 @Injectable({
   providedIn: 'root'
@@ -55,16 +54,16 @@ export class PetshopService {
     return of(atendimento).pipe(delay(this.seconds));
   }
 
-  excluirFuncionario(usuario: Usuario): void {
-    console.log(usuario);
+  excluirFuncionario(usuario: Usuario): Observable<boolean> {
+    return of(true);
   }
 
-  excluirCliente(cliente: Cliente): void {
-    console.log(cliente);
+  excluirCliente(cliente: Cliente): Observable<boolean> {
+    return of(true);
   }
 
-  excluirAtendimento(atendimento: Atendimento): void {
-    console.log(atendimento);
+  excluirAtendimento(atendimento: Atendimento): Observable<boolean> {
+    return of(true);
   }
 
   listarClientes(filters: PageParams<Cliente>): Observable<Cliente[]> {
@@ -86,7 +85,7 @@ export class PetshopService {
 
   listarAtendimentos(filters: PageParams<Atendimento>): Observable<Atendimento[]> {
     return of(
-      Array.from({ length: 30 }).map((_, index) => (
+      Array.from({ length: 1 }).map((_, index) => (
         {
           ...atendimentos[0],
           id: (index + 1),

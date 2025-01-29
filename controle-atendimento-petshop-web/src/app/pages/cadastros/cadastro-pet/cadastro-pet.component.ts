@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { CadastroRacaComponent } from "../cadastro-raca/cadastro-raca.component";
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Pet, Raca } from '../../../shared/interfaces/petshop.entities';
-import { FormArray, FormControl, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { base64ToFile, convertFileToBase64 } from '../../../shared/utils/util';
+import { CadastroRacaComponent } from "../cadastro-raca/cadastro-raca.component";
 
 @Component({
   selector: 'app-cadastro-pet',
@@ -76,7 +76,7 @@ export class CadastroPetComponent implements OnChanges {
       if (!this.petForm.value.id) delete this.petForm.value.id;
       if (!this.petForm.value.foto) delete this.petForm.value.foto;
 
-      this.petForm.value.raca = this.racas;
+      this.petForm.value.raca = this.getRacasSelecionadas().map<Raca>((racaName) => this.racas.find(raca => raca.descricao === racaName) as Raca);
 
       this.petAdicionado.emit(this.petForm.value);
 

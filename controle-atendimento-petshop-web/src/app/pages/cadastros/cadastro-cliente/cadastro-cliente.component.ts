@@ -42,8 +42,18 @@ export class CadastroClienteComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['cliente'].previousValue !== changes['cliente'].currentValue && this.cliente) {
       this.clienteForm.patchValue(this.cliente);
-      this.contatos.patchValue(this.cliente.contatos);
-      this.enderecos.patchValue(this.cliente.enderecos);
+
+      if (this.cliente.contatos && this.cliente.contatos.length > 0) {
+        this.cliente.contatos.forEach(contato => {
+          this.adicionarContato(contato);
+        });
+      }
+
+      if (this.cliente.enderecos && this.cliente.contatos.length > 0) {
+        this.cliente.enderecos.forEach(endereco => {
+          this.adicionarEndereco(endereco);
+        });
+      }
 
       if (this.cliente.foto) {
         const dataTransfer = new DataTransfer();
@@ -115,6 +125,8 @@ export class CadastroClienteComponent {
 
       this.clienteAdicionado.emit(this.clienteForm.value);
 
+      this.contatos.clear();
+      this.enderecos.clear();
       this.clienteForm.reset();
 
       this.clienteForm.get('perfil')?.setValue(Perfil.CLIENTE);

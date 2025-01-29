@@ -2,9 +2,15 @@
 <button (click)="openModalCriarAtendimento = true">Criar Atendimento</button>
 
 <app-modal [(openModal)]="openModalCriarAtendimento">
-    <h2>Atendimento</h2>
+    <h2>Criar Atendimento</h2>
     
     <app-cadastro-atendimento [clientes]="clientes" [pets]="pets" [racas]="racas" (atendimentoAdicionado)="atendimentoAdicionado($event)" (buscarPetsCliente)="buscarAnimaisCliente($event)"></app-cadastro-atendimento>
+</app-modal>
+
+<app-modal [(openModal)]="openModalAtualizarAtendimento">
+    <h2>Atualizar Atendimento</h2>
+    
+    <app-cadastro-atendimento [atendimento]="atualizarAtendimento" [clientes]="clientes" [pets]="pets" [racas]="racas" (atendimentoAdicionado)="atendimentoAdicionado($event)" (buscarPetsCliente)="buscarAnimaisCliente($event)"></app-cadastro-atendimento>
 </app-modal>
 
 <br><br>
@@ -13,7 +19,7 @@
     <b>Carregando ...</b>
 }
 
-@if (atendimentos.length > 0) {
+@if (atendimentos.length > 0 && !isLoading) {
     <div class="grid-list">
         @for (atendimento of atendimentos; track $index) {
             <fieldset>
@@ -35,8 +41,8 @@
                 <br>
 
                 <div class="options">
-                    <button>Alterar</button>
-                    <button>Excluir</button>
+                    <button (click)="editarAtendimento(atendimento)">Alterar</button>
+                    <button (click)="excluirAtendimento(atendimento)">Excluir</button>
                 </div>
             </fieldset>
         }

@@ -1,5 +1,5 @@
 <fieldset>
-    <legend>Criar Atendimento</legend>
+    <legend>{{ this.atendimento ? 'Atualizar' : 'Criar' }} Atendimento</legend>
     <form [formGroup]="atendimentoForm" (submit)="adicionarAtendimento($event)">
         Descrição: <b title="Obrigatório" class="required">*</b><br>
         <textarea formControlName="descricao"></textarea>
@@ -64,6 +64,6 @@
 
         <br>
 
-        <button>Criar Atendimento</button>
+        <button>{{ this.atendimento ? 'Atualizar' : 'Criar' }} Atendimento</button>
     </form>
 </fieldset>

@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Atendimento, Cliente, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
 import { CadastroClienteComponent } from "../cadastro-cliente/cadastro-cliente.component";
 import { CadastroPetComponent } from "../cadastro-pet/cadastro-pet.component";
-import { Atendimento, Cliente, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cadastro-atendimento',
@@ -73,7 +73,11 @@ export class CadastroAtendimentoComponent implements OnChanges {
 
       let cliente = this.clientes.find(cli => cli.nome === this.atendimentoForm.get('cliente')?.value) as Cliente;
 
-      this.atendimentoForm.value.pets = this.getPetsSelecionados().map<Pet>((petName) => this.pets.find(pet => pet.nome === petName) as Pet);
+      this.atendimentoForm.value.pets = this.getPetsSelecionados().map<Pet>((petName) => {
+        let pet = this.pets.find(pet => pet.nome === petName) as Pet;
+        pet.cliente = cliente;
+        return pet;
+      });
 
       this.atendimentoAdicionado.emit(this.atendimentoForm.value);
 

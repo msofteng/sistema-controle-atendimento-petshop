@@ -1,5 +1,5 @@
 <fieldset>
-    <legend>Adicionar Cliente</legend>
+    <legend>{{ this.cliente ? 'Atualizar' : 'Adicionar' }} Cliente</legend>
     <form [formGroup]="clienteForm" (submit)="adicionarCliente($event)">
         Nome: <b title="Obrigatório" class="required">*</b><br>
         <input type="text" formControlName="nome">
@@ -147,6 +147,6 @@
 
         <br>
 
-        <button type="submit">Adicionar Cliente</button>
+        <button type="submit">{{ this.cliente ? 'Atualizar' : 'Adicionar' }} Cliente</button>
     </form>
 </fieldset>

@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { PetshopService } from '../../../shared/services/petshop.service';
-import { Pet, Raca } from '../../../shared/interfaces/petshop.entities';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, inject } from '@angular/core';
+import { Pet, Raca } from '../../../shared/interfaces/petshop.entities';
+import { PetshopService } from '../../../shared/services/petshop.service';
 
 @Component({
   selector: 'app-visualizar-pets',

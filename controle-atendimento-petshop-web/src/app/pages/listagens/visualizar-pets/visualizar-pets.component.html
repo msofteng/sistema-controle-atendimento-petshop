@@ -9,7 +9,7 @@
         @for (pet of pets; track $index) {
             <fieldset>
                 <legend>
-                    <img src="assets/img/woman.png" alt="imagem">
+                    <img [src]="pet.foto ?? 'assets/img/dog.jpg'" alt="imagem">
                 </legend>
 
                 {{ pet.nome }} <hr>

@@ -1,9 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { PetshopService } from '../../../shared/services/petshop.service';
-import { Atendimento, Cliente, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
-import { HttpErrorResponse } from '@angular/common/http';
 import { CurrencyPipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, inject } from '@angular/core';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { Atendimento, Cliente, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
+import { PetshopService } from '../../../shared/services/petshop.service';
 import { CadastroAtendimentoComponent } from '../../cadastros/cadastro-atendimento/cadastro-atendimento.component';
 
 @Component({
@@ -24,10 +24,13 @@ export class VisualizarAtendimentosComponent implements OnInit {
   isLoading = false;
 
   openModalCriarAtendimento = false;
+  openModalAtualizarAtendimento = false;
 
   clientes: Cliente[] = [];
   pets: Pet[] = [];
   racas: Raca[] = [];
+
+  atualizarAtendimento?: Atendimento;
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -68,6 +71,38 @@ export class VisualizarAtendimentosComponent implements OnInit {
 
   atendimentoAdicionado(atendimento: Atendimento) {
     console.log(atendimento);
+
+    this.service.cadastrarAtendimento(atendimento).subscribe({
+      next: (data: Atendimento) => console.log('sucesso'),
+      error: (err: HttpErrorResponse) => console.error(err),
+    });
+
+    this.isLoading = true;
+
+    this.service.listarAtendimentos({ qtd: 10, page: 1 }).subscribe({
+      next: (atendimentos: Atendimento[]) => this.atendimentos = atendimentos,
+      error: (err: HttpErrorResponse) => console.error(err),
+      complete: () => this.isLoading = false,
+    });
+
+    this.openModalCriarAtendimento = false;
+    this.openModalAtualizarAtendimento = false;
     this.pets = [];
+    this.atualizarAtendimento = undefined;
+  }
+
+  editarAtendimento(atendimento: Atendimento) {
+    this.atualizarAtendimento = atendimento;
+    this.openModalAtualizarAtendimento = true;
+  }
+
+  excluirAtendimento(atendimento: Atendimento) {
+    this.isLoading = true;
+
+    this.service.excluirAtendimento(atendimento).subscribe({
+      next: (res: boolean) => this.atendimentos = this.atendimentos.filter(a => a.id !== atendimento.id),
+      error: (err: HttpErrorResponse) => console.error(err),
+      complete: () => this.isLoading = false,
+    });
   }
 }
