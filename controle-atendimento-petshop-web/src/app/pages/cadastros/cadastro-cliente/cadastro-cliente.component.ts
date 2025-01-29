@@ -43,6 +43,7 @@ export class CadastroClienteComponent {
     if (changes['cliente'].previousValue !== changes['cliente'].currentValue && this.cliente) {
       this.clienteForm.patchValue(this.cliente);
       this.contatos.patchValue(this.cliente.contatos);
+      this.enderecos.patchValue(this.cliente.enderecos);
 
       if (this.cliente.foto) {
         const dataTransfer = new DataTransfer();
@@ -66,7 +67,16 @@ export class CadastroClienteComponent {
   }
 
   adicionarEndereco(endereco: Endereco) {
-    console.log(endereco);
+    this.enderecos.push(
+      new FormGroup({
+        id: new FormControl<number>(endereco.id, []),
+        logradouro: new FormControl<string>(endereco.logradouro, [Validators.required]),
+        cidade: new FormControl<string>(endereco.cidade, [Validators.required]),
+        bairro: new FormControl<string>(endereco.bairro, [Validators.required]),
+        complemento: new FormControl<string>(endereco.complemento ?? '', []),
+        tag: new FormControl<string>(endereco.tag ?? '', [])
+      })
+    );
   }
 
   adicionarContato(contato: Contato) {
@@ -97,6 +107,12 @@ export class CadastroClienteComponent {
         if (!this.clienteForm.value.contatos[i].tag) delete this.clienteForm.value.contatos[i].tag;
       }
 
+      for (let i = 0; i < this.clienteForm.value.enderecos.length; i++) {
+        if (!this.clienteForm.value.enderecos[i].id) delete this.clienteForm.value.enderecos[i].id;
+        if (!this.clienteForm.value.enderecos[i].complemento) delete this.clienteForm.value.enderecos[i].complemento;
+        if (!this.clienteForm.value.enderecos[i].tag) delete this.clienteForm.value.enderecos[i].tag;
+      }
+
       this.clienteAdicionado.emit(this.clienteForm.value);
 
       this.limparForm();
@@ -114,6 +130,7 @@ export class CadastroClienteComponent {
     this.clienteForm.get('foto')?.setValue('');
     this.clienteForm.get('dataCadastro')?.setValue(new Date());
     this.contatos.clear();
+    this.enderecos.clear();
 
     this.clienteForm.markAsUntouched();
 
@@ -128,12 +145,25 @@ export class CadastroClienteComponent {
     return this.clienteForm.get('contatos') as FormArray;
   }
 
+  get enderecos(): FormArray {
+    return this.clienteForm.get('enderecos') as FormArray;
+  }
+
   removerContato(event: MouseEvent, index: number) {
     event.preventDefault();
     event.stopPropagation();
 
     if (index !== -1) {
       this.contatos.removeAt(index);
+    }
+  }
+
+  removerEndereco(event: MouseEvent, index: number) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (index !== -1) {
+      this.enderecos.removeAt(index);
     }
   }
 }
