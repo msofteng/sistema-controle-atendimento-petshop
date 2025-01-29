@@ -47,17 +47,36 @@
                             <th>Opções</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>(51) 99870-4593</td>
-                            <td>Telefone</td>
-                            <td>#telefone #RS</td>
-                            <td>
-                                <button>Alterar</button>
-                                &nbsp;
-                                <button>Excluir</button>
-                            </td>
-                        </tr>
+                    <tbody formArrayName="contatos">
+                        @for (contato of contatos.controls; track contato.value.valor; let idx = $index) {
+                            <tr [formGroupName]="$index">
+                                <td>
+                                    <input type="text" formControlName="valor">
+                                    @if (contato.get('valor')?.touched && contato.get('valor')?.hasError('required')) {
+                                        <br>
+                                        <sup>O contato não pode ficar em branco</sup>
+                                    }
+                                </td>
+                                <td>
+                                    <select formControlName="tipo">
+                                        <option value="">--- Selecione ---</option>
+                                        <option value="telefone">Telefone</option>
+                                        <option value="e-mail">E-mail</option>
+                                    </select>
+                                    @if (contato.get('tipo')?.touched && contato.get('tipo')?.hasError('required')) {
+                                        <br>
+                                        <sup>O tipo do contato não pode ficar em branco</sup>
+                                    }
+                                </td>
+                                <td>
+                                    <input type="text" formControlName="tag">
+                                </td>
+                                <td>
+                                    <input type="hidden" formControlName="id">
+                                    <button (click)="removerContato(idx)">Excluir</button>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </fieldset>

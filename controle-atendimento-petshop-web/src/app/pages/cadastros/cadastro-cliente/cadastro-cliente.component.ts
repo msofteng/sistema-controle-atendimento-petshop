@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Perfil } from '../../../shared/enums/perfil';
+import { TipoContato } from '../../../shared/enums/tipo-contato';
 import { Cliente, Contato, Endereco } from '../../../shared/interfaces/petshop.entities';
 import { base64ToFile, convertFileToBase64 } from '../../../shared/utils/util';
 import { CadastroContatoComponent } from "../cadastro-contato/cadastro-contato.component";
@@ -68,7 +69,14 @@ export class CadastroClienteComponent {
   }
 
   adicionarContato(contato: Contato) {
-    console.log(contato);
+    this.contatos.push(
+      new FormGroup({
+        id: new FormControl<number>(contato.id, []),
+        valor: new FormControl<string>(contato.valor, [Validators.required]),
+        tipo: new FormControl<TipoContato | string>(contato.tipo, [Validators.required]),
+        tag: new FormControl<string>(contato.tag, [])
+      })
+    );
   }
 
   adicionarCliente(event: SubmitEvent) {
@@ -83,16 +91,45 @@ export class CadastroClienteComponent {
       if (!this.clienteForm.value.foto) delete this.clienteForm.value.foto;
       if (!this.clienteForm.value.cpf) delete this.clienteForm.value.cpf;
 
+      for (let i = 0; i < this.clienteForm.value.contatos.length; i++) {
+        if (!this.clienteForm.value.contatos[i].id) delete this.clienteForm.value.contatos[i].id;
+        if (!this.clienteForm.value.contatos[i].tag) delete this.clienteForm.value.contatos[i].tag;
+      }
+
       this.clienteAdicionado.emit(this.clienteForm.value);
-      
-      this.clienteForm.reset();
-      this.fotoCliente.nativeElement.value = '';
+
+      this.limparForm();
     } else {
       this.clienteForm.markAllAsTouched();
     }
   }
 
+  limparForm() {
+    this.clienteForm.get('id')?.setValue(0);
+    this.clienteForm.get('nome')?.setValue('');
+    this.clienteForm.get('perfil')?.setValue(Perfil.CLIENTE);
+    this.clienteForm.get('senha')?.setValue('');
+    this.clienteForm.get('cpf')?.setValue('');
+    this.clienteForm.get('foto')?.setValue('');
+    this.clienteForm.get('dataCadastro')?.setValue(new Date());
+    this.contatos.clear();
+
+    this.clienteForm.markAsUntouched();
+
+    this.fotoCliente.nativeElement.value = '';
+  }
+
   atualizarSenha(event: FocusEvent) {
     this.clienteForm.get('senha')?.setValue(this.clienteForm.get('cpf')?.value);
+  }
+
+  get contatos(): FormArray {
+    return this.clienteForm.get('contatos') as FormArray;
+  }
+
+  removerContato(index: number) {
+    if (index !== -1) {
+      this.contatos.removeAt(index);
+    }
   }
 }
