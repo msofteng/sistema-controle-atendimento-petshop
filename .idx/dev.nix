@@ -32,8 +32,8 @@
       previews = {
         # Preview for the frontend (Angular)
         petshop_web = {
-          command = [ "npm" "start" ]; # Or "npm run dev" if you are using a dev server.
-          cwd = "controle-atendimento-petshop-web"; # Directory where the frontend project is located
+          command = [ "npm" "start" ];
+          cwd = "controle-atendimento-petshop-web";
           manager = "web";
           env = {
             PORT = "4200";
@@ -41,9 +41,9 @@
         };
         # Preview for the backend (Spring)
         petshop_service = {
-          command = [ "./mvnw" "spring-boot:run" ]; # Assuming you are using maven. If gradle, use "./gradlew bootRun" instead
-          cwd = "controle-atendimento-petshop-service"; # Directory where the backend project is located
-          manager = "web"; # Consider changing to another manager if not web based
+          command = [ "./mvnw" "spring-boot:run" ];
+          cwd = "controle-atendimento-petshop-service";
+          manager = "web";
           env = {
             PORT = "8080";
           };
