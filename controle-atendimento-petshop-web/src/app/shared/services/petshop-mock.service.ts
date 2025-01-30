@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, delay, of } from 'rxjs';
-import { Perfil } from '../enums/perfil';
-import { TipoContato } from '../enums/tipo-contato';
 import { corrigeData } from '../functions/date';
 import { LoginParams } from '../interfaces/login-params';
 import { PageParams } from '../interfaces/page-params';
-import { Atendimento, Cliente, Contato, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
+import { Atendimento, Cliente, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
 
 import atendimentos from '../../data/mocks/atendimentos.json';
-import clientes from '../../data/mocks/clientes.json';
 import pets from '../../data/mocks/pets.json';
 import racas from '../../data/mocks/racas.json';
 
