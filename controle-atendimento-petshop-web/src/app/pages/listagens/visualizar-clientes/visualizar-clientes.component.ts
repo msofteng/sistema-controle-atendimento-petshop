@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { CadastroClienteComponent } from "../../../shared/components/forms/cadastros/cadastro-cliente/cadastro-cliente.component";
-import { ModalComponent } from "../../../shared/components/modal/modal.component";
+import { ModalComponent } from "../../../shared/components/page/modal/modal.component";
 import { Cliente } from '../../../shared/interfaces/petshop.entities';
 import { CpfPipe } from '../../../shared/pipes/cpf.pipe';
 import { PetshopService } from '../../../shared/services/petshop.service';

@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { CadastroPetComponent } from "../../../shared/components/forms/cadastros/cadastro-pet/cadastro-pet.component";
-import { ModalComponent } from "../../../shared/components/modal/modal.component";
+import { ModalComponent } from "../../../shared/components/page/modal/modal.component";
 import { Pet, Raca } from '../../../shared/interfaces/petshop.entities';
 import { PetshopService } from '../../../shared/services/petshop.service';
 

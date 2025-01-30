@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HeaderComponent } from '../header/header.component';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { HeaderComponent } from '../../shared/components/page/header/header.component';
+import { SidebarComponent } from '../../shared/components/page/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-dashboard',

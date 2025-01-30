@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { ModalComponent } from '../../shared/components/page/modal/modal.component';
 
 @Component({
   selector: 'app-inicio',
