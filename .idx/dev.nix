@@ -12,6 +12,7 @@
     pkgs.typescript
     pkgs.chromium
     pkgs.python313
+    pkgs.npm-check-updates
   ];
 
   # Sets environment variables in the workspace
@@ -65,6 +66,8 @@
         "build-web" = "cd controle-atendimento-petshop-web && npm install && npm run build";
         # Build the backend (Spring)
         "build-service" = "cd controle-atendimento-petshop-service && ./mvnw clean package -DskipTests";
+        # Update global packages
+        "update-packages" = "npm -g install @angular/cli@latest";
       };
       # Runs when the workspace is (re)started
       onStart = {
