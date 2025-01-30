@@ -6,20 +6,17 @@
 
   # Use https://search.nixos.org/packages to find packages
   packages = [
-    # pkgs.go
-    # pkgs.python311
-    # pkgs.python311Packages.pip
-    # pkgs.nodejs_20
-    # pkgs.nodePackages.nodemon
     pkgs.temurin-bin-17
     pkgs.spring-boot-cli
     pkgs.maven
     pkgs.typescript
-    pkgs.google-chrome
+    pkgs.chromium
   ];
 
   # Sets environment variables in the workspace
-  env = { };
+  env = {
+    CHROME_BIN = "/usr/bin/chromium";
+  };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
