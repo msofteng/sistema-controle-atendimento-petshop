@@ -5,8 +5,8 @@
   <input type="text" formControlName="nome">
 
   @if (atualizacaoForm.get('nome')?.touched && atualizacaoForm.get('nome')?.hasError('required')) {
-  <br>
-  <sup>O nome não pode ficar em branco</sup>
+    <br>
+    <sup>O nome não pode ficar em branco</sup>
   }
 
   <br><br>
@@ -14,8 +14,8 @@
   <input type="password" formControlName="senha">
 
   @if (atualizacaoForm.get('senha')?.touched && atualizacaoForm.get('senha')?.hasError('required')) {
-  <br>
-  <sup>A senha não pode ficar em branco</sup>
+    <br>
+    <sup>A senha não pode ficar em branco</sup>
   }
 
   <br><br>

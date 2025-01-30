@@ -1,27 +1,27 @@
 <h3>Raças</h3>
 
 @if (isLoading) {
-<b>Carregando ...</b>
+  <b>Carregando ...</b>
 }
 
 @if (racas.length > 0 && !isLoading) {
-<div class="grid-list">
-  @for (raca of racas; track $index) {
-  <fieldset>
-    <legend>
-      {{ raca.descricao }}
-    </legend>
+  <div class="grid-list">
+    @for (raca of racas; track $index) {
+      <fieldset>
+        <legend>
+          {{ raca.descricao }}
+        </legend>
 
-    <button (click)="editarRaca(raca)">Editar</button>
-    <button (click)="excluirRaca(raca)">Excluir</button>
-  </fieldset>
-  }
-</div>
+        <button (click)="editarRaca(raca)">Editar</button>
+        <button (click)="excluirRaca(raca)">Excluir</button>
+      </fieldset>
+    }
+  </div>
 
-<div class="pagination">
-  <button>Anterior</button>
-  <button>Próximo</button>
-</div>
+  <div class="pagination">
+    <button>Anterior</button>
+    <button>Próximo</button>
+  </div>
 }
 
 <app-modal [(openModal)]="openModalAtualizarRaca">

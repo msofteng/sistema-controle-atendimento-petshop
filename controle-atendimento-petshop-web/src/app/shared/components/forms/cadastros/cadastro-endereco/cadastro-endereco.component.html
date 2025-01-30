@@ -2,24 +2,24 @@
   Logradouro: <b title="Obrigatório" class="required">*</b><br>
   <input type="text" formControlName="logradouro">
   @if (enderecoForm.get('logradouro')?.touched && enderecoForm.get('logradouro')?.hasError('required')) {
-  <br>
-  <sup>O logradouro não pode ficar em branco</sup>
+    <br>
+    <sup>O logradouro não pode ficar em branco</sup>
   }
 
   <br><br>
   Cidade: <b title="Obrigatório" class="required">*</b><br>
   <input type="text" formControlName="cidade">
   @if (enderecoForm.get('cidade')?.touched && enderecoForm.get('cidade')?.hasError('required')) {
-  <br>
-  <sup>A cidade não pode ficar em branco</sup>
+    <br>
+    <sup>A cidade não pode ficar em branco</sup>
   }
 
   <br><br>
   Bairro: <b title="Obrigatório" class="required">*</b><br>
   <input type="text" formControlName="bairro">
   @if (enderecoForm.get('bairro')?.touched && enderecoForm.get('bairro')?.hasError('required')) {
-  <br>
-  <sup>O bairro não pode ficar em branco</sup>
+    <br>
+    <sup>O bairro não pode ficar em branco</sup>
   }
 
   <br><br>

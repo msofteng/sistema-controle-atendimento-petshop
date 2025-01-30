@@ -3,7 +3,7 @@
 <div class="main-wrapper">
   <button (click)="openSidebar = true">Abrir</button>
   @if (openSidebar) {
-  <app-sidebar [(openMenu)]="openSidebar" />
+    <app-sidebar [(openMenu)]="openSidebar" />
   }
   <router-outlet />
 </div>

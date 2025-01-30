@@ -4,42 +4,42 @@
 <br><br>
 
 @if (isLoading) {
-<b>Carregando ...</b>
+  <b>Carregando ...</b>
 }
 
 @if (atendimentos.length > 0 && !isLoading) {
-<div class="grid-list">
-  @for (atendimento of atendimentos; track $index) {
-  <fieldset>
-    <legend>
-      <b>#{{ atendimento.id }} - Atendimento</b>
-    </legend>
+  <div class="grid-list">
+    @for (atendimento of atendimentos; track $index) {
+      <fieldset>
+        <legend>
+          <b>#{{ atendimento.id }} - Atendimento</b>
+        </legend>
 
-    <b>Descrição:</b> {{ atendimento.descricao }}<br>
-    <b>Valor:</b> {{ atendimento.valor | currency:'BRL' }}<br>
-    <b>Data:</b> {{ atendimento.data.toLocaleString().replace(', 00:00:00', '') }}<br>
-    <hr>
-    @for (pet of atendimento.pets; track $index) {
-    <fieldset>
-      <legend>Cliente: {{ pet.cliente.nome }}</legend>
-      Nome (Pet): {{ pet.nome }}<br>
-      Raça: {{ formatarRacas(pet.raca) }}
-    </fieldset>
+        <b>Descrição:</b> {{ atendimento.descricao }}<br>
+        <b>Valor:</b> {{ atendimento.valor | currency:'BRL' }}<br>
+        <b>Data:</b> {{ atendimento.data.toLocaleString().replace(', 00:00:00', '') }}<br>
+        <hr>
+        @for (pet of atendimento.pets; track $index) {
+          <fieldset>
+            <legend>Cliente: {{ pet.cliente.nome }}</legend>
+            Nome (Pet): {{ pet.nome }}<br>
+            Raça: {{ formatarRacas(pet.raca) }}
+          </fieldset>
+        }
+        <br>
+
+        <div class="options">
+          <button (click)="editarAtendimento(atendimento)">Alterar</button>
+          <button (click)="excluirAtendimento(atendimento)">Excluir</button>
+        </div>
+      </fieldset>
     }
-    <br>
+  </div>
 
-    <div class="options">
-      <button (click)="editarAtendimento(atendimento)">Alterar</button>
-      <button (click)="excluirAtendimento(atendimento)">Excluir</button>
-    </div>
-  </fieldset>
-  }
-</div>
-
-<div class="pagination">
-  <button>Anterior</button>
-  <button>Próximo</button>
-</div>
+  <div class="pagination">
+    <button>Anterior</button>
+    <button>Próximo</button>
+  </div>
 }
 
 <app-modal [(openModal)]="openModalCriarAtendimento">

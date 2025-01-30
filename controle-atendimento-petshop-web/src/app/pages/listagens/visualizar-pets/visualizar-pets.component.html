@@ -1,34 +1,34 @@
 <h3>Pets</h3>
 
 @if (isLoading) {
-<b>Carregando ...</b>
+  <b>Carregando ...</b>
 }
 
 @if (pets.length > 0 && !isLoading) {
-<div class="grid-list">
-  @for (pet of pets; track $index) {
-  <fieldset>
-    <legend>
-      <img [src]="pet.foto ?? 'assets/img/dog.jpg'" alt="imagem">
-    </legend>
+  <div class="grid-list">
+    @for (pet of pets; track $index) {
+      <fieldset>
+        <legend>
+          <img [src]="pet.foto ?? 'assets/img/dog.jpg'" alt="imagem">
+        </legend>
 
-    {{ pet.nome }}
-    <hr>
+        {{ pet.nome }}
+        <hr>
 
-    <b>Raça:</b> {{ formatarRacas(pet.raca) }} <br>
-    <b>Cliente: </b> {{ pet.cliente.nome }}
-    <hr>
+        <b>Raça:</b> {{ formatarRacas(pet.raca) }} <br>
+        <b>Cliente: </b> {{ pet.cliente.nome }}
+        <hr>
 
-    <button (click)="editarPet(pet)">Editar</button>
-    <button (click)="excluirPet(pet)">Excluir</button>
-  </fieldset>
-  }
-</div>
+        <button (click)="editarPet(pet)">Editar</button>
+        <button (click)="excluirPet(pet)">Excluir</button>
+      </fieldset>
+    }
+  </div>
 
-<div class="pagination">
-  <button>Anterior</button>
-  <button>Próximo</button>
-</div>
+  <div class="pagination">
+    <button>Anterior</button>
+    <button>Próximo</button>
+  </div>
 }
 
 <app-modal [(openModal)]="openModalAtualizarPet">

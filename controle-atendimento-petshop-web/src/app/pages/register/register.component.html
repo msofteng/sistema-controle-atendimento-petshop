@@ -3,8 +3,8 @@
   <input type="text" formControlName="nome">
 
   @if (cadastroForm.get('nome')?.touched && cadastroForm.get('nome')?.hasError('required')) {
-  <br>
-  <sup>O nome não pode ficar em branco</sup>
+    <br>
+    <sup>O nome não pode ficar em branco</sup>
   }
 
   <br><br>
@@ -12,8 +12,8 @@
   <input type="password" formControlName="senha">
 
   @if (cadastroForm.get('senha')?.touched && cadastroForm.get('senha')?.hasError('required')) {
-  <br>
-  <sup>A senha não pode ficar em branco</sup>
+    <br>
+    <sup>A senha não pode ficar em branco</sup>
   }
 
   <br><br>

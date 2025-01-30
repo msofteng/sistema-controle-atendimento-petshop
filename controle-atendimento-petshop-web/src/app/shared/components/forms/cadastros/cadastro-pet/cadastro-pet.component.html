@@ -5,8 +5,8 @@
     <input type="text" formControlName="nome">
 
     @if (petForm.get('nome')?.touched && petForm.get('nome')?.hasError('required')) {
-    <br>
-    <sup>O nome do pet não pode ficar em branco</sup>
+      <br>
+      <sup>O nome do pet não pode ficar em branco</sup>
     }
 
     <br><br>
@@ -14,21 +14,21 @@
     <input type="date" formControlName="dataNascimento">
 
     @if (petForm.get('dataNascimento')?.touched && petForm.get('dataNascimento')?.hasError('required')) {
-    <br>
-    <sup>A data de nascimento do pet não pode ficar em branco</sup>
+      <br>
+      <sup>A data de nascimento do pet não pode ficar em branco</sup>
     }
 
     <br><br>
     Raça: <b title="Obrigatório" class="required">*</b><br>
     <select multiple #selectRacas>
       @for (raca of racas; track $index) {
-      <option [value]="raca.id" [innerHTML]="raca.descricao"></option>
+        <option [value]="raca.id" [innerHTML]="raca.descricao"></option>
       }
     </select>
 
     @if (petForm.get('nome')?.touched && getRacasSelecionadas().length == 0) {
-    <br>
-    <sup>A raça do pet não pode ficar em branco</sup>
+      <br>
+      <sup>A raça do pet não pode ficar em branco</sup>
     }
 
     <br>

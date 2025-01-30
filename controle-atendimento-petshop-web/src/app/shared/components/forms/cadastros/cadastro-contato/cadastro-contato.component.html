@@ -3,8 +3,8 @@
   <input type="text" formControlName="valor">
 
   @if (contatoForm.get('valor')?.touched && contatoForm.get('valor')?.hasError('required')) {
-  <br>
-  <sup>O contato não pode ficar em branco</sup>
+    <br>
+    <sup>O contato não pode ficar em branco</sup>
   }
 
   <br><br>
@@ -16,8 +16,8 @@
   </select>
 
   @if (contatoForm.get('tipo')?.touched && contatoForm.get('tipo')?.hasError('required')) {
-  <br>
-  <sup>O tipo do contato não pode ficar em branco</sup>
+    <br>
+    <sup>O tipo do contato não pode ficar em branco</sup>
   }
 
   <br><br>

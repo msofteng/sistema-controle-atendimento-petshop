@@ -5,8 +5,8 @@
     <input type="text" formControlName="nome">
 
     @if (clienteForm.get('nome')?.touched && clienteForm.get('nome')?.hasError('required')) {
-    <br>
-    <sup>O nome não pode ficar em branco</sup>
+      <br>
+      <sup>O nome não pode ficar em branco</sup>
     }
 
     <br><br>
@@ -18,8 +18,8 @@
     <input type="text" formControlName="cpf" maxlength="14" (blur)="atualizarSenha($event)">
 
     @if (clienteForm.get('cpf')?.touched && clienteForm.get('cpf')?.hasError('required')) {
-    <br>
-    <sup>O CPF não pode ficar em branco</sup>
+      <br>
+      <sup>O CPF não pode ficar em branco</sup>
     }
 
     <br><br>
@@ -49,33 +49,33 @@
           </thead>
           <tbody formArrayName="contatos">
             @for (contato of contatos.controls; track contato.value.valor; let idx = $index) {
-            <tr [formGroupName]="$index">
-              <td>
-                <input type="text" formControlName="valor">
-                @if (contato.get('valor')?.touched && contato.get('valor')?.hasError('required')) {
-                <br>
-                <sup>O contato não pode ficar em branco</sup>
-                }
-              </td>
-              <td>
-                <select formControlName="tipo">
-                  <option value="">--- Selecione ---</option>
-                  <option value="telefone">Telefone</option>
-                  <option value="e-mail">E-mail</option>
-                </select>
-                @if (contato.get('tipo')?.touched && contato.get('tipo')?.hasError('required')) {
-                <br>
-                <sup>O tipo do contato não pode ficar em branco</sup>
-                }
-              </td>
-              <td>
-                <input type="text" formControlName="tag">
-              </td>
-              <td>
-                <input type="hidden" formControlName="id">
-                <button (click)="removerContato($event, idx)">Excluir</button>
-              </td>
-            </tr>
+              <tr [formGroupName]="$index">
+                <td>
+                  <input type="text" formControlName="valor">
+                  @if (contato.get('valor')?.touched && contato.get('valor')?.hasError('required')) {
+                    <br>
+                    <sup>O contato não pode ficar em branco</sup>
+                  }
+                </td>
+                <td>
+                  <select formControlName="tipo">
+                    <option value="">--- Selecione ---</option>
+                    <option value="telefone">Telefone</option>
+                    <option value="e-mail">E-mail</option>
+                  </select>
+                  @if (contato.get('tipo')?.touched && contato.get('tipo')?.hasError('required')) {
+                    <br>
+                    <sup>O tipo do contato não pode ficar em branco</sup>
+                  }
+                </td>
+                <td>
+                  <input type="text" formControlName="tag">
+                </td>
+                <td>
+                  <input type="hidden" formControlName="id">
+                  <button (click)="removerContato($event, idx)">Excluir</button>
+                </td>
+              </tr>
             }
           </tbody>
         </table>
@@ -107,38 +107,38 @@
           </thead>
           <tbody formArrayName="enderecos">
             @for (endereco of enderecos.controls; track endereco.value.logradouro; let idx = $index) {
-            <tr [formGroupName]="$index">
-              <td>
-                <input type="text" formControlName="logradouro">
-                @if (endereco.get('logradouro')?.touched && endereco.get('logradouro')?.hasError('required')) {
-                <br>
-                <sup>O logradouro não pode ficar em branco</sup>
-                }
-              </td>
-              <td>
-                <input type="text" formControlName="cidade">
-                @if (endereco.get('cidade')?.touched && endereco.get('cidade')?.hasError('required')) {
-                <br>
-                <sup>A cidade não pode ficar em branco</sup>
-                }
-              </td>
-              <td>
-                <input type="text" formControlName="bairro">
-                @if (endereco.get('bairro')?.touched && endereco.get('bairro')?.hasError('required')) {
-                <br>
-                <sup>O bairro não pode ficar em branco</sup>
-                }
-              </td>
-              <td>
-                <input type="text" formControlName="complemento">
-              </td>
-              <td>
-                <input type="text" formControlName="tag">
-              </td>
-              <td>
-                <button (click)="removerEndereco($event, idx)">Excluir</button>
-              </td>
-            </tr>
+              <tr [formGroupName]="$index">
+                <td>
+                  <input type="text" formControlName="logradouro">
+                  @if (endereco.get('logradouro')?.touched && endereco.get('logradouro')?.hasError('required')) {
+                    <br>
+                    <sup>O logradouro não pode ficar em branco</sup>
+                  }
+                </td>
+                <td>
+                  <input type="text" formControlName="cidade">
+                  @if (endereco.get('cidade')?.touched && endereco.get('cidade')?.hasError('required')) {
+                    <br>
+                    <sup>A cidade não pode ficar em branco</sup>
+                  }
+                </td>
+                <td>
+                  <input type="text" formControlName="bairro">
+                  @if (endereco.get('bairro')?.touched && endereco.get('bairro')?.hasError('required')) {
+                    <br>
+                    <sup>O bairro não pode ficar em branco</sup>
+                  }
+                </td>
+                <td>
+                  <input type="text" formControlName="complemento">
+                </td>
+                <td>
+                  <input type="text" formControlName="tag">
+                </td>
+                <td>
+                  <button (click)="removerEndereco($event, idx)">Excluir</button>
+                </td>
+              </tr>
             }
           </tbody>
         </table>

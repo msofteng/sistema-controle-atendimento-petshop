@@ -3,8 +3,8 @@
   <input type="text" formControlName="nomeCpf">
 
   @if (loginForm.get('nomeCpf')?.touched && loginForm.get('nomeCpf')?.hasError('required')) {
-  <br>
-  <sup>O nome ou CPF não pode ficar em branco</sup>
+    <br>
+    <sup>O nome ou CPF não pode ficar em branco</sup>
   }
 
   <br>
@@ -12,8 +12,8 @@
   <input type="password" formControlName="senha">
 
   @if (loginForm.get('senha')?.touched && loginForm.get('senha')?.hasError('required')) {
-  <br>
-  <sup>A senha não pode ficar em branco</sup>
+    <br>
+    <sup>A senha não pode ficar em branco</sup>
   }
 
   <br><br>
