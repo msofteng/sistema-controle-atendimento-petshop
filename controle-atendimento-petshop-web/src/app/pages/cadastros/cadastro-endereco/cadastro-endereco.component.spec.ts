@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CadastroEnderecoComponent } from './cadastro-endereco.component';
 
 describe('CadastroEnderecoComponent', () => {
@@ -8,9 +7,10 @@ describe('CadastroEnderecoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CadastroEnderecoComponent]
-    })
-    .compileComponents();
+      imports: [
+        CadastroEnderecoComponent
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CadastroEnderecoComponent);
     component = fixture.componentInstance;

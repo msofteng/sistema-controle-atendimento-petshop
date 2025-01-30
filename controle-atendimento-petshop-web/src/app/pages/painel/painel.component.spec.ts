@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PainelComponent } from './painel.component';
 
 describe('PainelComponent', () => {
@@ -8,9 +7,10 @@ describe('PainelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PainelComponent]
-    })
-    .compileComponents();
+      imports: [
+        PainelComponent
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PainelComponent);
     component = fixture.componentInstance;

@@ -13,6 +13,4 @@ import { HeaderComponent } from '../header/header.component';
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css'
 })
-export class MainPageComponent {
-
-}
+export class MainPageComponent {}

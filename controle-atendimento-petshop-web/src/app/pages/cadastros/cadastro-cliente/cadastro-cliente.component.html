@@ -1,152 +1,152 @@
 <fieldset>
-    <legend>{{ this.cliente ? 'Atualizar' : 'Adicionar' }} Cliente</legend>
-    <form [formGroup]="clienteForm" (submit)="adicionarCliente($event)">
-        Nome: <b title="Obrigatório" class="required">*</b><br>
-        <input type="text" formControlName="nome">
+  <legend>{{ this.cliente ? 'Atualizar' : 'Adicionar' }} Cliente</legend>
+  <form [formGroup]="clienteForm" (submit)="adicionarCliente($event)">
+    Nome: <b title="Obrigatório" class="required">*</b><br>
+    <input type="text" formControlName="nome">
 
-        @if (clienteForm.get('nome')?.touched && clienteForm.get('nome')?.hasError('required')) {
-            <br>
-            <sup>O nome não pode ficar em branco</sup>
-        }
-        
-        <br><br>
-        Senha: <b title="Obrigatório" class="required">*</b><br>
-        <input type="text" formControlName="senha">
+    @if (clienteForm.get('nome')?.touched && clienteForm.get('nome')?.hasError('required')) {
+    <br>
+    <sup>O nome não pode ficar em branco</sup>
+    }
 
-        <br><br>
-        CPF: <br>
-        <input type="text" formControlName="cpf" maxlength="14" (blur)="atualizarSenha($event)">
+    <br><br>
+    Senha: <b title="Obrigatório" class="required">*</b><br>
+    <input type="text" formControlName="senha">
 
-        @if (clienteForm.get('cpf')?.touched && clienteForm.get('cpf')?.hasError('required')) {
-            <br>
-            <sup>O CPF não pode ficar em branco</sup>
-        }
+    <br><br>
+    CPF: <br>
+    <input type="text" formControlName="cpf" maxlength="14" (blur)="atualizarSenha($event)">
 
-        <br><br>
-        Foto: <br>
-        <input type="file" (change)="onImagePicked($event)" accept="image/*" #fotoCliente>
+    @if (clienteForm.get('cpf')?.touched && clienteForm.get('cpf')?.hasError('required')) {
+    <br>
+    <sup>O CPF não pode ficar em branco</sup>
+    }
 
-        <br><br>
+    <br><br>
+    Foto: <br>
+    <input type="file" (change)="onImagePicked($event)" accept="image/*" #fotoCliente>
 
-        <fieldset>
-            <legend>Adicionar Contato</legend>
+    <br><br>
 
-            <app-cadastro-contato (contatoAdicionado)="adicionarContato($event)"></app-cadastro-contato>
+    <fieldset>
+      <legend>Adicionar Contato</legend>
 
-            <br>
+      <app-cadastro-contato (contatoAdicionado)="adicionarContato($event)"></app-cadastro-contato>
 
-            <fieldset>
-                <legend>Contatos (Cliente)</legend>
+      <br>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Contato</th>
-                            <th>Tipo</th>
-                            <th>Tag</th>
-                            <th>Opções</th>
-                        </tr>
-                    </thead>
-                    <tbody formArrayName="contatos">
-                        @for (contato of contatos.controls; track contato.value.valor; let idx = $index) {
-                            <tr [formGroupName]="$index">
-                                <td>
-                                    <input type="text" formControlName="valor">
-                                    @if (contato.get('valor')?.touched && contato.get('valor')?.hasError('required')) {
-                                        <br>
-                                        <sup>O contato não pode ficar em branco</sup>
-                                    }
-                                </td>
-                                <td>
-                                    <select formControlName="tipo">
-                                        <option value="">--- Selecione ---</option>
-                                        <option value="telefone">Telefone</option>
-                                        <option value="e-mail">E-mail</option>
-                                    </select>
-                                    @if (contato.get('tipo')?.touched && contato.get('tipo')?.hasError('required')) {
-                                        <br>
-                                        <sup>O tipo do contato não pode ficar em branco</sup>
-                                    }
-                                </td>
-                                <td>
-                                    <input type="text" formControlName="tag">
-                                </td>
-                                <td>
-                                    <input type="hidden" formControlName="id">
-                                    <button (click)="removerContato($event, idx)">Excluir</button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </fieldset>
-        </fieldset>
+      <fieldset>
+        <legend>Contatos (Cliente)</legend>
 
-        <br>
+        <table>
+          <thead>
+            <tr>
+              <th>Contato</th>
+              <th>Tipo</th>
+              <th>Tag</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+          <tbody formArrayName="contatos">
+            @for (contato of contatos.controls; track contato.value.valor; let idx = $index) {
+            <tr [formGroupName]="$index">
+              <td>
+                <input type="text" formControlName="valor">
+                @if (contato.get('valor')?.touched && contato.get('valor')?.hasError('required')) {
+                <br>
+                <sup>O contato não pode ficar em branco</sup>
+                }
+              </td>
+              <td>
+                <select formControlName="tipo">
+                  <option value="">--- Selecione ---</option>
+                  <option value="telefone">Telefone</option>
+                  <option value="e-mail">E-mail</option>
+                </select>
+                @if (contato.get('tipo')?.touched && contato.get('tipo')?.hasError('required')) {
+                <br>
+                <sup>O tipo do contato não pode ficar em branco</sup>
+                }
+              </td>
+              <td>
+                <input type="text" formControlName="tag">
+              </td>
+              <td>
+                <input type="hidden" formControlName="id">
+                <button (click)="removerContato($event, idx)">Excluir</button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </fieldset>
+    </fieldset>
 
-        <fieldset>
-            <legend>Adicionar Endereço</legend>
+    <br>
 
-            <app-cadastro-endereco (enderecoAdicionado)="adicionarEndereco($event)"></app-cadastro-endereco>
+    <fieldset>
+      <legend>Adicionar Endereço</legend>
 
-            <br><br>
+      <app-cadastro-endereco (enderecoAdicionado)="adicionarEndereco($event)"></app-cadastro-endereco>
 
-            <fieldset>
-                <legend>Endereços (Cliente)</legend>
+      <br><br>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Logradouro</th>
-                            <th>Cidade</th>
-                            <th>Bairro</th>
-                            <th>Complemento</th>
-                            <th>Tag</th>
-                            <th>Opções</th>
-                        </tr>
-                    </thead>
-                    <tbody formArrayName="enderecos">
-                        @for (endereco of enderecos.controls; track endereco.value.logradouro; let idx = $index) {
-                            <tr [formGroupName]="$index">
-                                <td>
-                                    <input type="text" formControlName="logradouro">
-                                    @if (endereco.get('logradouro')?.touched && endereco.get('logradouro')?.hasError('required')) {
-                                        <br>
-                                        <sup>O logradouro não pode ficar em branco</sup>
-                                    }
-                                </td>
-                                <td>
-                                    <input type="text" formControlName="cidade">
-                                    @if (endereco.get('cidade')?.touched && endereco.get('cidade')?.hasError('required')) {
-                                        <br>
-                                        <sup>A cidade não pode ficar em branco</sup>
-                                    }
-                                </td>
-                                <td>
-                                    <input type="text" formControlName="bairro">
-                                    @if (endereco.get('bairro')?.touched && endereco.get('bairro')?.hasError('required')) {
-                                        <br>
-                                        <sup>O bairro não pode ficar em branco</sup>
-                                    }
-                                </td>
-                                <td>
-                                    <input type="text" formControlName="complemento">
-                                </td>
-                                <td>
-                                    <input type="text" formControlName="tag">
-                                </td>
-                                <td>
-                                    <button (click)="removerEndereco($event, idx)">Excluir</button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </fieldset>
-        </fieldset>
+      <fieldset>
+        <legend>Endereços (Cliente)</legend>
 
-        <br>
+        <table>
+          <thead>
+            <tr>
+              <th>Logradouro</th>
+              <th>Cidade</th>
+              <th>Bairro</th>
+              <th>Complemento</th>
+              <th>Tag</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+          <tbody formArrayName="enderecos">
+            @for (endereco of enderecos.controls; track endereco.value.logradouro; let idx = $index) {
+            <tr [formGroupName]="$index">
+              <td>
+                <input type="text" formControlName="logradouro">
+                @if (endereco.get('logradouro')?.touched && endereco.get('logradouro')?.hasError('required')) {
+                <br>
+                <sup>O logradouro não pode ficar em branco</sup>
+                }
+              </td>
+              <td>
+                <input type="text" formControlName="cidade">
+                @if (endereco.get('cidade')?.touched && endereco.get('cidade')?.hasError('required')) {
+                <br>
+                <sup>A cidade não pode ficar em branco</sup>
+                }
+              </td>
+              <td>
+                <input type="text" formControlName="bairro">
+                @if (endereco.get('bairro')?.touched && endereco.get('bairro')?.hasError('required')) {
+                <br>
+                <sup>O bairro não pode ficar em branco</sup>
+                }
+              </td>
+              <td>
+                <input type="text" formControlName="complemento">
+              </td>
+              <td>
+                <input type="text" formControlName="tag">
+              </td>
+              <td>
+                <button (click)="removerEndereco($event, idx)">Excluir</button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </fieldset>
+    </fieldset>
 
-        <button type="submit">{{ this.cliente ? 'Atualizar' : 'Adicionar' }} Cliente</button>
-    </form>
+    <br>
+
+    <button type="submit">{{ this.cliente ? 'Atualizar' : 'Adicionar' }} Cliente</button>
+  </form>
 </fieldset>

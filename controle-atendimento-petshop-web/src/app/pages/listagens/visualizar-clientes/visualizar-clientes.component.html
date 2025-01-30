@@ -1,36 +1,37 @@
 <h3>Clientes</h3>
 
-<app-modal [(openModal)]="openModalAtualizarCliente">
-    <h2>Atualizar Cliente</h2>
-
-    <app-cadastro-cliente [cliente]="atualizarCliente" (clienteAdicionado)="clienteAdicionado($event)"></app-cadastro-cliente>
-</app-modal>
-
 @if (isLoading) {
-    <b>Carregando ...</b>
+<b>Carregando ...</b>
 }
 
 @if (clientes.length > 0 && !isLoading) {
-    <div class="grid-list">
-        @for (cliente of clientes; track $index) {
-            <fieldset>
-                <legend>
-                    <img [src]="cliente.foto ?? 'assets/img/woman.png'" alt="imagem">
-                </legend>
+<div class="grid-list">
+  @for (cliente of clientes; track $index) {
+  <fieldset>
+    <legend>
+      <img [src]="cliente.foto ?? 'assets/img/woman.png'" alt="imagem">
+    </legend>
 
-                {{ cliente.nome }} <br>
+    {{ cliente.nome }} <br>
 
-                <sup>{{ cliente.cpf | cpf }}</sup>
+    <sup>{{ cliente.cpf | cpf }}</sup>
 
-                <br>
-                <button (click)="editarCliente(cliente)">Editar</button>
-                <button (click)="excluirCliente(cliente)">Excluir</button>
-            </fieldset>
-        }
-    </div>
+    <br>
+    <button (click)="editarCliente(cliente)">Editar</button>
+    <button (click)="excluirCliente(cliente)">Excluir</button>
+  </fieldset>
+  }
+</div>
 
-    <div class="pagination">
-        <button>Anterior</button>
-        <button>Próximo</button>
-    </div>
+<div class="pagination">
+  <button>Anterior</button>
+  <button>Próximo</button>
+</div>
 }
+
+<app-modal [(openModal)]="openModalAtualizarCliente">
+  <h2>Atualizar Cliente</h2>
+
+  <app-cadastro-cliente [cliente]="clienteSelecionadoEdicao"
+    (clienteAdicionado)="clienteAdicionado($event)"></app-cadastro-cliente>
+</app-modal>

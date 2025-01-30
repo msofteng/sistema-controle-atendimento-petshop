@@ -1,4 +1,4 @@
 export enum TipoContato {
-    EMAIL = 'e-mail',
-    TELEFONE = 'telefone'
+  EMAIL = 'e-mail',
+  TELEFONE = 'telefone'
 }

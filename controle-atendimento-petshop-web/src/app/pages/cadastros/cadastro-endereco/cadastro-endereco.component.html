@@ -1,37 +1,37 @@
 <form [formGroup]="enderecoForm" (submit)="adicionarEndereco($event)">
-    Logradouro: <b title="Obrigatório" class="required">*</b><br>
-    <input type="text" formControlName="logradouro">
-    @if (enderecoForm.get('logradouro')?.touched && enderecoForm.get('logradouro')?.hasError('required')) {
-        <br>
-        <sup>O logradouro não pode ficar em branco</sup>
-    }
+  Logradouro: <b title="Obrigatório" class="required">*</b><br>
+  <input type="text" formControlName="logradouro">
+  @if (enderecoForm.get('logradouro')?.touched && enderecoForm.get('logradouro')?.hasError('required')) {
+  <br>
+  <sup>O logradouro não pode ficar em branco</sup>
+  }
 
-    <br><br>
-    Cidade: <b title="Obrigatório" class="required">*</b><br>
-    <input type="text" formControlName="cidade">
-    @if (enderecoForm.get('cidade')?.touched && enderecoForm.get('cidade')?.hasError('required')) {
-        <br>
-        <sup>A cidade não pode ficar em branco</sup>
-    }
+  <br><br>
+  Cidade: <b title="Obrigatório" class="required">*</b><br>
+  <input type="text" formControlName="cidade">
+  @if (enderecoForm.get('cidade')?.touched && enderecoForm.get('cidade')?.hasError('required')) {
+  <br>
+  <sup>A cidade não pode ficar em branco</sup>
+  }
 
-    <br><br>
-    Bairro: <b title="Obrigatório" class="required">*</b><br>
-    <input type="text" formControlName="bairro">
-    @if (enderecoForm.get('bairro')?.touched && enderecoForm.get('bairro')?.hasError('required')) {
-        <br>
-        <sup>O bairro não pode ficar em branco</sup>
-    }
+  <br><br>
+  Bairro: <b title="Obrigatório" class="required">*</b><br>
+  <input type="text" formControlName="bairro">
+  @if (enderecoForm.get('bairro')?.touched && enderecoForm.get('bairro')?.hasError('required')) {
+  <br>
+  <sup>O bairro não pode ficar em branco</sup>
+  }
 
-    <br><br>
-    Complemento: <br>
-    <input type="text" formControlName="complemento">
+  <br><br>
+  Complemento: <br>
+  <input type="text" formControlName="complemento">
 
-    <br><br>
-    Tag: <br>
-    <input type="text" formControlName="tag">
+  <br><br>
+  Tag: <br>
+  <input type="text" formControlName="tag">
 
-    <input type="hidden" formControlName="id">
+  <input type="hidden" formControlName="id">
 
-    <br><br>
-    <button type="submit">{{ this.endereco ? 'Atualizar' : 'Adicionar' }} Endereço</button>
+  <br><br>
+  <button type="submit">{{ this.endereco ? 'Atualizar' : 'Adicionar' }} Endereço</button>
 </form>

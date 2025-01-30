@@ -1,8 +1,8 @@
 :host {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 .grid-list {
-    grid-template-columns: repeat(auto-fill, 200px);
+  grid-template-columns: repeat(auto-fill, 200px);
 }

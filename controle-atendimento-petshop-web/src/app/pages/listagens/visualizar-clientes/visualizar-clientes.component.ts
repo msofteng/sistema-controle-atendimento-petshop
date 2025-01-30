@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
+import { ModalComponent } from "../../../shared/components/modal/modal.component";
 import { Cliente } from '../../../shared/interfaces/petshop.entities';
 import { CpfPipe } from '../../../shared/pipes/cpf.pipe';
 import { PetshopService } from '../../../shared/services/petshop.service';
-import { ModalComponent } from "../../../shared/components/modal/modal.component";
 import { CadastroClienteComponent } from "../../cadastros/cadastro-cliente/cadastro-cliente.component";
 
 @Component({
@@ -12,7 +12,7 @@ import { CadastroClienteComponent } from "../../cadastros/cadastro-cliente/cadas
     CpfPipe,
     ModalComponent,
     CadastroClienteComponent
-],
+  ],
   templateUrl: './visualizar-clientes.component.html',
   styleUrl: './visualizar-clientes.component.css'
 })
@@ -22,10 +22,9 @@ export class VisualizarClientesComponent implements OnInit {
   clientes: Cliente[] = [];
 
   isLoading = false;
-  
   openModalAtualizarCliente = false;
 
-  atualizarCliente?: Cliente;
+  clienteSelecionadoEdicao?: Cliente;
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -52,11 +51,11 @@ export class VisualizarClientesComponent implements OnInit {
     });
 
     this.openModalAtualizarCliente = false;
-    this.atualizarCliente = undefined;
+    this.clienteSelecionadoEdicao = undefined;
   }
 
   editarCliente(cliente: Cliente) {
-    this.atualizarCliente = cliente;
+    this.clienteSelecionadoEdicao = cliente;
     this.openModalAtualizarCliente = true;
   }
 

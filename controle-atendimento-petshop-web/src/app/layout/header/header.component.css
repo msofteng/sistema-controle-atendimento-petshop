@@ -1,51 +1,52 @@
 :host {
-    display: flex;
-    align-items: center;
-    padding: 5px 15px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: calc(100% - 30px);
-    background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 5px 15px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100% - 30px);
+  background-color: white;
 }
 
 span {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 img {
-    width: 50px;
-    border-radius: 100%;
-    cursor: pointer;
+  width: 50px;
+  border-radius: 100%;
+  cursor: pointer;
 }
 
 ul.links {
-    list-style: none;
+  list-style: none;
 }
 
-h2, li {
-    cursor: pointer;
+h2,
+li {
+  cursor: pointer;
 }
 
 ul.links li {
-    float: left;
+  float: left;
 }
 
 ul.menu {
-    list-style: none;
-    text-align: end;
-    position: absolute;
-    right: 15px;
-    top: 50px;
-    background-color: white;
-    padding: 10px;
-    display: none;
+  list-style: none;
+  text-align: end;
+  position: absolute;
+  right: 15px;
+  top: 50px;
+  background-color: white;
+  padding: 10px;
+  display: none;
 }
 
 ul.menu.show {
-    display: block;
+  display: block;
 }
 
 li:not(:first-child) {
-    margin-left: 15px;
+  margin-left: 15px;
 }

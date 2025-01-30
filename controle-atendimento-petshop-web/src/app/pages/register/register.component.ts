@@ -37,7 +37,7 @@ export class RegisterComponent {
       if (!isNaN(this.cadastroForm.get('cpf')?.value) && this.cadastroForm.get('cpf')?.value.length === 11) {
         this.cadastroForm.get('cpf')?.setValue(Number(this.cadastroForm.value.nomeCpf));
       }
-      
+
       if (!this.cadastroForm.value.foto) delete this.cadastroForm.value.foto;
 
       this.btnDisabled = true;
@@ -46,6 +46,7 @@ export class RegisterComponent {
         next: (value: Usuario) => {
           console.log(value);
           this.cadastroForm.reset();
+          this.cadastroForm.get('perfil')?.setValue(Perfil.ADMIN);
           this.fotoUsuario.nativeElement.value = '';
         },
         error: (err: HttpErrorResponse) => console.error(err),

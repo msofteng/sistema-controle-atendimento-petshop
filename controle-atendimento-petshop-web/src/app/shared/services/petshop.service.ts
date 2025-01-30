@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { TipoContato } from '../enums/tipo-contato';
-import { PageParams } from '../interfaces/page-params';
+import { Observable, delay, of } from 'rxjs';
 import { Perfil } from '../enums/perfil';
+import { TipoContato } from '../enums/tipo-contato';
 import { corrigeData } from '../functions/date';
 import { LoginParams } from '../interfaces/login-params';
-import { Observable, delay, of } from 'rxjs';
+import { PageParams } from '../interfaces/page-params';
 import { Atendimento, Cliente, Contato, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
 
 import atendimentos from '../../data/mocks/atendimentos.json';
@@ -47,6 +47,10 @@ export class PetshopService {
     return of(pet).pipe(delay(this.seconds));
   }
 
+  cadastrarRaca(raca: Raca): Observable<Raca> {
+    return of(raca).pipe(delay(this.seconds));
+  }
+
   atualizarFuncionario(usuario: Usuario): Observable<Usuario> {
     return of(usuario).pipe(delay(this.seconds));
   }
@@ -72,6 +76,10 @@ export class PetshopService {
   }
 
   excluirPet(pet: Pet): Observable<boolean> {
+    return of(true);
+  }
+
+  excluirRaca(raca: Raca): Observable<boolean> {
     return of(true);
   }
 

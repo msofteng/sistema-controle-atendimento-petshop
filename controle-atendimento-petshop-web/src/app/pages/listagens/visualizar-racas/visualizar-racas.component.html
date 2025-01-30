@@ -1,1 +1,31 @@
-<p>visualizar-racas works!</p>
+<h3>Raças</h3>
+
+@if (isLoading) {
+<b>Carregando ...</b>
+}
+
+@if (racas.length > 0 && !isLoading) {
+<div class="grid-list">
+  @for (raca of racas; track $index) {
+  <fieldset>
+    <legend>
+      {{ raca.descricao }}
+    </legend>
+
+    <button (click)="editarRaca(raca)">Editar</button>
+    <button (click)="excluirRaca(raca)">Excluir</button>
+  </fieldset>
+  }
+</div>
+
+<div class="pagination">
+  <button>Anterior</button>
+  <button>Próximo</button>
+</div>
+}
+
+<app-modal [(openModal)]="openModalAtualizarRaca">
+  <h2>Atualizar Raça</h2>
+
+  <app-cadastro-raca [raca]="racaSelecionadoEdicao" (racaAdicionada)="racaAdicionada($event)"></app-cadastro-raca>
+</app-modal>

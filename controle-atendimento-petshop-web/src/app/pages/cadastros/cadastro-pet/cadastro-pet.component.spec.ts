@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CadastroPetComponent } from './cadastro-pet.component';
 
 describe('CadastroPetComponent', () => {
@@ -8,9 +7,10 @@ describe('CadastroPetComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CadastroPetComponent]
-    })
-    .compileComponents();
+      imports: [
+        CadastroPetComponent
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CadastroPetComponent);
     component = fixture.componentInstance;

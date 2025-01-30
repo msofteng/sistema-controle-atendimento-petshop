@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { VisualizarPetsComponent } from './visualizar-pets.component';
 
 describe('VisualizarPetsComponent', () => {
@@ -8,9 +7,10 @@ describe('VisualizarPetsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VisualizarPetsComponent]
-    })
-    .compileComponents();
+      imports: [
+        VisualizarPetsComponent
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(VisualizarPetsComponent);
     component = fixture.componentInstance;

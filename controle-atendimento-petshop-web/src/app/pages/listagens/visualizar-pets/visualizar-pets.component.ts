@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
+import { ModalComponent } from "../../../shared/components/modal/modal.component";
 import { Pet, Raca } from '../../../shared/interfaces/petshop.entities';
 import { PetshopService } from '../../../shared/services/petshop.service';
 import { CadastroPetComponent } from "../../cadastros/cadastro-pet/cadastro-pet.component";
-import { ModalComponent } from "../../../shared/components/modal/modal.component";
 
 @Component({
   selector: 'app-visualizar-pets',
@@ -18,12 +18,12 @@ export class VisualizarPetsComponent implements OnInit {
   service: PetshopService = inject(PetshopService);
 
   pets: Pet[] = [];
+  racas: Raca[] = [];
 
   isLoading = false;
-
-  racas: Raca[] = [];
   openModalAtualizarPet = false;
-  atualizarPet?: Pet;
+
+  petSelecionadoEdicao?: Pet;
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -37,7 +37,6 @@ export class VisualizarPetsComponent implements OnInit {
     this.service.listarRacas({ qtd: 10, page: 1 }).subscribe({
       next: (racas: Raca[]) => this.racas = racas,
       error: (err: HttpErrorResponse) => console.error(err),
-      complete: () => this.isLoading = false,
     });
   }
 
@@ -56,15 +55,11 @@ export class VisualizarPetsComponent implements OnInit {
     });
 
     this.openModalAtualizarPet = false;
-    this.atualizarPet = undefined;
-  }
-
-  formatarRacas(racas: Raca[]) {
-    return racas.map(r => r.descricao).join(', ');
+    this.petSelecionadoEdicao = undefined;
   }
 
   editarPet(pet: Pet) {
-    this.atualizarPet = pet;
+    this.petSelecionadoEdicao = pet;
     this.openModalAtualizarPet = true;
   }
 
@@ -76,5 +71,9 @@ export class VisualizarPetsComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
     });
+  }
+
+  formatarRacas(racas: Raca[]) {
+    return racas.map(r => r.descricao).join(', ');
   }
 }

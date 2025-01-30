@@ -20,17 +20,15 @@ export class VisualizarAtendimentosComponent implements OnInit {
   service: PetshopService = inject(PetshopService);
 
   atendimentos: Atendimento[] = [];
-
-  isLoading = false;
-
-  openModalCriarAtendimento = false;
-  openModalAtualizarAtendimento = false;
-
   clientes: Cliente[] = [];
   pets: Pet[] = [];
   racas: Raca[] = [];
 
-  atualizarAtendimento?: Atendimento;
+  isLoading = false;
+  openModalCriarAtendimento = false;
+  openModalAtualizarAtendimento = false;
+
+  atendimentoSelecionadoEdicao?: Atendimento;
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -54,21 +52,6 @@ export class VisualizarAtendimentosComponent implements OnInit {
     });
   }
 
-  formatarRacas(racas: Raca[]) {
-    return racas.map(r => r.descricao).join(', ');
-  }
-
-  buscarAnimaisCliente(cliente?: Cliente) {
-    this.pets = [];
-    if (cliente) {
-      this.service.listarPets({ qtd: 10, page: 1, filter: { cliente: cliente } }).subscribe({
-        next: (pets: Pet[]) => this.pets = pets,
-        error: (err: HttpErrorResponse) => console.error(err),
-        complete: () => this.isLoading = false,
-      });
-    }
-  }
-
   atendimentoAdicionado(atendimento: Atendimento) {
     this.service.cadastrarAtendimento(atendimento).subscribe({
       next: (data: Atendimento) => console.log('sucesso'),
@@ -86,11 +69,11 @@ export class VisualizarAtendimentosComponent implements OnInit {
     this.openModalCriarAtendimento = false;
     this.openModalAtualizarAtendimento = false;
     this.pets = [];
-    this.atualizarAtendimento = undefined;
+    this.atendimentoSelecionadoEdicao = undefined;
   }
 
   editarAtendimento(atendimento: Atendimento) {
-    this.atualizarAtendimento = atendimento;
+    this.atendimentoSelecionadoEdicao = atendimento;
     this.openModalAtualizarAtendimento = true;
   }
 
@@ -102,5 +85,20 @@ export class VisualizarAtendimentosComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
     });
+  }
+
+  formatarRacas(racas: Raca[]) {
+    return racas.map(r => r.descricao).join(', ');
+  }
+
+  buscarAnimaisCliente(cliente?: Cliente) {
+    this.pets = [];
+    if (cliente) {
+      this.service.listarPets({ qtd: 10, page: 1, filter: { cliente: cliente } }).subscribe({
+        next: (pets: Pet[]) => this.pets = pets,
+        error: (err: HttpErrorResponse) => console.error(err),
+        complete: () => this.isLoading = false,
+      });
+    }
   }
 }

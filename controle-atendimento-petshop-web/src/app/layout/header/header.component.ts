@@ -17,7 +17,6 @@ export class HeaderComponent {
     this.showMenu = !this.showMenu;
   }
 
-  // Close the menu when clicking outside of the image and menu
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent) {
     const menuContainer = document.querySelector('.menu-container');

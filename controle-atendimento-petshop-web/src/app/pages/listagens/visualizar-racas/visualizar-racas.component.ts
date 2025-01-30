@@ -1,12 +1,70 @@
-import { Component, inject } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, inject } from '@angular/core';
+import { ModalComponent } from "../../../shared/components/modal/modal.component";
+import { Raca } from '../../../shared/interfaces/petshop.entities';
 import { PetshopService } from '../../../shared/services/petshop.service';
+import { CadastroRacaComponent } from "../../cadastros/cadastro-raca/cadastro-raca.component";
 
 @Component({
   selector: 'app-visualizar-racas',
-  imports: [],
+  imports: [
+    ModalComponent,
+    CadastroRacaComponent
+  ],
   templateUrl: './visualizar-racas.component.html',
   styleUrl: './visualizar-racas.component.css'
 })
-export class VisualizarRacasComponent {
+export class VisualizarRacasComponent implements OnInit {
   service: PetshopService = inject(PetshopService);
+
+  racas: Raca[] = [];
+
+  isLoading = false;
+
+  openModalAtualizarRaca = false;
+
+  racaSelecionadoEdicao?: Raca;
+
+  ngOnInit(): void {
+    this.isLoading = true;
+
+    this.service.listarRacas({ qtd: 10, page: 1 }).subscribe({
+      next: (racas: Raca[]) => this.racas = racas,
+      error: (err: HttpErrorResponse) => console.error(err),
+      complete: () => this.isLoading = false,
+    });
+  }
+
+  racaAdicionada(raca: Raca) {
+    this.service.cadastrarRaca(raca).subscribe({
+      next: (data: Raca) => console.log('sucesso'),
+      error: (err: HttpErrorResponse) => console.error(err),
+    });
+
+    this.isLoading = true;
+
+    this.service.listarRacas({ qtd: 10, page: 1 }).subscribe({
+      next: (racas: Raca[]) => this.racas = racas,
+      error: (err: HttpErrorResponse) => console.error(err),
+      complete: () => this.isLoading = false,
+    });
+
+    this.openModalAtualizarRaca = false;
+    this.racaSelecionadoEdicao = undefined;
+  }
+
+  editarRaca(raca: Raca) {
+    this.racaSelecionadoEdicao = raca;
+    this.openModalAtualizarRaca = true;
+  }
+
+  excluirRaca(raca: Raca) {
+    this.isLoading = true;
+
+    this.service.excluirRaca(raca).subscribe({
+      next: (res: boolean) => this.racas = this.racas.filter(a => a.id !== raca.id),
+      error: (err: HttpErrorResponse) => console.error(err),
+      complete: () => this.isLoading = false,
+    });
+  }
 }

@@ -12,7 +12,7 @@ export class CpfPipe implements PipeTransform {
     strValue = strValue.replace(/\D/g, '');
 
     if (strValue.length !== 11) return value?.toString() ?? '';
-    
+
     return strValue.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
   }
 }

@@ -1,55 +1,59 @@
 <h3>Atendimentos</h3>
 <button (click)="openModalCriarAtendimento = true">Criar Atendimento</button>
 
-<app-modal [(openModal)]="openModalCriarAtendimento">
-    <h2>Criar Atendimento</h2>
-    
-    <app-cadastro-atendimento [clientes]="clientes" [pets]="pets" [racas]="racas" (atendimentoAdicionado)="atendimentoAdicionado($event)" (buscarPetsCliente)="buscarAnimaisCliente($event)"></app-cadastro-atendimento>
-</app-modal>
-
-<app-modal [(openModal)]="openModalAtualizarAtendimento">
-    <h2>Atualizar Atendimento</h2>
-    
-    <app-cadastro-atendimento [atendimento]="atualizarAtendimento" [clientes]="clientes" [pets]="pets" [racas]="racas" (atendimentoAdicionado)="atendimentoAdicionado($event)" (buscarPetsCliente)="buscarAnimaisCliente($event)"></app-cadastro-atendimento>
-</app-modal>
-
 <br><br>
 
 @if (isLoading) {
-    <b>Carregando ...</b>
+<b>Carregando ...</b>
 }
 
 @if (atendimentos.length > 0 && !isLoading) {
-    <div class="grid-list">
-        @for (atendimento of atendimentos; track $index) {
-            <fieldset>
-                <legend>
-                    <b>#{{ atendimento.id }} - Atendimento</b>
-                </legend>
-                
-                <b>Descrição:</b> {{ atendimento.descricao }}<br>
-                <b>Valor:</b> {{ atendimento.valor | currency:'BRL' }}<br>
-                <b>Data:</b> {{ atendimento.data.toLocaleString().replace(', 00:00:00', '') }}<br>
-                <hr>
-                @for (pet of atendimento.pets; track $index) {
-                    <fieldset>
-                        <legend>Cliente: {{ pet.cliente.nome }}</legend>
-                        Nome (Pet): {{ pet.nome }}<br>
-                        Raça: {{ formatarRacas(pet.raca) }}
-                    </fieldset>
-                }
-                <br>
+<div class="grid-list">
+  @for (atendimento of atendimentos; track $index) {
+  <fieldset>
+    <legend>
+      <b>#{{ atendimento.id }} - Atendimento</b>
+    </legend>
 
-                <div class="options">
-                    <button (click)="editarAtendimento(atendimento)">Alterar</button>
-                    <button (click)="excluirAtendimento(atendimento)">Excluir</button>
-                </div>
-            </fieldset>
-        }
-    </div>
+    <b>Descrição:</b> {{ atendimento.descricao }}<br>
+    <b>Valor:</b> {{ atendimento.valor | currency:'BRL' }}<br>
+    <b>Data:</b> {{ atendimento.data.toLocaleString().replace(', 00:00:00', '') }}<br>
+    <hr>
+    @for (pet of atendimento.pets; track $index) {
+    <fieldset>
+      <legend>Cliente: {{ pet.cliente.nome }}</legend>
+      Nome (Pet): {{ pet.nome }}<br>
+      Raça: {{ formatarRacas(pet.raca) }}
+    </fieldset>
+    }
+    <br>
 
-    <div class="pagination">
-        <button>Anterior</button>
-        <button>Próximo</button>
+    <div class="options">
+      <button (click)="editarAtendimento(atendimento)">Alterar</button>
+      <button (click)="excluirAtendimento(atendimento)">Excluir</button>
     </div>
+  </fieldset>
+  }
+</div>
+
+<div class="pagination">
+  <button>Anterior</button>
+  <button>Próximo</button>
+</div>
 }
+
+<app-modal [(openModal)]="openModalCriarAtendimento">
+  <h2>Criar Atendimento</h2>
+
+  <app-cadastro-atendimento [clientes]="clientes" [pets]="pets" [racas]="racas"
+    (atendimentoAdicionado)="atendimentoAdicionado($event)"
+    (buscarPetsCliente)="buscarAnimaisCliente($event)"></app-cadastro-atendimento>
+</app-modal>
+
+<app-modal [(openModal)]="openModalAtualizarAtendimento">
+  <h2>Atualizar Atendimento</h2>
+
+  <app-cadastro-atendimento [atendimento]="atendimentoSelecionadoEdicao" [clientes]="clientes" [pets]="pets"
+    [racas]="racas" (atendimentoAdicionado)="atendimentoAdicionado($event)"
+    (buscarPetsCliente)="buscarAnimaisCliente($event)"></app-cadastro-atendimento>
+</app-modal>

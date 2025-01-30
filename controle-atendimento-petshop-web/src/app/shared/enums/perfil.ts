@@ -1,4 +1,4 @@
 export enum Perfil {
-    CLIENTE = "cliente",
-    ADMIN = "administrador"
+  CLIENTE = "cliente",
+  ADMIN = "administrador"
 }

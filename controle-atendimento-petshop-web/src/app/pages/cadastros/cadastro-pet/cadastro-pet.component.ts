@@ -53,7 +53,7 @@ export class CadastroPetComponent implements OnChanges {
       }
     }
   }
-  
+
   adicionarRacaPet(raca: Raca) {
     this.racas.push(raca);
     setTimeout(() => {
