@@ -11,6 +11,7 @@
     pkgs.maven
     pkgs.typescript
     pkgs.chromium
+    pkgs.python313
   ];
 
   # Sets environment variables in the workspace
@@ -20,7 +21,15 @@
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
-      # "vscodevim.vim"
+      "Angular.ng-template"
+      "redhat.java"
+      "vscjava.vscode-gradle"
+      "vscjava.vscode-java-debug"
+      "vscjava.vscode-java-dependency"
+      "vscjava.vscode-java-pack"
+      "vscjava.vscode-java-test"
+      "vscjava.vscode-maven"
+      "vscjava.vscode-spring-initializr"
     ];
 
     # Enable previews
@@ -52,8 +61,10 @@
     workspace = {
       # Runs when a workspace is first created
       onCreate = {
-        # Example: install JS dependencies from NPM
-        # npm-install = "npm install";
+        # Install JS dependencies for the frontend
+        "build-web" = "cd controle-atendimento-petshop-web && npm install && npm run build";
+        # Build the backend (Spring)
+        "build-service" = "cd controle-atendimento-petshop-service && ./mvnw clean package -DskipTests";
       };
       # Runs when the workspace is (re)started
       onStart = {

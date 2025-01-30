@@ -16,18 +16,14 @@ import racas from '../../data/mocks/racas.json';
   providedIn: 'root'
 })
 export class PetshopMockService {
-  seconds = 5000;
+  seconds = 0;
 
   login(data: LoginParams): Observable<Usuario> {
-    let usuario = clientes[0];
     return of({
-      ...usuario,
-      perfil: (usuario.perfil === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN,
-      dataCadastro: corrigeData(new Date(usuario.dataCadastro)),
-      contatos: usuario.contatos.map<Contato>(contato => ({
-        ...contato,
-        tipo: (contato.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE
-      }))
+      id: 0,
+      nome: `${data.nomeCpf}`,
+      perfil: 'cliente',
+      senha: ''
     }).pipe(delay(this.seconds));
   }
 
@@ -72,20 +68,7 @@ export class PetshopMockService {
   }
 
   listarClientes(filters: PageParams<Cliente>): Observable<Cliente[]> {
-    return of(
-      Array.from({ length: 1 }).map((_, index) => (
-        {
-          ...clientes[0],
-          id: (index + 1),
-          perfil: (clientes[0].perfil === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN,
-          dataCadastro: corrigeData(new Date(clientes[0].dataCadastro)),
-          contatos: clientes[0].contatos.map<Contato>(contato => ({
-            ...contato,
-            tipo: (contato.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE
-          }))
-        }
-      ))
-    ).pipe(delay(this.seconds));
+    return of([]).pipe(delay(this.seconds));
   }
 
   listarAtendimentos(filters: PageParams<Atendimento>): Observable<Atendimento[]> {
