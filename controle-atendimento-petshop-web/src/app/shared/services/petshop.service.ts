@@ -9,6 +9,6 @@ export class PetshopService {
   private http = inject(HttpClient);
 
   getData(): Observable<string> {
-    return this.http.get<string>('/teste');
+    return this.http.get('/teste', { responseType: 'text' });
   }
 }
