@@ -1,7 +1,7 @@
 import { CpfPipe } from './cpf.pipe';
 
 describe('CpfPipe', () => {
-  it('create an instance', () => {
+  it('criar uma instância', () => {
     const pipe = new CpfPipe();
     expect(pipe).toBeTruthy();
   });

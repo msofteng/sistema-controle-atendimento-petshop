@@ -9,7 +9,7 @@ describe('PetshopMockService', () => {
     service = TestBed.inject(PetshopMockService);
   });
 
-  it('should be created', () => {
+  it('deve ser criado', () => {
     expect(service).toBeTruthy();
   });
 });
