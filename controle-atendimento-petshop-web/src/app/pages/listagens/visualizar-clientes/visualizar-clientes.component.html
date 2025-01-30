@@ -30,8 +30,5 @@
 }
 
 <app-modal [(openModal)]="openModalAtualizarCliente">
-  <h2>Atualizar Cliente</h2>
-
-  <app-cadastro-cliente [cliente]="clienteSelecionadoEdicao"
-    (clienteAdicionado)="clienteAdicionado($event)"></app-cadastro-cliente>
+  <app-cadastro-cliente [cliente]="clienteSelecionadoEdicao" (clienteAdicionado)="clienteAdicionado($event)"></app-cadastro-cliente>
 </app-modal>

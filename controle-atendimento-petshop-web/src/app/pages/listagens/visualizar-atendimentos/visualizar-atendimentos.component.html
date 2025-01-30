@@ -43,17 +43,11 @@
 }
 
 <app-modal [(openModal)]="openModalCriarAtendimento">
-  <h2>Criar Atendimento</h2>
-
   <app-cadastro-atendimento [clientes]="clientes" [pets]="pets" [racas]="racas"
     (atendimentoAdicionado)="atendimentoAdicionado($event)"
     (buscarPetsCliente)="buscarAnimaisCliente($event)"></app-cadastro-atendimento>
 </app-modal>
 
 <app-modal [(openModal)]="openModalAtualizarAtendimento">
-  <h2>Atualizar Atendimento</h2>
-
-  <app-cadastro-atendimento [atendimento]="atendimentoSelecionadoEdicao" [clientes]="clientes" [pets]="pets"
-    [racas]="racas" (atendimentoAdicionado)="atendimentoAdicionado($event)"
-    (buscarPetsCliente)="buscarAnimaisCliente($event)"></app-cadastro-atendimento>
+  <app-cadastro-atendimento [atendimento]="atendimentoSelecionadoEdicao" [clientes]="clientes" [pets]="pets" [racas]="racas" (atendimentoAdicionado)="atendimentoAdicionado($event)" (buscarPetsCliente)="buscarAnimaisCliente($event)"></app-cadastro-atendimento>
 </app-modal>

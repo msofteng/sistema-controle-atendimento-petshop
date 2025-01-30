@@ -32,8 +32,5 @@
 }
 
 <app-modal [(openModal)]="openModalAtualizarPet">
-  <h2>Atualizar Pet</h2>
-
-  <app-cadastro-pet [pet]="petSelecionadoEdicao" [racas]="racas"
-    (petAdicionado)="petAdicionado($event)"></app-cadastro-pet>
+  <app-cadastro-pet [pet]="petSelecionadoEdicao" [racas]="racas" (petAdicionado)="petAdicionado($event)"></app-cadastro-pet>
 </app-modal>
