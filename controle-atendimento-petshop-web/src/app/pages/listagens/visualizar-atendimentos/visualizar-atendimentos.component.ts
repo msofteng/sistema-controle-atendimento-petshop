@@ -4,7 +4,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CadastroAtendimentoComponent } from '../../../shared/components/forms/cadastros/cadastro-atendimento/cadastro-atendimento.component';
 import { ModalComponent } from '../../../shared/components/page/modal/modal.component';
 import { Atendimento, Cliente, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
-import { PetshopService } from '../../../shared/services/petshop.service';
+import { PetshopMockService } from '../../../shared/services/petshop-mock.service';
 
 @Component({
   selector: 'app-visualizar-atendimentos',
@@ -17,7 +17,7 @@ import { PetshopService } from '../../../shared/services/petshop.service';
   styleUrl: './visualizar-atendimentos.component.css'
 })
 export class VisualizarAtendimentosComponent implements OnInit {
-  service: PetshopService = inject(PetshopService);
+  service: PetshopMockService = inject(PetshopMockService);
 
   atendimentos: Atendimento[] = [];
   clientes: Cliente[] = [];

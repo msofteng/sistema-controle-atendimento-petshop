@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
-import { PetshopService } from '../../shared/services/petshop.service';
+import { PetshopMockService } from '../../shared/services/petshop-mock.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ import { PetshopService } from '../../shared/services/petshop.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  service: PetshopService = inject(PetshopService);
+  service: PetshopMockService = inject(PetshopMockService);
   toastr: ToastrService = inject(ToastrService);
 
   loginForm: FormGroup = new FormGroup({

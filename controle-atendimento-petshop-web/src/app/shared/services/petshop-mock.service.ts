@@ -15,7 +15,7 @@ import racas from '../../data/mocks/racas.json';
 @Injectable({
   providedIn: 'root'
 })
-export class PetshopService {
+export class PetshopMockService {
   seconds = 5000;
 
   login(data: LoginParams): Observable<Usuario> {
@@ -49,18 +49,6 @@ export class PetshopService {
 
   cadastrarRaca(raca: Raca): Observable<Raca> {
     return of(raca).pipe(delay(this.seconds));
-  }
-
-  atualizarFuncionario(usuario: Usuario): Observable<Usuario> {
-    return of(usuario).pipe(delay(this.seconds));
-  }
-
-  atualizarCliente(cliente: Cliente): Observable<Cliente> {
-    return of(cliente).pipe(delay(this.seconds));
-  }
-
-  atualizarAtendimento(atendimento: Atendimento): Observable<Atendimento> {
-    return of(atendimento).pipe(delay(this.seconds));
   }
 
   excluirFuncionario(usuario: Usuario): Observable<boolean> {

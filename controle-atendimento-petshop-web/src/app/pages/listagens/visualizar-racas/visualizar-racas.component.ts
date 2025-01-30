@@ -3,7 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CadastroRacaComponent } from "../../../shared/components/forms/cadastros/cadastro-raca/cadastro-raca.component";
 import { ModalComponent } from "../../../shared/components/page/modal/modal.component";
 import { Raca } from '../../../shared/interfaces/petshop.entities';
-import { PetshopService } from '../../../shared/services/petshop.service';
+import { PetshopMockService } from '../../../shared/services/petshop-mock.service';
 
 @Component({
   selector: 'app-visualizar-racas',
@@ -15,7 +15,7 @@ import { PetshopService } from '../../../shared/services/petshop.service';
   styleUrl: './visualizar-racas.component.css'
 })
 export class VisualizarRacasComponent implements OnInit {
-  service: PetshopService = inject(PetshopService);
+  service: PetshopMockService = inject(PetshopMockService);
 
   racas: Raca[] = [];
 

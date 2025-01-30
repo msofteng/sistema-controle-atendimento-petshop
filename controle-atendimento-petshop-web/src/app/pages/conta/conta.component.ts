@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Perfil } from '../../shared/enums/perfil';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
-import { PetshopService } from '../../shared/services/petshop.service';
+import { PetshopMockService } from '../../shared/services/petshop-mock.service';
 import { base64ToFile, convertFileToBase64 } from '../../shared/utils/util';
 
 @Component({
@@ -15,7 +15,7 @@ import { base64ToFile, convertFileToBase64 } from '../../shared/utils/util';
   styleUrl: './conta.component.css'
 })
 export class ContaComponent implements OnInit {
-  service: PetshopService = inject(PetshopService);
+  service: PetshopMockService = inject(PetshopMockService);
 
   atualizacaoForm: FormGroup = new FormGroup({
     nome: new FormControl<string>('', [Validators.required]),
@@ -44,7 +44,7 @@ export class ContaComponent implements OnInit {
         if (value.foto) {
           const dataTransfer = new DataTransfer();
           dataTransfer.items.add(base64ToFile(value.foto));
-  
+
           this.fotoUsuario.nativeElement.files = dataTransfer.files;
         }
       },

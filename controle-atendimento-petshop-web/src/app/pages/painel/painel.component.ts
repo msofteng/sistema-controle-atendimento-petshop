@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { PetshopService } from '../../shared/services/petshop.service';
+import { PetshopMockService } from '../../shared/services/petshop-mock.service';
 
 @Component({
   selector: 'app-painel',
@@ -8,5 +8,5 @@ import { PetshopService } from '../../shared/services/petshop.service';
   styleUrl: './painel.component.css'
 })
 export class PainelComponent {
-  service: PetshopService = inject(PetshopService);
+  service: PetshopMockService = inject(PetshopMockService);
 }

@@ -3,7 +3,7 @@ import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Perfil } from '../../shared/enums/perfil';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
-import { PetshopService } from '../../shared/services/petshop.service';
+import { PetshopMockService } from '../../shared/services/petshop-mock.service';
 import { convertFileToBase64 } from '../../shared/utils/util';
 
 @Component({
@@ -15,7 +15,7 @@ import { convertFileToBase64 } from '../../shared/utils/util';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  service: PetshopService = inject(PetshopService);
+  service: PetshopMockService = inject(PetshopMockService);
 
   cadastroForm: FormGroup = new FormGroup({
     nome: new FormControl<string>('', [Validators.required]),
