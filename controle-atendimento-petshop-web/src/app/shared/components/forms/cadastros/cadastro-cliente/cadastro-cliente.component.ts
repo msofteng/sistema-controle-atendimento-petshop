@@ -1,9 +1,9 @@
 import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Perfil } from '../../../shared/enums/perfil';
-import { TipoContato } from '../../../shared/enums/tipo-contato';
-import { Cliente, Contato, Endereco } from '../../../shared/interfaces/petshop.entities';
-import { base64ToFile, convertFileToBase64 } from '../../../shared/utils/util';
+import { Perfil } from '../../../../enums/perfil';
+import { TipoContato } from '../../../../enums/tipo-contato';
+import { Cliente, Contato, Endereco } from '../../../../interfaces/petshop.entities';
+import { base64ToFile, convertFileToBase64 } from '../../../../utils/util';
 import { CadastroContatoComponent } from "../cadastro-contato/cadastro-contato.component";
 import { CadastroEnderecoComponent } from "../cadastro-endereco/cadastro-endereco.component";
 

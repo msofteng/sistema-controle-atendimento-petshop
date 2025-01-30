@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TipoContato } from '../../../shared/enums/tipo-contato';
-import { Contato } from '../../../shared/interfaces/petshop.entities';
+import { TipoContato } from '../../../../enums/tipo-contato';
+import { Contato } from '../../../../interfaces/petshop.entities';
 
 @Component({
   selector: 'app-cadastro-contato',

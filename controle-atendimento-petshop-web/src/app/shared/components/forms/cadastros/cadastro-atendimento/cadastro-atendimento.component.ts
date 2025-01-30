@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Atendimento, Cliente, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
+import { Atendimento, Cliente, Pet, Raca } from '../../../../interfaces/petshop.entities';
 import { CadastroClienteComponent } from "../cadastro-cliente/cadastro-cliente.component";
 import { CadastroPetComponent } from "../cadastro-pet/cadastro-pet.component";
 

@@ -15,6 +15,7 @@
     pkgs.spring-boot-cli
     pkgs.maven
     pkgs.typescript
+    pkgs.google-chrome
   ];
 
   # Sets environment variables in the workspace
@@ -29,16 +30,24 @@
     previews = {
       enable = true;
       previews = {
-        # web = {
-        #   # Example: run "npm run dev" with PORT set to IDX's defined port for previews,
-        #   # and show it in IDX's web preview panel
-        #   command = ["npm" "run" "dev"];
-        #   manager = "web";
-        #   env = {
-        #     # Environment variables to set for your server
-        #     PORT = "$PORT";
-        #   };
-        # };
+        # Preview for the frontend (Angular)
+        petshop_web = {
+          command = [ "npm" "start" ]; # Or "npm run dev" if you are using a dev server.
+          cwd = "controle-atendimento-petshop-web"; # Directory where the frontend project is located
+          manager = "web";
+          env = {
+            PORT = "4200";
+          };
+        };
+        # Preview for the backend (Spring)
+        petshop_service = {
+          command = [ "./mvnw" "spring-boot:run" ]; # Assuming you are using maven. If gradle, use "./gradlew bootRun" instead
+          cwd = "controle-atendimento-petshop-service"; # Directory where the backend project is located
+          manager = "web"; # Consider changing to another manager if not web based
+          env = {
+            PORT = "8080";
+          };
+        };
       };
     };
 

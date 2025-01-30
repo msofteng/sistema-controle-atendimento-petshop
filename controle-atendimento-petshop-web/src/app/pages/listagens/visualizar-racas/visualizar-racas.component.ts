@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
+import { CadastroRacaComponent } from "../../../shared/components/forms/cadastros/cadastro-raca/cadastro-raca.component";
 import { ModalComponent } from "../../../shared/components/modal/modal.component";
 import { Raca } from '../../../shared/interfaces/petshop.entities';
 import { PetshopService } from '../../../shared/services/petshop.service';
-import { CadastroRacaComponent } from "../../cadastros/cadastro-raca/cadastro-raca.component";
 
 @Component({
   selector: 'app-visualizar-racas',

@@ -1,10 +1,10 @@
 import { CurrencyPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
+import { CadastroAtendimentoComponent } from '../../../shared/components/forms/cadastros/cadastro-atendimento/cadastro-atendimento.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { Atendimento, Cliente, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
 import { PetshopService } from '../../../shared/services/petshop.service';
-import { CadastroAtendimentoComponent } from '../../cadastros/cadastro-atendimento/cadastro-atendimento.component';
 
 @Component({
   selector: 'app-visualizar-atendimentos',

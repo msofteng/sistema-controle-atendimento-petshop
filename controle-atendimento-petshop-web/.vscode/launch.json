@@ -13,7 +13,10 @@
       "type": "chrome",
       "request": "launch",
       "preLaunchTask": "npm: test",
-      "url": "http://localhost:9876/debug.html"
+      "url": "http://localhost:9876/debug.html",
+      "env": {
+        "CHROME_BIN":"/usr/bin/google-chrome-stable"
+      }
     }
   ]
 }

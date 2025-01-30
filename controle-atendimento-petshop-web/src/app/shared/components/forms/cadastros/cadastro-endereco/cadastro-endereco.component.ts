@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Endereco } from '../../../shared/interfaces/petshop.entities';
+import { Endereco } from '../../../../interfaces/petshop.entities';
 
 @Component({
   selector: 'app-cadastro-endereco',
