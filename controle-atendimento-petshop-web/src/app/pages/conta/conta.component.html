@@ -1,0 +1,31 @@
+<h2>Minha Conta</h2>
+
+<form [formGroup]="atualizacaoForm" (submit)="atualizaCadastro($event)">
+  Nome: <br>
+  <input type="text" formControlName="nome">
+
+  @if (atualizacaoForm.get('nome')?.touched && atualizacaoForm.get('nome')?.hasError('required')) {
+  <br>
+  <sup>O nome não pode ficar em branco</sup>
+  }
+
+  <br><br>
+  Senha: <br>
+  <input type="password" formControlName="senha">
+
+  @if (atualizacaoForm.get('senha')?.touched && atualizacaoForm.get('senha')?.hasError('required')) {
+  <br>
+  <sup>A senha não pode ficar em branco</sup>
+  }
+
+  <br><br>
+  CPF: <br>
+  <input type="text" formControlName="cpf" maxlength="14">
+
+  <br><br>
+  Foto: <br>
+  <input type="file" (change)="onImagePicked($event)" accept="image/*" #fotoUsuario>
+
+  <br><br>
+  <button type="submit" [disabled]="btnDisabled">Cadastrar</button>
+</form>

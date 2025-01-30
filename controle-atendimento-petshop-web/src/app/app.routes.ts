@@ -9,6 +9,7 @@ import { VisualizarRacasComponent } from './pages/listagens/visualizar-racas/vis
 import { LoginComponent } from './pages/login/login.component';
 import { PainelComponent } from './pages/painel/painel.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ContaComponent } from './pages/conta/conta.component';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,10 @@ export const routes: Routes = [
       {
         path: 'racas',
         component: VisualizarRacasComponent
+      },
+      {
+        path: 'conta',
+        component: ContaComponent
       }
     ]
   }
