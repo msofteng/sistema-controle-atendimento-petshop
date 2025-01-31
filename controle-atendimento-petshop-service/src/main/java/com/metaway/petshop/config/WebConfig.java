@@ -20,7 +20,9 @@ public class WebConfig implements WebMvcConfigurer {
             .allowedHeaders("*")
             .allowedOrigins(
                 "https://localhost:4200",
-                "https://4200-idx-sistema-controle-atendimento-petsho-1738002877634.cluster-m7tpz3bmgjgoqrktlvd4ykrc2m.cloudworkstations.dev"
+                "https://4200-idx-sistema-controle-atendimento-petsho-1738002877634.cluster-m7tpz3bmgjgoqrktlvd4ykrc2m.cloudworkstations.dev",
+                "https://localhost:8080",
+                "https://8080-idx-sistema-controle-atendimento-petsho-1738002877634.cluster-m7tpz3bmgjgoqrktlvd4ykrc2m.cloudworkstations.dev"
             )
             .allowCredentials(true);
     }

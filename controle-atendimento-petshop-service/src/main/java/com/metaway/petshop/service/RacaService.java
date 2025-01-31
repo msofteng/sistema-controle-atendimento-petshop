@@ -24,8 +24,8 @@ public class RacaService {
   }
 
   public List<RacaEntity> listar(FilterDTO<RacaEntity> filter) {
-    filter.setPage(filter.getPage() != null || filter.getPage() >= 1 ? filter.getPage() : 1);
-    filter.setQtd(filter.getQtd() != null || filter.getQtd() >= 0 ? filter.getQtd() : Integer.parseInt(Long.toString(repository.count() > 0 ? repository.count() : 10)));
+    filter.setPage(filter.getPage() != null && filter.getPage() >= 1 ? filter.getPage() : 1);
+    filter.setQtd(filter.getQtd() != null && filter.getQtd() >= 1 ? filter.getQtd() : Integer.parseInt(Long.toString(repository.count() > 0 ? repository.count() : 10)));
 
     // implementar os filtros no front-end e buscar aqui com filter.getFilter() em uma consulta personalizada no repositório JPA
 
