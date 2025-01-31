@@ -63,7 +63,7 @@
       # Runs when a workspace is first created
       onCreate = {
         # Install JS dependencies for the frontend
-        "build-web" = "cd controle-atendimento-petshop-web && npm install && npm run build && ng test --no-watch --watch=false --code-coverage --browsers ChromeHeadless";
+        "build-web" = "cd controle-atendimento-petshop-web && npm install && npm run build";
         # Build the backend (Spring)
         "build-service" = "cd controle-atendimento-petshop-service && ./mvnw clean package";
         # Update global packages
@@ -72,7 +72,7 @@
       # Runs when the workspace is (re)started
       onStart = {
         # Example: start a background task to watch and re-build backend code
-        watch-unit-tests-angular = "cd /home/user/sistema-controle-atendimento-petshop/controle-atendimento-petshop-web/coverage && python3 -m http.server 3000 --bind 0.0.0.0";
+        watch-unit-tests-angular = "cd /home/user/sistema-controle-atendimento-petshop/controle-atendimento-petshop-web && python3 -m http.server 3000 --bind 0.0.0.0";
         watch-unit-test-spring = "cd /home/user/sistema-controle-atendimento-petshop/controle-atendimento-petshop-service/target/site/jacoco && python3 -m http.server 5000 --bind 0.0.0.0";
       };
     };
