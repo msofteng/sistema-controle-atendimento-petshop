@@ -12,6 +12,4 @@ import { PetshopService } from '../../shared/services/petshop.service';
 })
 export class InicioComponent {
   openModal = false;
-
-  service: PetshopService = inject(PetshopService);
 }

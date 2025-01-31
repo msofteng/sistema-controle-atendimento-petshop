@@ -5,5 +5,7 @@
   "IDX.aI.enableCodebaseIndexing": true,
   "editor.tabSize": 2,
   "workbench.tree.indent": 20,
-  "editor.inlayHints.enabled": "off"
+  "editor.inlayHints.enabled": "off",
+  "files.refactoring.autoSave": false,
+  "files.autoSave": "off"
 }

@@ -1,5 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { PetshopService } from '../../shared/services/petshop.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-painel',
@@ -7,6 +6,4 @@ import { PetshopService } from '../../shared/services/petshop.service';
   templateUrl: './painel.component.html',
   styleUrl: './painel.component.css'
 })
-export class PainelComponent {
-  service: PetshopService = inject(PetshopService);
-}
+export class PainelComponent {}
