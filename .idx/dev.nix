@@ -67,7 +67,7 @@
         # Build the backend (Spring)
         "build-service" = "cd controle-atendimento-petshop-service && ./mvnw clean package";
         # Update global packages
-        "update-packages" = "npm -g install @angular/cli@latest";
+        "update-packages" = "npm install -g npm@latest && npm -g install @angular/cli@latest";
       };
       # Runs when the workspace is (re)started
       onStart = {
