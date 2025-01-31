@@ -44,9 +44,24 @@ export class VisualizarPetsComponent implements OnInit {
     this.service.listarClientes({ qtd: 10, page: 1 }).subscribe({
       next: (clientes: Cliente[]) => {
         if (pet.id && pet.id > 0) {
-          pet.cliente = clientes.find(p => p.id === pet.id) as Cliente
+          pet.cliente = clientes.find(p => p.id === pet.id) as Cliente;
           pet.cliente.dataCadastro = (pet.cliente.dataCadastro as Date).toISOString().split('T')[0];
           pet.cliente.pets = [];
+
+          let cli = pet.cliente;
+          cli.contatos = [];
+          cli.enderecos = [];
+          cli.pets = [];
+
+          pet.cliente.contatos = pet.cliente.contatos.map(c => {
+            c.cliente = cli;
+            return c;
+          });
+
+          pet.cliente.enderecos = pet.cliente.enderecos.map(e => {
+            e.cliente = cli;
+            return e;
+          });
         }
 
         this.service.cadastrarPet(pet).subscribe({
