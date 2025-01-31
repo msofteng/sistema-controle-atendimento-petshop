@@ -1,12 +1,12 @@
 [
   {
-    "id": 1,
+    "id": 0,
     "descricao": "Banho e remoção de carrapatos",
     "valor": 500.00,
     "data": "2025-01-27",
     "pets": [
       {
-        "id": 1,
+        "id": 0,
         "nome": "Caramelo",
         "dataNascimento": "2020-06-13",
         "foto": "data:image/png;base64,...",
@@ -19,7 +19,7 @@
           "foto": "data:image/png;base64,...",
           "contatos": [
             {
-              "id": 1,
+              "id": 0,
               "tipo": "e-mail",
               "valor": "rosanacosta@gmail.com",
               "tag": "#gmail"
@@ -27,7 +27,7 @@
           ],
           "enderecos": [
             {
-              "id": 1,
+              "id": 0,
               "logradouro": "Avenida Rio de Janeiro, Nº227",
               "cidade": "Curitiba - PR",
               "bairro": "Jardim Botânico",

@@ -19,7 +19,7 @@ public class RacaEntity {
   private Long id;
   private String descricao;
 
-  @ManyToMany(mappedBy = "racas")
-  @JsonIgnoreProperties("racas")
+  @ManyToMany(mappedBy = "raca")
+  @JsonIgnoreProperties(value = "raca", allowSetters = true)
   private Set<PetEntity> pets;
 }

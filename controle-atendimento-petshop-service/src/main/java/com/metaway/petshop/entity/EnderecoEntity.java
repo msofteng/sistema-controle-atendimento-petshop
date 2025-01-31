@@ -26,6 +26,6 @@ public class EnderecoEntity {
   private String complemento;
 
   @ManyToOne
-  @JsonIgnoreProperties("enderecos")
+  @JsonIgnoreProperties(value = "enderecos", allowSetters = true)
   private ClienteEntity cliente;
 }

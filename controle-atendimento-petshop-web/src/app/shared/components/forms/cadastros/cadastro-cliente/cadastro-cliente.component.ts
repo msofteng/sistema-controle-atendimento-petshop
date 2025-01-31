@@ -22,7 +22,7 @@ export class CadastroClienteComponent {
     id: new FormControl<number>(0, []),
     nome: new FormControl<string>('', [Validators.required]),
     perfil: new FormControl<Perfil>(Perfil.CLIENTE, []),
-    senha: new FormControl<string>({ value: '', disabled: true }, [Validators.required]),
+    senha: new FormControl<string>('', [Validators.required]),
     cpf: new FormControl<string>('', [Validators.required]),
     foto: new FormControl<string>('', []),
     dataCadastro: new FormControl<Date>(new Date(), []),

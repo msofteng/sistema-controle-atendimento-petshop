@@ -20,6 +20,6 @@ public class ContatoEntity {
   private String valor;
 
   @ManyToOne
-  @JsonIgnoreProperties("contatos")
+  @JsonIgnoreProperties(value = "contatos", allowSetters = true)
   private ClienteEntity cliente;
 }

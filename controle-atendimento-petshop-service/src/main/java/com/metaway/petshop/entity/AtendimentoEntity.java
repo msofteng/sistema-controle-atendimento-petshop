@@ -1,6 +1,7 @@
 package com.metaway.petshop.entity;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
+import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import java.time.LocalDate;
@@ -20,14 +21,16 @@ public class AtendimentoEntity {
   private Long id;
   private String descricao;
   private Double valor;
+
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate data;
 
-  @ManyToMany
+  @ManyToMany(cascade = ALL)
   @JoinTable(
     name = "atendimentos_pet",
     joinColumns = @JoinColumn(name = "atendimento_id"),
     inverseJoinColumns = @JoinColumn(name = "pet_id")
   )
-  @JsonIgnoreProperties("pets")
-  private Set<PetEntity> pets;  
+  @JsonIgnoreProperties(value = "atendimentos", allowSetters = true)
+  private Set<PetEntity> pets;
 }
