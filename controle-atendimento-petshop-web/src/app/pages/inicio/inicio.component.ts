@@ -15,7 +15,9 @@ export class InicioComponent implements OnInit {
 
   service: PetshopService = inject(PetshopService);
 
-  ngOnInit(): void {
-    console.log('complete');
+  ngOnInit() {
+    this.service.getData().subscribe(data => {
+      console.log(data);
+    });
   }
 }

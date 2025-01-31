@@ -14,6 +14,10 @@ import { Atendimento, Cliente, Contato, Pet, Raca, Usuario } from '../interfaces
 export class PetshopService {
   private http = inject(HttpClient);
 
+  getData(): Observable<string> {
+    return this.http.get('/teste', { responseType: 'text' });
+  }
+
   login(data: LoginParams): Observable<Usuario> {
     // implementar o login com JWT aqui
     return this.http.post<Usuario>('/NOT_IMPLEMENTED', data);
