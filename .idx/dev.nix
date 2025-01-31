@@ -63,11 +63,11 @@
       # Runs when a workspace is first created
       onCreate = {
         # Install JS dependencies for the frontend
-        "build-web" = "cd controle-atendimento-petshop-web && npm install && npm run build && ng test --no-watch --watch=false --code-coverage --browsers ChromeHeadless && exit";
+        "build-web" = "cd controle-atendimento-petshop-web && npm install && npm run build && ng test --no-watch --watch=false --code-coverage --browsers ChromeHeadless --no-analytics";
         # Build the backend (Spring)
-        "build-service" = "cd controle-atendimento-petshop-service && ./mvnw clean package && exit";
+        "build-service" = "cd controle-atendimento-petshop-service && ./mvnw clean package";
         # Update global packages
-        "update-packages" = "npm install -g npm@latest && npm -g install @angular/cli@latest && exit";
+        "update-packages" = "npm install -g npm@latest && npm -g install @angular/cli@latest";
       };
       # Runs when the workspace is (re)started
       onStart = {
