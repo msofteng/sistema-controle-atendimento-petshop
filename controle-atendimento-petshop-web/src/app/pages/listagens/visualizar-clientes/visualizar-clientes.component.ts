@@ -4,7 +4,7 @@ import { CadastroClienteComponent } from "../../../shared/components/forms/cadas
 import { ModalComponent } from "../../../shared/components/page/modal/modal.component";
 import { Cliente } from '../../../shared/interfaces/petshop.entities';
 import { CpfPipe } from '../../../shared/pipes/cpf.pipe';
-import { PetshopMockService } from '../../../shared/services/petshop-mock.service';
+import { PetshopService } from '../../../shared/services/petshop.service';
 
 @Component({
   selector: 'app-visualizar-clientes',
@@ -17,7 +17,7 @@ import { PetshopMockService } from '../../../shared/services/petshop-mock.servic
   styleUrl: './visualizar-clientes.component.css'
 })
 export class VisualizarClientesComponent implements OnInit {
-  service: PetshopMockService = inject(PetshopMockService);
+  service: PetshopService = inject(PetshopService);
 
   clientes: Cliente[] = [];
 
