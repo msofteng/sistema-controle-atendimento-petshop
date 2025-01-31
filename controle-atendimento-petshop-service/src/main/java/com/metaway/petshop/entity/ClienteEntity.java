@@ -18,11 +18,11 @@ public class ClienteEntity extends UsuarioEntity {
   @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate dataCadastro;
 
-  @OneToMany(cascade = ALL)
+  @OneToMany(mappedBy = "cliente", cascade = ALL)
   @JsonIgnoreProperties(value = "cliente", allowSetters = true)
   private List<ContatoEntity> contatos;
 
-  @OneToMany(cascade = ALL)
+  @OneToMany(mappedBy = "cliente", cascade = ALL)
   @JsonIgnoreProperties(value = "cliente", allowSetters = true)
   private List<EnderecoEntity> enderecos;
 
