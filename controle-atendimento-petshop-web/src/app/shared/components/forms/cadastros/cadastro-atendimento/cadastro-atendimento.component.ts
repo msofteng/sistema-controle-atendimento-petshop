@@ -61,7 +61,7 @@ export class CadastroAtendimentoComponent implements OnChanges {
             this.selectPets.nativeElement.options.item(index)!.selected = true;
           }
         }
-      }, 5000);
+      }, 1000);
     }
   }
 

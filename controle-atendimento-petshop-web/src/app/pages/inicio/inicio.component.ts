@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ModalComponent } from '../../shared/components/page/modal/modal.component';
 import { PetshopService } from '../../shared/services/petshop.service';
 
@@ -10,14 +10,8 @@ import { PetshopService } from '../../shared/services/petshop.service';
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
 })
-export class InicioComponent implements OnInit {
+export class InicioComponent {
   openModal = false;
 
   service: PetshopService = inject(PetshopService);
-
-  ngOnInit() {
-    this.service.getData().subscribe(data => {
-      console.log(data);
-    });
-  }
 }

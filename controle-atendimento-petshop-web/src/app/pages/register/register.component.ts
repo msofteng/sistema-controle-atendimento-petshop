@@ -35,7 +35,7 @@ export class RegisterComponent {
       this.cadastroForm.get('perfil')?.setValue((this.cadastroForm.get('perfil')?.value === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN);
 
       if (!isNaN(this.cadastroForm.get('cpf')?.value) && this.cadastroForm.get('cpf')?.value.length === 11) {
-        this.cadastroForm.get('cpf')?.setValue(Number(this.cadastroForm.value.nomeCpf));
+        this.cadastroForm.get('cpf')?.setValue(Number(this.cadastroForm.value.cpf));
       }
 
       if (!this.cadastroForm.value.foto) delete this.cadastroForm.value.foto;
@@ -49,7 +49,10 @@ export class RegisterComponent {
           this.cadastroForm.get('perfil')?.setValue(Perfil.ADMIN);
           this.fotoUsuario.nativeElement.value = '';
         },
-        error: (err: HttpErrorResponse) => console.error(err),
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          this.btnDisabled = false;
+        },
         complete: () => this.btnDisabled = false,
       });
     } else {

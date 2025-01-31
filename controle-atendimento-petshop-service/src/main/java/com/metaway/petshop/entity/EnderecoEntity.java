@@ -3,8 +3,6 @@ package com.metaway.petshop.entity;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-import jakarta.annotation.Nullable;
-
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,10 +19,10 @@ public class EnderecoEntity {
   private String cidade;
   private String bairro;
   
-  @Nullable
+  @Column(nullable = true)
   private String tag;
 
-  @Nullable
+  @Column(nullable = true)
   private String complemento;
 
   @ManyToOne

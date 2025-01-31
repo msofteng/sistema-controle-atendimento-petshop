@@ -7,7 +7,6 @@ import static jakarta.persistence.InheritanceType.SINGLE_TABLE;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,9 +23,9 @@ public abstract class UsuarioEntity {
   private String nome;
   private String senha;
 
-  @Nullable
-  private Number cpf;
+  @Column(nullable = true)
+  private Long cpf;
 
-  @Nullable
+  @Column(columnDefinition = "TEXT", nullable = true)
   private String foto;
 }
