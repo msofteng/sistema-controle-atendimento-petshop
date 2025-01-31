@@ -38,20 +38,20 @@ export class VisualizarClientesComponent implements OnInit {
 
   clienteAdicionado(cliente: Cliente) {
     this.service.cadastrarCliente(cliente).subscribe({
-      next: (data: Cliente) => console.log('sucesso'),
+      next: (data: Cliente) => {
+        this.isLoading = true;
+
+        this.service.listarClientes({ qtd: 10, page: 1 }).subscribe({
+          next: (clientes: Cliente[]) => this.clientes = clientes,
+          error: (err: HttpErrorResponse) => console.error(err),
+          complete: () => this.isLoading = false,
+        });
+
+        this.openModalAtualizarCliente = false;
+        this.clienteSelecionadoEdicao = undefined;
+      },
       error: (err: HttpErrorResponse) => console.error(err),
     });
-
-    this.isLoading = true;
-
-    this.service.listarClientes({ qtd: 10, page: 1 }).subscribe({
-      next: (clientes: Cliente[]) => this.clientes = clientes,
-      error: (err: HttpErrorResponse) => console.error(err),
-      complete: () => this.isLoading = false,
-    });
-
-    this.openModalAtualizarCliente = false;
-    this.clienteSelecionadoEdicao = undefined;
   }
 
   editarCliente(cliente: Cliente) {

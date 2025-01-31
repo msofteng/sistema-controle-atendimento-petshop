@@ -37,20 +37,20 @@ export class VisualizarRacasComponent implements OnInit {
 
   racaAdicionada(raca: Raca) {
     this.service.cadastrarRaca(raca).subscribe({
-      next: (data: Raca) => console.log('sucesso'),
+      next: (data: Raca) => {
+        this.isLoading = true;
+
+        this.service.listarRacas({ qtd: 10, page: 1 }).subscribe({
+          next: (racas: Raca[]) => this.racas = racas,
+          error: (err: HttpErrorResponse) => console.error(err),
+          complete: () => this.isLoading = false,
+        });
+
+        this.openModalAtualizarRaca = false;
+        this.racaSelecionadoEdicao = undefined;
+      },
       error: (err: HttpErrorResponse) => console.error(err),
     });
-
-    this.isLoading = true;
-
-    this.service.listarRacas({ qtd: 10, page: 1 }).subscribe({
-      next: (racas: Raca[]) => this.racas = racas,
-      error: (err: HttpErrorResponse) => console.error(err),
-      complete: () => this.isLoading = false,
-    });
-
-    this.openModalAtualizarRaca = false;
-    this.racaSelecionadoEdicao = undefined;
   }
 
   editarRaca(raca: Raca) {

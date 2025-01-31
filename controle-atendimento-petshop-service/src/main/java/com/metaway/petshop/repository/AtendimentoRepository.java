@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.metaway.petshop.entity.AtendimentoEntity;
 
 @Repository
-public interface AtendimentoRepository extends JpaRepository<AtendimentoEntity, Long> {}
+public interface AtendimentoRepository extends JpaRepository<AtendimentoEntity, Long> {
+  boolean existsByIdAndPets_Id(Long atendimentoId, Long petId);
+}

@@ -3,6 +3,7 @@ package com.metaway.petshop.entity;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.FetchType.LAZY;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -27,7 +28,7 @@ public class PetEntity {
   @Column(columnDefinition = "TEXT", nullable = true)
   private String foto;
 
-  @ManyToOne(cascade = ALL)
+  @ManyToOne(cascade = ALL, fetch = LAZY)
   @JsonIgnoreProperties(value = "pets", allowSetters = true)
   private ClienteEntity cliente;
 
@@ -39,8 +40,4 @@ public class PetEntity {
   )
   @JsonIgnoreProperties(value = "pets", allowSetters = true)
   private Set<RacaEntity> raca;
-
-  @ManyToMany(mappedBy = "pets")
-  @JsonIgnoreProperties(value = "pets", allowSetters = true)
-  private Set<AtendimentoEntity> atendimentos;
 }

@@ -42,20 +42,25 @@ export class VisualizarPetsComponent implements OnInit {
 
   petAdicionado(pet: Pet) {
     this.service.cadastrarPet(pet).subscribe({
-      next: (data: Pet) => console.log('sucesso'),
+      next: (data: Pet) => {
+        this.isLoading = true;
+
+        this.service.listarPets({ qtd: 10, page: 1 }).subscribe({
+          next: (pets: Pet[]) => this.pets = pets,
+          error: (err: HttpErrorResponse) => console.error(err),
+          complete: () => this.isLoading = false,
+        });
+
+        this.service.listarRacas({ qtd: 10, page: 1 }).subscribe({
+          next: (racas: Raca[]) => this.racas = racas,
+          error: (err: HttpErrorResponse) => console.error(err),
+        });
+
+        this.openModalAtualizarPet = false;
+        this.petSelecionadoEdicao = undefined;
+      },
       error: (err: HttpErrorResponse) => console.error(err),
-    });
-
-    this.isLoading = true;
-
-    this.service.listarPets({ qtd: 10, page: 1 }).subscribe({
-      next: (pets: Pet[]) => this.pets = pets,
-      error: (err: HttpErrorResponse) => console.error(err),
-      complete: () => this.isLoading = false,
-    });
-
-    this.openModalAtualizarPet = false;
-    this.petSelecionadoEdicao = undefined;
+    }); 
   }
 
   editarPet(pet: Pet) {

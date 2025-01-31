@@ -1,21 +1,38 @@
 package com.metaway.petshop.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.metaway.petshop.dto.FilterDTO;
-import com.metaway.petshop.entity.ClienteEntity;
-import com.metaway.petshop.repository.ClienteRepository;
+import com.metaway.petshop.entity.*;
+import com.metaway.petshop.repository.*;
 
 @Service
 public class ClienteService {
   @Autowired
   private ClienteRepository repository;
 
+  @Autowired
+  private ContatoRepository contatoRepository;
+
+  @Autowired
+  private EnderecoRepository enderecoRepository;
+
   public ClienteEntity cadastrar(ClienteEntity cliente) {
+    cliente.setContatos(contatoRepository.saveAll(cliente.getContatos().stream().map(contato -> {
+      contato.setCliente(cliente);
+      return contato;
+    }).collect(Collectors.toList())));
+
+    cliente.setEnderecos(enderecoRepository.saveAll(cliente.getEnderecos().stream().map(endereco -> {
+      endereco.setCliente(cliente);
+      return endereco;
+    }).collect(Collectors.toList())));
+    
     return repository.save(cliente);
   }
 

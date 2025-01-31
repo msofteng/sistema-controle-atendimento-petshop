@@ -19,7 +19,7 @@ export class CadastroAtendimentoComponent implements OnChanges {
     id: new FormControl<number>(0, []),
     descricao: new FormControl<string>('', [Validators.required]),
     valor: new FormControl<string>('', [Validators.required]),
-    data: new FormControl<Date>(new Date(), []),
+    data: new FormControl<Date | string>(new Date(), []),
     cliente: new FormControl<string>('', [Validators.required]),
   });
 
@@ -61,7 +61,7 @@ export class CadastroAtendimentoComponent implements OnChanges {
             this.selectPets.nativeElement.options.item(index)!.selected = true;
           }
         }
-      }, 1000);
+      }, 3000);
     }
   }
 
@@ -69,13 +69,13 @@ export class CadastroAtendimentoComponent implements OnChanges {
     if (this.atendimentoForm.valid) {
       if (!this.atendimentoForm.value.id) delete this.atendimentoForm.value.id;
 
-      this.atendimentoForm.get('data')?.setValue(this.atendimentoForm.get('data')?.value.toISOString().split('T')[0]);
-
       let cliente = this.clientes.find(cli => cli.nome === this.atendimentoForm.get('cliente')?.value) as Cliente;
+      cliente.pets = [];
 
       this.atendimentoForm.value.pets = this.getPetsSelecionados().map<Pet>((petName) => {
         let pet = this.pets.find(pet => pet.nome === petName) as Pet;
         pet.cliente = cliente;
+        pet.dataNascimento = new Date(pet.dataNascimento).toISOString().split('T')[0];
         return pet;
       });
 

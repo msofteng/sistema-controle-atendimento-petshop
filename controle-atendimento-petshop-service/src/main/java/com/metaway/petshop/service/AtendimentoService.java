@@ -1,6 +1,7 @@
 package com.metaway.petshop.service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,13 @@ public class AtendimentoService {
       endereco.setCliente(cliente);
       return endereco;
     }).collect(Collectors.toList())));
+
+    // Evita pets duplicados no relacionamento
+    Set<PetEntity> petsValidos = atendimento.getPets().stream()
+        .filter(pet -> !repository.existsByIdAndPets_Id(atendimento.getId(), pet.getId()))
+        .collect(Collectors.toSet());
+
+    if (petsValidos.size() > 0) atendimento.setPets(petsValidos);
 
     return repository.save(atendimento);
   }

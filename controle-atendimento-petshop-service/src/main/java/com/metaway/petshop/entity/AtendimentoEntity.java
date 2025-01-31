@@ -3,6 +3,7 @@ package com.metaway.petshop.entity;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.FetchType.LAZY;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -25,7 +26,7 @@ public class AtendimentoEntity {
   @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate data;
 
-  @ManyToMany(cascade = ALL)
+  @ManyToMany(cascade = ALL, fetch = LAZY)
   @JoinTable(
     name = "atendimentos_pet",
     joinColumns = @JoinColumn(name = "atendimento_id"),

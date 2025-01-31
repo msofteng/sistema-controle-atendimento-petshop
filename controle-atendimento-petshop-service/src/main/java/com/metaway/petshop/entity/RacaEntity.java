@@ -9,7 +9,8 @@ import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @JsonInclude(NON_EMPTY)
@@ -21,5 +22,6 @@ public class RacaEntity {
 
   @ManyToMany(mappedBy = "raca")
   @JsonIgnoreProperties(value = "raca", allowSetters = true)
+  @JsonIgnore
   private Set<PetEntity> pets;
 }

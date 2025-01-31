@@ -54,22 +54,22 @@ export class VisualizarAtendimentosComponent implements OnInit {
 
   atendimentoAdicionado(atendimento: Atendimento) {
     this.service.cadastrarAtendimento(atendimento).subscribe({
-      next: (data: Atendimento) => console.log('sucesso'),
+      next: (data: Atendimento) => {
+        this.isLoading = true;
+
+        this.service.listarAtendimentos({ qtd: 10, page: 1 }).subscribe({
+          next: (atendimentos: Atendimento[]) => this.atendimentos = atendimentos,
+          error: (err: HttpErrorResponse) => console.error(err),
+          complete: () => this.isLoading = false,
+        });
+
+        this.openModalCriarAtendimento = false;
+        this.openModalAtualizarAtendimento = false;
+        this.pets = [];
+        this.atendimentoSelecionadoEdicao = undefined;
+      },
       error: (err: HttpErrorResponse) => console.error(err),
     });
-
-    this.isLoading = true;
-
-    this.service.listarAtendimentos({ qtd: 10, page: 1 }).subscribe({
-      next: (atendimentos: Atendimento[]) => this.atendimentos = atendimentos,
-      error: (err: HttpErrorResponse) => console.error(err),
-      complete: () => this.isLoading = false,
-    });
-
-    this.openModalCriarAtendimento = false;
-    this.openModalAtualizarAtendimento = false;
-    this.pets = [];
-    this.atendimentoSelecionadoEdicao = undefined;
   }
 
   editarAtendimento(atendimento: Atendimento) {
@@ -92,6 +92,9 @@ export class VisualizarAtendimentosComponent implements OnInit {
   }
 
   buscarAnimaisCliente(cliente?: Cliente) {
+    if (cliente && cliente.dataCadastro) cliente.dataCadastro = (cliente.dataCadastro as Date).toISOString().split('T')[0];
+
+    this.isLoading = true;
     this.pets = [];
     if (cliente) {
       this.service.listarPets({ qtd: 10, page: 1, filter: { cliente: cliente } }).subscribe({
