@@ -41,6 +41,8 @@ export class VisualizarPetsComponent implements OnInit {
   }
 
   petAdicionado(pet: Pet) {
+    if (pet.id && pet.id > 0) pet.cliente = this.pets.find(p => p.id === pet.id)!.cliente;
+
     this.service.cadastrarPet(pet).subscribe({
       next: (data: Pet) => {
         this.isLoading = true;
