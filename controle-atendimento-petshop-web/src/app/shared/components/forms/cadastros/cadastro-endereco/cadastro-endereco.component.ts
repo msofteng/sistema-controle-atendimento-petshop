@@ -27,16 +27,18 @@ export class CadastroEnderecoComponent {
   enderecoAdicionado: EventEmitter<Endereco> = new EventEmitter<Endereco>();
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['endereco'].previousValue !== changes['endereco'].currentValue && this.endereco) {
+    if (changes['endereco'].previousValue !== changes['endereco'].currentValue && this.endereco)
       this.enderecoForm.patchValue(this.endereco);
-    }
   }
 
   adicionarEndereco(event: SubmitEvent) {
     if (this.enderecoForm.valid) {
-      if (!this.enderecoForm.value.id) delete this.enderecoForm.value.id;
-      if (!this.enderecoForm.value.complemento) delete this.enderecoForm.value.complemento;
-      if (!this.enderecoForm.value.tag) delete this.enderecoForm.value.tag;
+      if (!this.enderecoForm.value.id)
+        delete this.enderecoForm.value.id;
+      if (!this.enderecoForm.value.complemento)
+        delete this.enderecoForm.value.complemento;
+      if (!this.enderecoForm.value.tag)
+        delete this.enderecoForm.value.tag;
 
       this.enderecoAdicionado.emit(this.enderecoForm.value);
 

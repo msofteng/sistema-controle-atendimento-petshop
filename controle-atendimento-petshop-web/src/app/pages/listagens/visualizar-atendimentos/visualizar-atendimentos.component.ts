@@ -56,7 +56,8 @@ export class VisualizarAtendimentosComponent implements OnInit {
   }
 
   atendimentoAdicionado(atendimento: Atendimento) {
-    if (atendimento.data instanceof Date) atendimento.data = corrigeData(atendimento.data).toISOString().split('T')[0];
+    if (atendimento.data instanceof Date)
+      atendimento.data = corrigeData(atendimento.data).toISOString().split('T')[0];
     
     this.service.cadastrarAtendimento(atendimento).subscribe({
       next: (data: Atendimento) => {
@@ -86,6 +87,15 @@ export class VisualizarAtendimentosComponent implements OnInit {
   excluirAtendimento(atendimento: Atendimento) {
     this.isLoading = true;
 
+    atendimento.pets = atendimento.pets.map((pet) => ({ 
+      ...pet,
+      dataNascimento: (pet.dataNascimento as Date).toISOString().split('T')[0],
+      cliente: {
+        ...pet.cliente,
+        dataCadastro: (pet.cliente.dataCadastro as Date).toISOString().split('T')[0]
+      }
+    }));
+
     this.service.excluirAtendimento(atendimento).subscribe({
       next: (res: boolean) => this.atendimentos = this.atendimentos.filter(a => a.id !== atendimento.id),
       error: (err: HttpErrorResponse) => console.error(err),
@@ -93,12 +103,13 @@ export class VisualizarAtendimentosComponent implements OnInit {
     });
   }
 
-  formatarRacas(racas: Raca[]) {
-    return racas.map(r => r.descricao).join(', ');
+  formatarRacas(racas?: Raca[]) {
+    return racas ? racas.map(r => r.descricao).join(', ') : '-';
   }
 
   buscarAnimaisCliente(cliente?: Cliente) {
-    if (cliente && cliente.dataCadastro && cliente.dataCadastro instanceof Date) cliente.dataCadastro = (cliente.dataCadastro as Date).toISOString().split('T')[0];
+    if (cliente && cliente.dataCadastro && cliente.dataCadastro instanceof Date)
+      cliente.dataCadastro = (cliente.dataCadastro as Date).toISOString().split('T')[0];
 
     this.isLoading = true;
     this.pets = [];

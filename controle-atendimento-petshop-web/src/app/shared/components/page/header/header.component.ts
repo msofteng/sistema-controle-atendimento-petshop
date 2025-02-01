@@ -20,8 +20,8 @@ export class HeaderComponent {
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent) {
     const menuContainer = document.querySelector('.menu-container');
-    if (menuContainer && !menuContainer.contains(event.target as Node)) {
+    
+    if (menuContainer && !menuContainer.contains(event.target as Node))
       this.showMenu = false;
-    }
   }
 }

@@ -43,17 +43,11 @@ export class CadastroClienteComponent {
     if (changes['cliente'].previousValue !== changes['cliente'].currentValue && this.cliente) {
       this.clienteForm.patchValue(this.cliente);
 
-      if (this.cliente.contatos && this.cliente.contatos.length > 0) {
-        this.cliente.contatos.forEach(contato => {
-          this.adicionarContato(contato);
-        });
-      }
+      if (this.cliente.contatos && this.cliente.contatos.length > 0)
+        this.cliente.contatos.forEach(contato => this.adicionarContato(contato));
 
-      if (this.cliente.enderecos && this.cliente.contatos.length > 0) {
-        this.cliente.enderecos.forEach(endereco => {
-          this.adicionarEndereco(endereco);
-        });
-      }
+      if (this.cliente.enderecos && this.cliente.contatos.length > 0)
+        this.cliente.enderecos.forEach(endereco => this.adicionarEndereco(endereco));
 
       if (this.cliente.foto) {
         const dataTransfer = new DataTransfer();
@@ -102,25 +96,32 @@ export class CadastroClienteComponent {
 
   adicionarCliente(event: SubmitEvent) {
     if (this.clienteForm.valid) {
-      if (!isNaN(this.clienteForm.get('cpf')?.value) && this.clienteForm.get('cpf')?.value.length === 11) {
+      if (!isNaN(this.clienteForm.get('cpf')?.value) && this.clienteForm.get('cpf')?.value.length === 11)
         this.clienteForm.get('cpf')?.setValue(Number(this.clienteForm.value.cpf));
-      }
 
       this.clienteForm.get('dataCadastro')?.setValue(this.clienteForm.get('dataCadastro')?.value.toISOString().split('T')[0]);
 
-      if (!this.clienteForm.value.id) delete this.clienteForm.value.id;
-      if (!this.clienteForm.value.foto) delete this.clienteForm.value.foto;
-      if (!this.clienteForm.value.cpf) delete this.clienteForm.value.cpf;
+      if (!this.clienteForm.value.id)
+        delete this.clienteForm.value.id;
+      if (!this.clienteForm.value.foto)
+        delete this.clienteForm.value.foto;
+      if (!this.clienteForm.value.cpf)
+        delete this.clienteForm.value.cpf;
 
       for (let i = 0; i < this.clienteForm.value.contatos.length; i++) {
-        if (!this.clienteForm.value.contatos[i].id) delete this.clienteForm.value.contatos[i].id;
-        if (!this.clienteForm.value.contatos[i].tag) delete this.clienteForm.value.contatos[i].tag;
+        if (!this.clienteForm.value.contatos[i].id)
+          delete this.clienteForm.value.contatos[i].id;
+        if (!this.clienteForm.value.contatos[i].tag)
+          delete this.clienteForm.value.contatos[i].tag;
       }
 
       for (let i = 0; i < this.clienteForm.value.enderecos.length; i++) {
-        if (!this.clienteForm.value.enderecos[i].id) delete this.clienteForm.value.enderecos[i].id;
-        if (!this.clienteForm.value.enderecos[i].complemento) delete this.clienteForm.value.enderecos[i].complemento;
-        if (!this.clienteForm.value.enderecos[i].tag) delete this.clienteForm.value.enderecos[i].tag;
+        if (!this.clienteForm.value.enderecos[i].id)
+          delete this.clienteForm.value.enderecos[i].id;
+        if (!this.clienteForm.value.enderecos[i].complemento)
+          delete this.clienteForm.value.enderecos[i].complemento;
+        if (!this.clienteForm.value.enderecos[i].tag)
+          delete this.clienteForm.value.enderecos[i].tag;
       }
 
       this.clienteAdicionado.emit(this.clienteForm.value);
@@ -153,17 +154,15 @@ export class CadastroClienteComponent {
     event.preventDefault();
     event.stopPropagation();
 
-    if (index !== -1) {
+    if (index !== -1)
       this.contatos.removeAt(index);
-    }
   }
 
   removerEndereco(event: MouseEvent, index: number) {
     event.preventDefault();
     event.stopPropagation();
 
-    if (index !== -1) {
+    if (index !== -1)
       this.enderecos.removeAt(index);
-    }
   }
 }

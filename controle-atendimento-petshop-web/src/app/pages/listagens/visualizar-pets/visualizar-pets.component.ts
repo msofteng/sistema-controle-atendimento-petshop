@@ -98,6 +98,9 @@ export class VisualizarPetsComponent implements OnInit {
   excluirPet(pet: Pet) {
     this.isLoading = true;
 
+    if (pet.dataNascimento instanceof Date)
+      pet.dataNascimento = (pet.dataNascimento as Date).toISOString().split('T')[0];
+
     this.service.excluirPet(pet).subscribe({
       next: (res: boolean) => this.pets = this.pets.filter(a => a.id !== pet.id),
       error: (err: HttpErrorResponse) => console.error(err),
@@ -105,7 +108,7 @@ export class VisualizarPetsComponent implements OnInit {
     });
   }
 
-  formatarRacas(racas: Raca[]) {
-    return racas.map(r => r.descricao).join(', ');
+  formatarRacas(racas?: Raca[]) {
+    return racas ? racas.map(r => r.descricao).join(', ') : '';
   }
 }

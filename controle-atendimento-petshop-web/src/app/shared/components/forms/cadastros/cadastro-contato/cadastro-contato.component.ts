@@ -26,17 +26,18 @@ export class CadastroContatoComponent implements OnChanges {
   contatoAdicionado: EventEmitter<Contato> = new EventEmitter<Contato>();
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['contato'].previousValue !== changes['contato'].currentValue && this.contato) {
+    if (changes['contato'].previousValue !== changes['contato'].currentValue && this.contato)
       this.contatoForm.patchValue(this.contato);
-    }
   }
 
   adicionarContato(event: SubmitEvent) {
     if (this.contatoForm.valid) {
       this.contatoForm.get('tipo')?.setValue((this.contatoForm.value.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE);
 
-      if (!this.contatoForm.value.id) delete this.contatoForm.value.id;
-      if (!this.contatoForm.value.tag) delete this.contatoForm.value.tag;
+      if (!this.contatoForm.value.id)
+        delete this.contatoForm.value.id;
+      if (!this.contatoForm.value.tag)
+        delete this.contatoForm.value.tag;
 
       this.contatoAdicionado.emit(this.contatoForm.value);
 

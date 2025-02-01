@@ -52,14 +52,15 @@ export class CadastroAtendimentoComponent implements OnChanges {
       this.atendimentoForm.patchValue(this.atendimento);
 
       if (this.atendimento.data instanceof Date) this.atendimentoForm.get('data')?.setValue((this.atendimento.data as Date).toISOString().split('T')[0]);
-      this.atendimentoForm.get('cliente')?.setValue(this.atendimento.pets[0].cliente.nome);
+      if (this.atendimento.pets && this.atendimento.pets.length > 0) this.atendimentoForm.get('cliente')?.setValue(this.atendimento.pets[0].cliente.nome);
       this.atualizarCliente();
 
       setTimeout(() => {
         if (this.atendimento) {
           for (let i = 0; i < this.atendimento.pets.length; i++) {
             let index = Array.from(this.selectPets.nativeElement.options).findIndex(option => option.textContent?.trim() === this.atendimento?.pets[i].nome.trim());
-            if (this.selectPets.nativeElement.options.item(index)) this.selectPets.nativeElement.options.item(index)!.selected = true;
+            if (this.selectPets.nativeElement.options.item(index))
+              this.selectPets.nativeElement.options.item(index)!.selected = true;
           }
         }
       }, 3000);
@@ -67,8 +68,13 @@ export class CadastroAtendimentoComponent implements OnChanges {
   }
 
   adicionarAtendimento(event: SubmitEvent) {
-    if (this.atendimentoForm.valid) {
-      if (!this.atendimentoForm.value.id) delete this.atendimentoForm.value.id;
+    if (this.getPetsSelecionados.length == 0) {
+      console.log('selecione um pet ou adicione um na lista');
+    }
+
+    if (this.atendimentoForm.valid && this.getPetsSelecionados().length > 0) {
+      if (!this.atendimentoForm.value.id)
+        delete this.atendimentoForm.value.id;
 
       let cliente = this.clientes.find(cli => cli.nome === this.atendimentoForm.get('cliente')?.value) as Cliente;
       cliente.pets = [];

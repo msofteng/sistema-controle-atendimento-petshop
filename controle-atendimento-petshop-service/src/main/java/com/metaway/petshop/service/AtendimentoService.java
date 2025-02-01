@@ -1,7 +1,6 @@
 package com.metaway.petshop.service;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.metaway.petshop.dto.FilterDTO;
 import com.metaway.petshop.entity.*;
 import com.metaway.petshop.repository.*;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class AtendimentoService {
@@ -29,6 +30,7 @@ public class AtendimentoService {
   @Autowired
   private PetRepository petRepository;
 
+  @Transactional
   public AtendimentoEntity cadastrar(AtendimentoEntity atendimento) {
     ClienteEntity cliente = atendimento.getPets().iterator().next().getCliente();
 
@@ -51,15 +53,18 @@ public class AtendimentoService {
     contatoRepository.saveAll(cliente.getContatos());
     enderecoRepository.saveAll(cliente.getEnderecos());
 
-    Set<PetEntity> petsSalvos = petRepository.saveAll(atendimento.getPets()).stream().collect(Collectors.toSet());
-
-    atendimento.setPets(petsSalvos);
+    atendimento.setPets(petRepository.saveAll(atendimento.getPets()).stream().map(pet -> {
+      pet.setCliente(cli);
+      return pet;
+    }).collect(Collectors.toSet()));
 
     return repository.save(atendimento);
   }
 
+  @Transactional
   public void excluir(AtendimentoEntity atendimento) {
-    repository.deleteById(atendimento.getId());
+    repository.removerPetsAtendimento(atendimento.getId());
+    repository.removerAtendimento(atendimento.getId());
   }
 
   public List<AtendimentoEntity> listar(FilterDTO<AtendimentoEntity> filter) {

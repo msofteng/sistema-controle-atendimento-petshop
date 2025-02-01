@@ -109,10 +109,10 @@ export class PetshopService {
         ...res,
         perfil: (res.perfil === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN,
         dataCadastro: corrigeData(new Date(res.dataCadastro)),
-        contatos: res.contatos.map<Contato>(contato => ({
+        contatos: res.contatos ? res.contatos.map<Contato>(contato => ({
           ...contato,
           tipo: (contato.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE
-        }))
+        })) : []
       })))
     );
   }
@@ -121,18 +121,18 @@ export class PetshopService {
     return this.http.post<Atendimento[]>('/atendimento/listar', filters).pipe(
       map(response => response.map(res => ({
         ...res,
-        pets: res.pets.map<Pet>(pet => ({
+        pets: res.pets ? res.pets.map<Pet>(pet => ({
           ...pet,
           dataNascimento: corrigeData(new Date(pet.dataNascimento)),
           cliente: {
             ...pet.cliente,
             dataCadastro: corrigeData(new Date(pet.cliente.dataCadastro)),
-            contatos: pet.cliente.contatos.map<Contato>(contato => ({
+            contatos: pet.cliente.contatos ? pet.cliente.contatos.map<Contato>(contato => ({
               ...contato,
               tipo: (contato.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE
-            }))
+            })) : []
           }
-        }))
+        })) : []
       })))
     );
   }

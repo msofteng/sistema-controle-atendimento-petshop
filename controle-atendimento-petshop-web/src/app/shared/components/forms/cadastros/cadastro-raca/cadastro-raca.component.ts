@@ -23,14 +23,14 @@ export class CadastroRacaComponent implements OnChanges {
   racaAdicionada: EventEmitter<Raca> = new EventEmitter<Raca>();
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['raca'].previousValue !== changes['raca'].currentValue && this.raca) {
+    if (changes['raca'].previousValue !== changes['raca'].currentValue && this.raca)
       this.racaForm.patchValue(this.raca);
-    }
   }
 
   adicionarRaca(event: SubmitEvent) {
     if (this.racaForm.valid) {
-      if (!this.racaForm.value.id) delete this.racaForm.value.id;
+      if (!this.racaForm.value.id)
+        delete this.racaForm.value.id;
       this.racaAdicionada.emit(this.racaForm.value);
       this.racaForm.reset();
     } else {

@@ -26,9 +26,8 @@ export class LoginComponent {
 
   enviarLogin(event: SubmitEvent) {
     if (this.loginForm.valid) {
-      if (!isNaN(this.loginForm.get('nomeCpf')?.value) && this.loginForm.get('nomeCpf')?.value.length === 11) {
+      if (!isNaN(this.loginForm.get('nomeCpf')?.value) && this.loginForm.get('nomeCpf')?.value.length === 11)
         this.loginForm.get('nomeCpf')?.setValue(Number(this.loginForm.value.nomeCpf));
-      }
 
       this.btnDisabled = true;
 

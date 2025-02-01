@@ -62,6 +62,9 @@ export class VisualizarClientesComponent implements OnInit {
   excluirCliente(cliente: Cliente) {
     this.isLoading = true;
 
+    if (cliente.dataCadastro instanceof Date)
+      cliente.dataCadastro = (cliente.dataCadastro as Date).toISOString().split('T')[0];
+
     this.service.excluirCliente(cliente).subscribe({
       next: (res: boolean) => this.clientes = this.clientes.filter(a => a.id !== cliente.id),
       error: (err: HttpErrorResponse) => console.error(err),

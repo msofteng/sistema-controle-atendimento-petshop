@@ -34,11 +34,11 @@ export class RegisterComponent {
     if (this.cadastroForm.valid) {
       this.cadastroForm.get('perfil')?.setValue((this.cadastroForm.get('perfil')?.value === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN);
 
-      if (!isNaN(this.cadastroForm.get('cpf')?.value) && this.cadastroForm.get('cpf')?.value.length === 11) {
+      if (!isNaN(this.cadastroForm.get('cpf')?.value) && this.cadastroForm.get('cpf')?.value.length === 11)
         this.cadastroForm.get('cpf')?.setValue(Number(this.cadastroForm.value.cpf));
-      }
 
-      if (!this.cadastroForm.value.foto) delete this.cadastroForm.value.foto;
+      if (!this.cadastroForm.value.foto)
+        delete this.cadastroForm.value.foto;
 
       this.btnDisabled = true;
 

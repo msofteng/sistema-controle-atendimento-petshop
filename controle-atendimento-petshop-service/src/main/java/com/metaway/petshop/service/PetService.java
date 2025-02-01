@@ -10,6 +10,8 @@ import com.metaway.petshop.dto.FilterDTO;
 import com.metaway.petshop.entity.PetEntity;
 import com.metaway.petshop.repository.PetRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PetService {
   @Autowired
@@ -19,8 +21,11 @@ public class PetService {
     return repository.save(pet);
   }
 
+  @Transactional
   public void excluir(PetEntity pet) {
-    repository.deleteById(pet.getId());
+    repository.removerAtendimentosPet(pet.getId());
+    repository.removerRacasPet(pet.getId());
+    repository.excluirPet(pet.getId());
   }
 
   public List<PetEntity> listar(FilterDTO<PetEntity> filter) {

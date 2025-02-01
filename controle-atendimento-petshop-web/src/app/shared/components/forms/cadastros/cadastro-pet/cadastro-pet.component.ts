@@ -41,7 +41,7 @@ export class CadastroPetComponent implements OnChanges {
     if (changes['pet']?.previousValue !== changes['pet']?.currentValue && this.pet) {
       this.petForm.patchValue(this.pet);
       this.petForm.get('dataNascimento')?.setValue((this.pet.dataNascimento as Date).toISOString().split('T')[0]);
-      let options = this.pet.raca.map<HTMLOptionElement>(r => Array.from(this.selectRacas.nativeElement.options).find(option => option.textContent?.trim() === r.descricao.trim()) as HTMLOptionElement);
+      let options = this.pet.raca ? this.pet.raca.map<HTMLOptionElement>(r => Array.from(this.selectRacas.nativeElement.options).find(option => option.textContent?.trim() === r.descricao.trim()) as HTMLOptionElement) : [];
 
       options.forEach(option => option.selected = true);
 
@@ -76,8 +76,10 @@ export class CadastroPetComponent implements OnChanges {
 
   adicionarPet(event: SubmitEvent) {
     if (this.petForm.valid && this.getRacasSelecionadas().length > 0) {
-      if (!this.petForm.value.id) delete this.petForm.value.id;
-      if (!this.petForm.value.foto) delete this.petForm.value.foto;
+      if (!this.petForm.value.id)
+        delete this.petForm.value.id;
+      if (!this.petForm.value.foto)
+        delete this.petForm.value.foto;
 
       this.petForm.value.raca = this.getRacasSelecionadas().map<Raca>((racaName) => this.racas.find(raca => raca.descricao === racaName) as Raca);
 
