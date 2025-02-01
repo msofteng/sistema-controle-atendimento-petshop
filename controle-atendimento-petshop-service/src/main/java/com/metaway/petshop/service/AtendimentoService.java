@@ -30,6 +30,9 @@ public class AtendimentoService {
   @Autowired
   private PetRepository petRepository;
 
+  @Autowired
+  private RacaRepository racaRepository;
+
   @Transactional
   public AtendimentoEntity cadastrar(AtendimentoEntity atendimento) {
     ClienteEntity cliente = atendimento.getPets().iterator().next().getCliente();
@@ -37,30 +40,44 @@ public class AtendimentoService {
     if (cliente.getId() == null) {
       cliente = clienteRepository.save(cliente);
     } else {
-      cliente = clienteRepository.saveAndFlush(cliente);
+      cliente = clienteRepository.findById(cliente.getId()).get();
     }
 
     final var cli = cliente;
 
-    cliente.setContatos(cliente.getContatos().stream().map(contato -> {
-      contato.setCliente(cli);
-      return contato;
-    }).collect(Collectors.toList()));
+    if (cli.getContatos() != null && !cli.getContatos().isEmpty()) {
+      cli.setContatos(contatoRepository.saveAll(cli.getContatos().stream().map(contato -> {
+        contato.setCliente(cli);
+        return contato;
+      }).collect(Collectors.toList())));
+    }
 
-    cliente.setEnderecos(cliente.getEnderecos().stream().map(endereco -> {
-      endereco.setCliente(cli);
-      return endereco;
-    }).collect(Collectors.toList()));
-
-    contatoRepository.saveAll(cliente.getContatos());
-    enderecoRepository.saveAll(cliente.getEnderecos());
+    if (cli.getEnderecos() != null && !cli.getEnderecos().isEmpty()) {
+      cli.setEnderecos(enderecoRepository.saveAll(cli.getEnderecos().stream().map(endereco -> {
+        endereco.setCliente(cli);
+        return endereco;
+      }).collect(Collectors.toList())));
+    }
 
     atendimento.setPets(atendimento.getPets().stream().map(pet -> {
+      if (pet.getId() != null) {
+        pet = petRepository.findById(pet.getId()).get();
+      }
+
+      if (pet.getRaca() != null && !pet.getRaca().isEmpty()) {
+        pet.setRaca(pet.getRaca().stream().map(raca -> {
+          if (raca.getId() != null) {
+            return racaRepository.findById(raca.getId()).get();
+          } else {
+            return racaRepository.save(raca);
+          }
+        }).collect(Collectors.toSet()));
+      }
+      
       pet.setCliente(cli);
       return pet;
     }).collect(Collectors.toSet()));
 
-    petRepository.saveAll(atendimento.getPets());
     return repository.save(atendimento);
   }
 

@@ -70,7 +70,7 @@ export class CadastroAtendimentoComponent implements OnChanges {
     }
 
     if (this.atendimentoForm.valid && this.getPetsSelecionados().length > 0) {
-      if (!this.atendimentoForm.value.id)
+      if (!this.atendimentoForm.value.id && !this.atendimento)
         delete this.atendimentoForm.value.id;
 
       let cliente = this.clientes.find(cli => cli.nome === this.atendimentoForm.get('cliente')?.value) as Cliente;
@@ -80,6 +80,7 @@ export class CadastroAtendimentoComponent implements OnChanges {
         let pet = this.pets.find(pet => pet.nome === petName) as Pet;
         pet.cliente = cliente;
         pet.dataNascimento = new Date(pet.dataNascimento).toISOString().split('T')[0];
+        pet.raca = pet.raca.map(r => this.racas.find(rc => rc.descricao === r.descricao) ?? r);
         return pet;
       });
 

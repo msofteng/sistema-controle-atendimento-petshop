@@ -29,7 +29,7 @@ export class CadastroRacaComponent implements OnChanges {
 
   adicionarRaca(event: SubmitEvent) {
     if (this.racaForm.valid) {
-      if (!this.racaForm.value.id)
+      if (!this.racaForm.value.id && !this.raca)
         delete this.racaForm.value.id;
       this.racaAdicionada.emit(this.racaForm.value);
       this.racaForm.reset();

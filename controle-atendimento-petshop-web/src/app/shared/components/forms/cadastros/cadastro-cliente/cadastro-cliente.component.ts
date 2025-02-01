@@ -104,7 +104,7 @@ export class CadastroClienteComponent {
 
       this.clienteForm.get('dataCadastro')?.setValue(this.clienteForm.get('dataCadastro')?.value.toISOString().split('T')[0]);
 
-      if (!this.clienteForm.value.id)
+      if (!this.clienteForm.value.id && !this.cliente)
         delete this.clienteForm.value.id;
       if (!this.clienteForm.value.foto)
         delete this.clienteForm.value.foto;

@@ -33,7 +33,7 @@ export class CadastroEnderecoComponent {
 
   adicionarEndereco(event: SubmitEvent) {
     if (this.enderecoForm.valid) {
-      if (!this.enderecoForm.value.id)
+      if (!this.enderecoForm.value.id && !this.endereco)
         delete this.enderecoForm.value.id;
       if (!this.enderecoForm.value.complemento)
         delete this.enderecoForm.value.complemento;

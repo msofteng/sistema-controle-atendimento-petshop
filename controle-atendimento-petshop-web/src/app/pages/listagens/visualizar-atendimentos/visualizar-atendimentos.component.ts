@@ -60,7 +60,10 @@ export class VisualizarAtendimentosComponent implements OnInit {
       atendimento.data = corrigeData(atendimento.data).toISOString().split('T')[0];
 
     if (atendimento.pets.length > 0)
-      atendimento.pets = atendimento.pets.map(pet => ({ ...pet, cliente: this.clientes.find(cli => cli.cpf === pet.cliente.cpf) as Cliente }));
+      atendimento.pets = atendimento.pets.map(pet => ({
+        ...pet,
+        cliente: this.clientes.find(cli => cli.cpf === pet.cliente.cpf) as Cliente
+      }));
     
     this.service.cadastrarAtendimento(atendimento).subscribe({
       next: (data: Atendimento) => {
@@ -68,6 +71,18 @@ export class VisualizarAtendimentosComponent implements OnInit {
 
         this.service.listarAtendimentos({ qtd: 0, page: 0 }).subscribe({
           next: (atendimentos: Atendimento[]) => this.atendimentos = atendimentos,
+          error: (err: HttpErrorResponse) => console.error(err),
+          complete: () => this.isLoading = false,
+        });
+
+        this.service.listarClientes({ qtd: 0, page: 0 }).subscribe({
+          next: (clientes: Cliente[]) => this.clientes = clientes,
+          error: (err: HttpErrorResponse) => console.error(err),
+          complete: () => this.isLoading = false,
+        });
+    
+        this.service.listarRacas({ qtd: 0, page: 0 }).subscribe({
+          next: (racas: Raca[]) => this.racas = racas,
           error: (err: HttpErrorResponse) => console.error(err),
           complete: () => this.isLoading = false,
         });
