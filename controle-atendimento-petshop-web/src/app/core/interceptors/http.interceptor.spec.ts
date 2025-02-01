@@ -10,7 +10,7 @@ describe('httpInterceptor', () => {
     TestBed.configureTestingModule({});
   });
 
-  it('should be created', () => {
+  it('deve ser criado', () => {
     expect(interceptor).toBeTruthy();
   });
 });

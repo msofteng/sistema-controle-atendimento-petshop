@@ -22,7 +22,7 @@ describe('PetshopService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
+  it('deve ser criado', () => {
     expect(service).toBeTruthy();
   });
 });

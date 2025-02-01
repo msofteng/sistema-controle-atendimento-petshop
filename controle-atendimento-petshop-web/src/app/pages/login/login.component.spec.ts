@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ToastrService } from 'ngx-toastr';
-import { of } from 'rxjs';
-import { Usuario } from '../../shared/interfaces/petshop.entities';
 import { PetshopService } from '../../shared/services/petshop.service';
 import { LoginComponent } from './login.component';
+import { of, throwError } from 'rxjs';
+import { Usuario } from '../../shared/interfaces/petshop.entities';
+import { HttpErrorResponse } from '@angular/common/http';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -42,22 +43,52 @@ describe('LoginComponent', () => {
     component = fixture.componentInstance;
 
     service = TestBed.inject(PetshopService) as jasmine.SpyObj<PetshopService>;
-
-    let usuario: Usuario = {
-      id: 0,
-      nome: '',
-      perfil: '',
-      senha: '',
-      cpf: 0,
-      foto: ''
-    };
-
-    service.login.and.returnValue(of(usuario));
     
     fixture.detectChanges();
   });
 
   it('deve criar', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('testando o método enviarLogin', () => {
+    // testando o método enviarLogin normal
+
+    let usuario: Usuario = {
+      id: 1,
+      nome: 'mateus',
+      perfil: 'cliente',
+      senha: '123',
+      cpf: 12345678901
+    };
+
+    component.loginForm.get('nomeCpf')?.setValue(usuario.cpf?.toString());
+    component.loginForm.get('senha')?.setValue(usuario.cpf?.toString());
+
+    service.login.and.returnValue(of(usuario));
+
+    component.enviarLogin(new SubmitEvent('submit'));
+
+    expect(component.loginForm.get('nomeCpf')?.value).toBe(usuario.cpf);
+
+    // testando o método enviarLogin com erro
+
+    let error = new HttpErrorResponse({
+      status: 401,
+      statusText: 'Unauthorized',
+      error: {
+        message: 'Não autorizado'
+      }
+    });
+
+    service.login.and.returnValue(throwError(() => error));
+
+    component.enviarLogin(new SubmitEvent('submit'));
+  });
+
+  it('testando o método enviarLogin com formulário vazio', () => {
+    component.enviarLogin(new SubmitEvent('submit'));
+
+    expect(component.enviarLogin).toBeTruthy();
   });
 });
