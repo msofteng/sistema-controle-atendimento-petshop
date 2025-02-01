@@ -3,10 +3,10 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } fr
 import { Perfil } from '../../../../enums/perfil';
 import { TipoContato } from '../../../../enums/tipo-contato';
 import { Cliente, Contato, Endereco } from '../../../../interfaces/petshop.entities';
+import { PetshopService } from '../../../../services/petshop.service';
 import { base64ToFile, convertFileToBase64 } from '../../../../utils/file';
 import { CadastroContatoComponent } from "../cadastro-contato/cadastro-contato.component";
 import { CadastroEnderecoComponent } from "../cadastro-endereco/cadastro-endereco.component";
-import { PetshopService } from '../../../../services/petshop.service';
 
 @Component({
   selector: 'app-cadastro-cliente',

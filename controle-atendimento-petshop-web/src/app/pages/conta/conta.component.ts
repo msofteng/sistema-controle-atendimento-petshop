@@ -4,8 +4,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Perfil } from '../../shared/enums/perfil';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
 import { PetshopService } from '../../shared/services/petshop.service';
-import { base64ToFile, convertFileToBase64 } from '../../shared/utils/file';
 import { changePerfil } from '../../shared/utils/change-enum';
+import { base64ToFile, convertFileToBase64 } from '../../shared/utils/file';
 
 @Component({
   selector: 'app-conta',

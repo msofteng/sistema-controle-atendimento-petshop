@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { VisualizarPetsComponent } from './visualizar-pets.component';
-import { PetshopService } from '../../../shared/services/petshop.service';
 import { of } from 'rxjs';
-import { Pet } from '../../../shared/interfaces/petshop.entities';
+import { PetshopService } from '../../../shared/services/petshop.service';
+import { VisualizarPetsComponent } from './visualizar-pets.component';
 
 describe('VisualizarPetsComponent', () => {
   let component: VisualizarPetsComponent;

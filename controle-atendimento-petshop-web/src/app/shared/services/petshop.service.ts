@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Perfil } from '../enums/perfil';
-import { TipoContato } from '../enums/tipo-contato';
 import { corrigeData } from '../functions/date';
 import { LoginParams } from '../interfaces/login-params';
 import { PageParams } from '../interfaces/page-params';

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { VisualizarRacasComponent } from './visualizar-racas.component';
-import { PetshopService } from '../../../shared/services/petshop.service';
 import { of } from 'rxjs';
+import { PetshopService } from '../../../shared/services/petshop.service';
+import { VisualizarRacasComponent } from './visualizar-racas.component';
 
 describe('VisualizarRacasComponent', () => {
   let component: VisualizarRacasComponent;

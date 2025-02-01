@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ContaComponent } from './conta.component';
-import { PetshopService } from '../../shared/services/petshop.service';
 import { of } from 'rxjs';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
+import { PetshopService } from '../../shared/services/petshop.service';
+import { ContaComponent } from './conta.component';
 
 describe('ContaComponent', () => {
   let component: ContaComponent;

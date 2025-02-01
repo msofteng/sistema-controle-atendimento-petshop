@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalComponent } from '../../shared/components/page/modal/modal.component';
-import { PetshopService } from '../../shared/services/petshop.service';
 
 @Component({
   selector: 'app-inicio',

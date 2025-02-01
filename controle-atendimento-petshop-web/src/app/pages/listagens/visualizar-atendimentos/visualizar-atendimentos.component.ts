@@ -3,9 +3,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CadastroAtendimentoComponent } from '../../../shared/components/forms/cadastros/cadastro-atendimento/cadastro-atendimento.component';
 import { ModalComponent } from '../../../shared/components/page/modal/modal.component';
+import { corrigeData } from '../../../shared/functions/date';
 import { Atendimento, Cliente, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
 import { PetshopService } from '../../../shared/services/petshop.service';
-import { corrigeData } from '../../../shared/functions/date';
 
 @Component({
   selector: 'app-visualizar-atendimentos',

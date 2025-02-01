@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CadastroClienteComponent } from './cadastro-cliente.component';
-import { PetshopService } from '../../../../services/petshop.service';
 import { of } from 'rxjs';
+import { PetshopService } from '../../../../services/petshop.service';
+import { CadastroClienteComponent } from './cadastro-cliente.component';
 
 describe('CadastroClienteComponent', () => {
   let component: CadastroClienteComponent;
