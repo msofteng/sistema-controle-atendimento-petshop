@@ -1,22 +1,76 @@
 # Getting Started
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### Relacionamentos entre entidades (JPA)
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.4.2/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.4.2/maven-plugin/build-image.html)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/3.4.2/reference/using/devtools.html)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/3.4.2/reference/data/sql.html#data.sql.jpa-and-spring-data)
+```mermaid
+classDiagram
+    %% Definindo classes
+    class AtendimentoEntity {
+        - Long id
+        - String descricao
+        - Double valor
+        - LocalDate data
+        - Set~PetEntity~ pets
+    }
 
-### Guides
-The following guides illustrate how to use some features concretely:
+    class ClienteEntity {
+        - LocalDate dataCadastro
+        - List~ContatoEntity~ contatos
+        - List~EnderecoEntity~ enderecos
+        - List~PetEntity~ pets
+    }
 
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
+    class ContatoEntity {
+        - Long id
+        - String tag
+        - String tipo
+        - String valor
+    }
 
-### Maven Parent overrides
+    class EnderecoEntity {
+        - Long id
+        - String logradouro
+        - String cidade
+        - String bairro
+        - String tag
+        - String complemento
+    }
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+    class FuncionarioEntity {
+        
+    }
+
+    class PetEntity {
+        - Long id
+        - String nome
+        - LocalDate dataNascimento
+        - String foto
+        - Set~RacaEntity~ raca
+    }
+
+    class RacaEntity {
+        - Long id
+        - String descricao
+    }
+
+    class UsuarioEntity {
+        - Long id
+        - String nome
+        - String senha
+        - Long cpf
+        - String foto
+    }
+
+    %% Relacionamentos
+    ClienteEntity "1" -- "*" ContatoEntity : possui
+    ClienteEntity "1" -- "*" EnderecoEntity : possui
+    ClienteEntity "1" -- "*" PetEntity : possui
+    PetEntity "*" -- "*" RacaEntity : pertence a
+    AtendimentoEntity "*" -- "*" PetEntity : inclui
+    ContatoEntity "*" -- "1" ClienteEntity : pertence a
+    EnderecoEntity "*" -- "1" ClienteEntity : pertence a
+    PetEntity "*" -- "1" ClienteEntity : pertence a
+
+    FuncionarioEntity <|-- UsuarioEntity : herda
+    ClienteEntity <|-- UsuarioEntity : herda
+```

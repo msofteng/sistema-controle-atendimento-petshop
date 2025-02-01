@@ -31,6 +31,7 @@
       "vscjava.vscode-java-test"
       "vscjava.vscode-maven"
       "vscjava.vscode-spring-initializr"
+      "bierner.markdown-mermaid"
     ];
 
     # Enable previews
