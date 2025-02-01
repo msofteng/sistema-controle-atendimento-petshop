@@ -29,7 +29,7 @@ export class VisualizarClientesComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
 
-    this.service.listarClientes({ qtd: 10, page: 1 }).subscribe({
+    this.service.listarClientes({ qtd: 0, page: 0 }).subscribe({
       next: (clientes: Cliente[]) => this.clientes = clientes,
       error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
@@ -41,7 +41,7 @@ export class VisualizarClientesComponent implements OnInit {
       next: (data: Cliente) => {
         this.isLoading = true;
 
-        this.service.listarClientes({ qtd: 10, page: 1 }).subscribe({
+        this.service.listarClientes({ qtd: 0, page: 0 }).subscribe({
           next: (clientes: Cliente[]) => this.clientes = clientes,
           error: (err: HttpErrorResponse) => console.error(err),
           complete: () => this.isLoading = false,

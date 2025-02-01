@@ -36,19 +36,19 @@ export class VisualizarAtendimentosComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
 
-    this.service.listarAtendimentos({ qtd: 10, page: 1 }).subscribe({
+    this.service.listarAtendimentos({ qtd: 0, page: 0 }).subscribe({
       next: (atendimentos: Atendimento[]) => this.atendimentos = atendimentos,
       error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
     });
 
-    this.service.listarClientes({ qtd: 10, page: 1 }).subscribe({
+    this.service.listarClientes({ qtd: 0, page: 0 }).subscribe({
       next: (clientes: Cliente[]) => this.clientes = clientes,
       error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
     });
 
-    this.service.listarRacas({ qtd: 10, page: 1 }).subscribe({
+    this.service.listarRacas({ qtd: 0, page: 0 }).subscribe({
       next: (racas: Raca[]) => this.racas = racas,
       error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
@@ -58,12 +58,15 @@ export class VisualizarAtendimentosComponent implements OnInit {
   atendimentoAdicionado(atendimento: Atendimento) {
     if (atendimento.data instanceof Date)
       atendimento.data = corrigeData(atendimento.data).toISOString().split('T')[0];
+
+    if (atendimento.pets.length > 0)
+      atendimento.pets = atendimento.pets.map(pet => ({ ...pet, cliente: this.clientes.find(cli => cli.cpf === pet.cliente.cpf) as Cliente }));
     
     this.service.cadastrarAtendimento(atendimento).subscribe({
       next: (data: Atendimento) => {
         this.isLoading = true;
 
-        this.service.listarAtendimentos({ qtd: 10, page: 1 }).subscribe({
+        this.service.listarAtendimentos({ qtd: 0, page: 0 }).subscribe({
           next: (atendimentos: Atendimento[]) => this.atendimentos = atendimentos,
           error: (err: HttpErrorResponse) => console.error(err),
           complete: () => this.isLoading = false,
@@ -114,7 +117,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
     this.isLoading = true;
     this.pets = [];
     if (cliente) {
-      this.service.listarPets({ qtd: 10, page: 1, filter: { cliente: cliente } }).subscribe({
+      this.service.listarPets({ qtd: 0, page: 0, filter: { cliente: cliente } }).subscribe({
         next: (pets: Pet[]) => this.pets = pets,
         error: (err: HttpErrorResponse) => console.error(err),
         complete: () => this.isLoading = false,

@@ -28,20 +28,20 @@ export class VisualizarPetsComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
 
-    this.service.listarPets({ qtd: 10, page: 1 }).subscribe({
+    this.service.listarPets({ qtd: 0, page: 0 }).subscribe({
       next: (pets: Pet[]) => this.pets = pets,
       error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
     });
 
-    this.service.listarRacas({ qtd: 10, page: 1 }).subscribe({
+    this.service.listarRacas({ qtd: 0, page: 0 }).subscribe({
       next: (racas: Raca[]) => this.racas = racas,
       error: (err: HttpErrorResponse) => console.error(err),
     });
   }
 
   petAdicionado(pet: Pet) {
-    this.service.listarClientes({ qtd: 10, page: 1 }).subscribe({
+    this.service.listarClientes({ qtd: 0, page: 0 }).subscribe({
       next: (clientes: Cliente[]) => {
         if (pet.id && pet.id > 0) {
           pet.cliente = clientes.find(p => p.id === pet.id) as Cliente;
@@ -68,13 +68,13 @@ export class VisualizarPetsComponent implements OnInit {
           next: (data: Pet) => {
             this.isLoading = true;
 
-            this.service.listarPets({ qtd: 10, page: 1 }).subscribe({
+            this.service.listarPets({ qtd: 0, page: 0 }).subscribe({
               next: (pets: Pet[]) => this.pets = pets,
               error: (err: HttpErrorResponse) => console.error(err),
               complete: () => this.isLoading = false,
             });
 
-            this.service.listarRacas({ qtd: 10, page: 1 }).subscribe({
+            this.service.listarRacas({ qtd: 0, page: 0 }).subscribe({
               next: (racas: Raca[]) => this.racas = racas,
               error: (err: HttpErrorResponse) => console.error(err),
             });

@@ -28,7 +28,7 @@ export class VisualizarRacasComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
 
-    this.service.listarRacas({ qtd: 10, page: 1 }).subscribe({
+    this.service.listarRacas({ qtd: 0, page: 0 }).subscribe({
       next: (racas: Raca[]) => this.racas = racas,
       error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
@@ -40,7 +40,7 @@ export class VisualizarRacasComponent implements OnInit {
       next: (data: Raca) => {
         this.isLoading = true;
 
-        this.service.listarRacas({ qtd: 10, page: 1 }).subscribe({
+        this.service.listarRacas({ qtd: 0, page: 0 }).subscribe({
           next: (racas: Raca[]) => this.racas = racas,
           error: (err: HttpErrorResponse) => console.error(err),
           complete: () => this.isLoading = false,
