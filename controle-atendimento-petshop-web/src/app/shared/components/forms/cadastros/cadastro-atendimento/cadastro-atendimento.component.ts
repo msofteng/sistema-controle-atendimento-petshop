@@ -49,7 +49,7 @@ export class CadastroAtendimentoComponent implements OnChanges {
       this.atendimentoForm.patchValue(this.atendimento);
 
       if (this.atendimento.data instanceof Date) this.atendimentoForm.get('data')?.setValue((this.atendimento.data as Date).toISOString().split('T')[0]);
-      if (this.atendimento.pets && this.atendimento.pets.length > 0) this.atendimentoForm.get('cliente')?.setValue(this.atendimento.pets[0].cliente.nome);
+      if (this.atendimento.pets && this.atendimento.pets.length > 0) this.atendimentoForm.get('cliente')?.setValue(this.atendimento.pets[0].cliente?.nome);
       this.atualizarCliente();
 
       setTimeout(() => {

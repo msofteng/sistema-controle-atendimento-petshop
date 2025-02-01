@@ -34,25 +34,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.isLoading = true;
-
-    this.service.listarAtendimentos({ qtd: 0, page: 0 }).subscribe({
-      next: (atendimentos: Atendimento[]) => this.atendimentos = atendimentos,
-      error: (err: HttpErrorResponse) => console.error(err),
-      complete: () => this.isLoading = false,
-    });
-
-    this.service.listarClientes({ qtd: 0, page: 0 }).subscribe({
-      next: (clientes: Cliente[]) => this.clientes = clientes,
-      error: (err: HttpErrorResponse) => console.error(err),
-      complete: () => this.isLoading = false,
-    });
-
-    this.service.listarRacas({ qtd: 0, page: 0 }).subscribe({
-      next: (racas: Raca[]) => this.racas = racas,
-      error: (err: HttpErrorResponse) => console.error(err),
-      complete: () => this.isLoading = false,
-    });
+    this.listarAtendimentosClientesRacasPet();
   }
 
   atendimentoAdicionado(atendimento: Atendimento) {
@@ -67,25 +49,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
     
     this.service.cadastrarAtendimento(atendimento).subscribe({
       next: (data: Atendimento) => {
-        this.isLoading = true;
-
-        this.service.listarAtendimentos({ qtd: 0, page: 0 }).subscribe({
-          next: (atendimentos: Atendimento[]) => this.atendimentos = atendimentos,
-          error: (err: HttpErrorResponse) => console.error(err),
-          complete: () => this.isLoading = false,
-        });
-
-        this.service.listarClientes({ qtd: 0, page: 0 }).subscribe({
-          next: (clientes: Cliente[]) => this.clientes = clientes,
-          error: (err: HttpErrorResponse) => console.error(err),
-          complete: () => this.isLoading = false,
-        });
-    
-        this.service.listarRacas({ qtd: 0, page: 0 }).subscribe({
-          next: (racas: Raca[]) => this.racas = racas,
-          error: (err: HttpErrorResponse) => console.error(err),
-          complete: () => this.isLoading = false,
-        });
+        this.listarAtendimentosClientesRacasPet();
 
         this.openModalCriarAtendimento = false;
         this.openModalAtualizarAtendimento = false;
@@ -107,10 +71,10 @@ export class VisualizarAtendimentosComponent implements OnInit {
 
     atendimento.pets = atendimento.pets.map((pet) => ({ 
       ...pet,
-      dataNascimento: (pet.dataNascimento as Date).toISOString().split('T')[0],
+      dataNascimento: (pet.dataNascimento && pet.dataNascimento instanceof Date) ? (pet.dataNascimento as Date).toISOString().split('T')[0] : '',
       cliente: {
         ...pet.cliente,
-        dataCadastro: (pet.cliente.dataCadastro as Date).toISOString().split('T')[0]
+        dataCadastro: (pet.cliente && pet.cliente.dataCadastro instanceof Date) ? (pet.cliente.dataCadastro as Date).toISOString().split('T')[0] : ''
       }
     }));
 
@@ -138,5 +102,27 @@ export class VisualizarAtendimentosComponent implements OnInit {
         complete: () => this.isLoading = false,
       });
     }
+  }
+
+  listarAtendimentosClientesRacasPet() {
+    this.isLoading = true;
+
+    this.service.listarAtendimentos({}).subscribe({
+      next: (atendimentos: Atendimento[]) => this.atendimentos = atendimentos,
+      error: (err: HttpErrorResponse) => console.error(err),
+      complete: () => this.isLoading = false,
+    });
+
+    this.service.listarClientes({}).subscribe({
+      next: (clientes: Cliente[]) => this.clientes = clientes,
+      error: (err: HttpErrorResponse) => console.error(err),
+      complete: () => {},
+    });
+
+    this.service.listarRacas({}).subscribe({
+      next: (racas: Raca[]) => this.racas = racas,
+      error: (err: HttpErrorResponse) => console.error(err),
+      complete: () => {},
+    });
   }
 }
