@@ -1,3 +1,4 @@
+import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CadastroAtendimentoComponent } from './cadastro-atendimento.component';
 
@@ -9,6 +10,9 @@ describe('CadastroAtendimentoComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         CadastroAtendimentoComponent
+      ],
+      providers: [
+        provideHttpClient()
       ]
     }).compileComponents();
 

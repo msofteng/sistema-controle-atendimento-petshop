@@ -167,7 +167,7 @@ export class CadastroClienteComponent {
     event.preventDefault();
     event.stopPropagation();
 
-    this.service.excluirContato(this.enderecos.at(index).value).subscribe({
+    this.service.excluirEndereco(this.enderecos.at(index).value).subscribe({
       next: () => this.enderecos.removeAt(index),
       error: error => console.error(error)
     });

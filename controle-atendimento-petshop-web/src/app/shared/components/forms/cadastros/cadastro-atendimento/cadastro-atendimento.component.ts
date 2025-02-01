@@ -41,9 +41,6 @@ export class CadastroAtendimentoComponent implements OnChanges {
   @Input({ required: true })
   racas!: Raca[];
 
-  @ViewChild('selectCliente')
-  private selectCliente!: ElementRef<HTMLSelectElement>;
-
   @ViewChild('selectPets')
   private selectPets!: ElementRef<HTMLSelectElement>;
 

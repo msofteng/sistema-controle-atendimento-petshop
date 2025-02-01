@@ -21,7 +21,7 @@
     <br><br>
 
     Selecionar (Cliente): <b title="Obrigatório" class="required">*</b><br><br>
-    <select formControlName="cliente" (change)="atualizarCliente()" #selectCliente>
+    <select formControlName="cliente" (change)="atualizarCliente()">
       <option value="">--- Selecione ---</option>
       @for (cliente of clientes; track $index) {
         <option [value]="cliente.nome" [innerHTML]="cliente.nome"></option>
