@@ -19,7 +19,7 @@ export class CadastroAtendimentoComponent implements OnChanges {
     id: new FormControl<number>(0, []),
     descricao: new FormControl<string>('', [Validators.required]),
     valor: new FormControl<string>('', [Validators.required]),
-    data: new FormControl<Date | string>(new Date(), []),
+    data: new FormControl<Date | string>(new Date().toISOString().split('T')[0], []),
     cliente: new FormControl<string>('', [Validators.required]),
   });
 
@@ -51,6 +51,7 @@ export class CadastroAtendimentoComponent implements OnChanges {
     if (changes['atendimento']?.previousValue !== changes['atendimento']?.currentValue && this.atendimento) {
       this.atendimentoForm.patchValue(this.atendimento);
 
+      if (this.atendimento.data instanceof Date) this.atendimentoForm.get('data')?.setValue((this.atendimento.data as Date).toISOString().split('T')[0]);
       this.atendimentoForm.get('cliente')?.setValue(this.atendimento.pets[0].cliente.nome);
       this.atualizarCliente();
 
@@ -58,7 +59,7 @@ export class CadastroAtendimentoComponent implements OnChanges {
         if (this.atendimento) {
           for (let i = 0; i < this.atendimento.pets.length; i++) {
             let index = Array.from(this.selectPets.nativeElement.options).findIndex(option => option.textContent?.trim() === this.atendimento?.pets[i].nome.trim());
-            this.selectPets.nativeElement.options.item(index)!.selected = true;
+            if (this.selectPets.nativeElement.options.item(index)) this.selectPets.nativeElement.options.item(index)!.selected = true;
           }
         }
       }, 3000);

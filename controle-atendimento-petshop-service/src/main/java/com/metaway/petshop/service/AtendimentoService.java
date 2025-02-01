@@ -26,25 +26,34 @@ public class AtendimentoService {
   @Autowired
   private EnderecoRepository enderecoRepository;
 
+  @Autowired
+  private PetRepository petRepository;
+
   public AtendimentoEntity cadastrar(AtendimentoEntity atendimento) {
-    ClienteEntity cliente = clienteRepository.save(atendimento.getPets().iterator().next().getCliente());
+    ClienteEntity cliente = atendimento.getPets().iterator().next().getCliente();
 
-    cliente.setContatos(contatoRepository.saveAll(cliente.getContatos().stream().map(contato -> {
-      contato.setCliente(cliente);
+    if (cliente.getId() == null) {
+      cliente = clienteRepository.save(cliente);
+    }
+
+    final var cli = cliente;
+
+    cliente.setContatos(cliente.getContatos().stream().map(contato -> {
+      contato.setCliente(cli);
       return contato;
-    }).collect(Collectors.toList())));
+    }).collect(Collectors.toList()));
 
-    cliente.setEnderecos(enderecoRepository.saveAll(cliente.getEnderecos().stream().map(endereco -> {
-      endereco.setCliente(cliente);
+    cliente.setEnderecos(cliente.getEnderecos().stream().map(endereco -> {
+      endereco.setCliente(cli);
       return endereco;
-    }).collect(Collectors.toList())));
+    }).collect(Collectors.toList()));
 
-    // Evita pets duplicados no relacionamento
-    Set<PetEntity> petsValidos = atendimento.getPets().stream()
-        .filter(pet -> !repository.existsByIdAndPets_Id(atendimento.getId(), pet.getId()))
-        .collect(Collectors.toSet());
+    contatoRepository.saveAll(cliente.getContatos());
+    enderecoRepository.saveAll(cliente.getEnderecos());
 
-    if (petsValidos.size() > 0) atendimento.setPets(petsValidos);
+    Set<PetEntity> petsSalvos = petRepository.saveAll(atendimento.getPets()).stream().collect(Collectors.toSet());
+
+    atendimento.setPets(petsSalvos);
 
     return repository.save(atendimento);
   }

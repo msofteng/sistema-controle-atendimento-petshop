@@ -1,10 +1,11 @@
 import { CurrencyPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CadastroAtendimentoComponent } from '../../../shared/components/forms/cadastros/cadastro-atendimento/cadastro-atendimento.component';
 import { ModalComponent } from '../../../shared/components/page/modal/modal.component';
 import { Atendimento, Cliente, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
 import { PetshopService } from '../../../shared/services/petshop.service';
+import { corrigeData } from '../../../shared/functions/date';
 
 @Component({
   selector: 'app-visualizar-atendimentos',
@@ -30,6 +31,8 @@ export class VisualizarAtendimentosComponent implements OnInit {
 
   atendimentoSelecionadoEdicao?: Atendimento;
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     this.isLoading = true;
 
@@ -53,6 +56,8 @@ export class VisualizarAtendimentosComponent implements OnInit {
   }
 
   atendimentoAdicionado(atendimento: Atendimento) {
+    if (atendimento.data instanceof Date) atendimento.data = corrigeData(atendimento.data).toISOString().split('T')[0];
+    
     this.service.cadastrarAtendimento(atendimento).subscribe({
       next: (data: Atendimento) => {
         this.isLoading = true;
@@ -75,6 +80,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
   editarAtendimento(atendimento: Atendimento) {
     this.atendimentoSelecionadoEdicao = atendimento;
     this.openModalAtualizarAtendimento = true;
+    this.cdr.detectChanges();
   }
 
   excluirAtendimento(atendimento: Atendimento) {
@@ -92,7 +98,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
   }
 
   buscarAnimaisCliente(cliente?: Cliente) {
-    if (cliente && cliente.dataCadastro) cliente.dataCadastro = (cliente.dataCadastro as Date).toISOString().split('T')[0];
+    if (cliente && cliente.dataCadastro && cliente.dataCadastro instanceof Date) cliente.dataCadastro = (cliente.dataCadastro as Date).toISOString().split('T')[0];
 
     this.isLoading = true;
     this.pets = [];
