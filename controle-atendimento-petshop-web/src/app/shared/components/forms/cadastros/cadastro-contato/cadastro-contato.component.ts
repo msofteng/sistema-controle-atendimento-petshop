@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TipoContato } from '../../../../enums/tipo-contato';
 import { Contato } from '../../../../interfaces/petshop.entities';
+import { changeTipoContato } from '../../../../utils/change-enum';
 
 @Component({
   selector: 'app-cadastro-contato',
@@ -32,7 +33,7 @@ export class CadastroContatoComponent implements OnChanges {
 
   adicionarContato(event: SubmitEvent) {
     if (this.contatoForm.valid) {
-      this.contatoForm.get('tipo')?.setValue((this.contatoForm.value.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE);
+      this.contatoForm.get('tipo')?.setValue(changeTipoContato(this.contatoForm.value.tipo));
 
       if (!this.contatoForm.value.id)
         delete this.contatoForm.value.id;

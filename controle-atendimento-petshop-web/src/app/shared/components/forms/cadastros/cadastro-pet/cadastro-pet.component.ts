@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Pet, Raca } from '../../../../interfaces/petshop.entities';
-import { base64ToFile, convertFileToBase64 } from '../../../../utils/util';
+import { base64ToFile, convertFileToBase64 } from '../../../../utils/file';
 import { CadastroRacaComponent } from "../cadastro-raca/cadastro-raca.component";
 
 @Component({

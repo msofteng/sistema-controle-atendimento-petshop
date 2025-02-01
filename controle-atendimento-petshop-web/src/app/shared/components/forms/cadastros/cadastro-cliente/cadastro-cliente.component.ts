@@ -1,11 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Perfil } from '../../../../enums/perfil';
 import { TipoContato } from '../../../../enums/tipo-contato';
 import { Cliente, Contato, Endereco } from '../../../../interfaces/petshop.entities';
-import { base64ToFile, convertFileToBase64 } from '../../../../utils/util';
+import { base64ToFile, convertFileToBase64 } from '../../../../utils/file';
 import { CadastroContatoComponent } from "../cadastro-contato/cadastro-contato.component";
 import { CadastroEnderecoComponent } from "../cadastro-endereco/cadastro-endereco.component";
+import { PetshopService } from '../../../../services/petshop.service';
 
 @Component({
   selector: 'app-cadastro-cliente',
@@ -29,6 +30,8 @@ export class CadastroClienteComponent {
     contatos: new FormArray([], []),
     enderecos: new FormArray([], [])
   });
+
+  service: PetshopService = inject(PetshopService);
 
   @Input()
   cliente?: Cliente;
@@ -154,15 +157,19 @@ export class CadastroClienteComponent {
     event.preventDefault();
     event.stopPropagation();
 
-    if (index !== -1)
-      this.contatos.removeAt(index);
+    this.service.excluirContato(this.contatos.at(index).value).subscribe({
+      next: () => this.contatos.removeAt(index),
+      error: error => console.error(error)
+    });
   }
 
   removerEndereco(event: MouseEvent, index: number) {
     event.preventDefault();
     event.stopPropagation();
 
-    if (index !== -1)
-      this.enderecos.removeAt(index);
+    this.service.excluirContato(this.enderecos.at(index).value).subscribe({
+      next: () => this.enderecos.removeAt(index),
+      error: error => console.error(error)
+    });
   }
 }

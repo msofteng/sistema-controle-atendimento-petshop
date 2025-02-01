@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.metaway.petshop.dto.FilterDTO;
-import com.metaway.petshop.entity.ClienteEntity;
+import com.metaway.petshop.entity.*;
 import com.metaway.petshop.service.ClienteService;
 
 @RestController
@@ -27,6 +27,18 @@ public class ClienteController {
   @ResponseStatus(NO_CONTENT)
   public void excluirCliente(@RequestBody ClienteEntity cliente) {
     service.excluir(cliente);
+  }
+
+  @DeleteMapping("/contato/excluir")
+  @ResponseStatus(NO_CONTENT)
+  public void excluirContato(@RequestBody ContatoEntity contato) {
+    service.removerContato(contato);
+  }
+
+  @DeleteMapping("/endereco/excluir")
+  @ResponseStatus(NO_CONTENT)
+  public void excluirEndereco(@RequestBody EnderecoEntity endereco) {
+    service.removerEndereco(endereco);
   }
 
   @PostMapping("/listar")

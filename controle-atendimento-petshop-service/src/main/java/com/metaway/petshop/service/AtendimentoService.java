@@ -36,6 +36,8 @@ public class AtendimentoService {
 
     if (cliente.getId() == null) {
       cliente = clienteRepository.save(cliente);
+    } else {
+      cliente = clienteRepository.saveAndFlush(cliente);
     }
 
     final var cli = cliente;
@@ -53,11 +55,12 @@ public class AtendimentoService {
     contatoRepository.saveAll(cliente.getContatos());
     enderecoRepository.saveAll(cliente.getEnderecos());
 
-    atendimento.setPets(petRepository.saveAll(atendimento.getPets()).stream().map(pet -> {
+    atendimento.setPets(atendimento.getPets().stream().map(pet -> {
       pet.setCliente(cli);
       return pet;
     }).collect(Collectors.toSet()));
 
+    petRepository.saveAll(atendimento.getPets());
     return repository.save(atendimento);
   }
 

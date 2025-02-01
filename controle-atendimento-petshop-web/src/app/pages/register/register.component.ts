@@ -4,7 +4,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Perfil } from '../../shared/enums/perfil';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
 import { PetshopService } from '../../shared/services/petshop.service';
-import { convertFileToBase64 } from '../../shared/utils/util';
+import { convertFileToBase64 } from '../../shared/utils/file';
+import { changePerfil } from '../../shared/utils/change-enum';
 
 @Component({
   selector: 'app-register',
@@ -32,7 +33,7 @@ export class RegisterComponent {
 
   enviarCadastro(event: SubmitEvent) {
     if (this.cadastroForm.valid) {
-      this.cadastroForm.get('perfil')?.setValue((this.cadastroForm.get('perfil')?.value === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN);
+      this.cadastroForm.get('perfil')?.setValue(changePerfil(this.cadastroForm.get('perfil')?.value));
 
       if (!isNaN(this.cadastroForm.get('cpf')?.value) && this.cadastroForm.get('cpf')?.value.length === 11)
         this.cadastroForm.get('cpf')?.setValue(Number(this.cadastroForm.value.cpf));

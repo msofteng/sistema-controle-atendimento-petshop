@@ -6,7 +6,8 @@ import { TipoContato } from '../enums/tipo-contato';
 import { corrigeData } from '../functions/date';
 import { LoginParams } from '../interfaces/login-params';
 import { PageParams } from '../interfaces/page-params';
-import { Atendimento, Cliente, Contato, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
+import { Atendimento, Cliente, Contato, Endereco, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
+import { changePerfil, changeTipoContato } from '../utils/change-enum';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +33,11 @@ export class PetshopService {
     return this.http.post<Cliente>('/cliente/salvar', cliente).pipe(
       map(response => ({
         ...response,
-        perfil: (response.perfil === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN,
+        perfil: changePerfil(response.perfil),
         dataCadastro: corrigeData(new Date(response.dataCadastro)),
         contatos: response.contatos.map<Contato>(contato => ({
           ...contato,
-          tipo: (contato.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE
+          tipo: changeTipoContato(contato.tipo)
         }))
       }))
     );
@@ -82,6 +83,20 @@ export class PetshopService {
     );
   }
 
+  excluirEndereco(endereco: Endereco): Observable<boolean> {
+    return this.http.delete<boolean>('/cliente/endereco/excluir', { body: endereco, observe: 'response' }).pipe(
+      catchError(error => throwError(() => error)),
+      map(response => response.status === 204)
+    );
+  }
+
+  excluirContato(contato: Contato): Observable<boolean> {
+    return this.http.delete<boolean>('/cliente/contato/excluir', { body: contato, observe: 'response' }).pipe(
+      catchError(error => throwError(() => error)),
+      map(response => response.status === 204)
+    );
+  }
+
   excluirAtendimento(atendimento: Atendimento): Observable<boolean> {
     return this.http.delete<boolean>('/atendimento/excluir', { body: atendimento, observe: 'response' }).pipe(
       catchError(error => throwError(() => error)),
@@ -107,11 +122,11 @@ export class PetshopService {
     return this.http.post<Cliente[]>('/cliente/listar', filters).pipe(
       map(response => response.map(res => ({
         ...res,
-        perfil: (res.perfil === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN,
+        perfil: changePerfil(res.perfil),
         dataCadastro: corrigeData(new Date(res.dataCadastro)),
         contatos: res.contatos ? res.contatos.map<Contato>(contato => ({
           ...contato,
-          tipo: (contato.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE
+          tipo: changeTipoContato(contato.tipo)
         })) : []
       })))
     );
@@ -129,7 +144,7 @@ export class PetshopService {
             dataCadastro: corrigeData(new Date(pet.cliente.dataCadastro)),
             contatos: pet.cliente.contatos ? pet.cliente.contatos.map<Contato>(contato => ({
               ...contato,
-              tipo: (contato.tipo === 'e-mail') ? TipoContato.EMAIL : TipoContato.TELEFONE
+              tipo: changeTipoContato(contato.tipo)
             })) : []
           }
         })) : []

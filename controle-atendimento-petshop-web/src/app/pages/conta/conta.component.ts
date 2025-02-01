@@ -4,7 +4,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Perfil } from '../../shared/enums/perfil';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
 import { PetshopService } from '../../shared/services/petshop.service';
-import { base64ToFile, convertFileToBase64 } from '../../shared/utils/util';
+import { base64ToFile, convertFileToBase64 } from '../../shared/utils/file';
+import { changePerfil } from '../../shared/utils/change-enum';
 
 @Component({
   selector: 'app-conta',
@@ -55,7 +56,7 @@ export class ContaComponent implements OnInit {
 
   atualizaCadastro(event: SubmitEvent) {
     if (this.atualizacaoForm.valid) {
-      this.atualizacaoForm.get('perfil')?.setValue((this.atualizacaoForm.get('perfil')?.value === 'cliente') ? Perfil.CLIENTE : Perfil.ADMIN);
+      this.atualizacaoForm.get('perfil')?.setValue(changePerfil(this.atualizacaoForm.get('perfil')?.value));
 
       if (!isNaN(this.atualizacaoForm.get('cpf')?.value) && this.atualizacaoForm.get('cpf')?.value.length === 11)
         this.atualizacaoForm.get('cpf')?.setValue(Number(this.atualizacaoForm.value.cpf));

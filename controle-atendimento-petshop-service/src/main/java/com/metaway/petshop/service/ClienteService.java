@@ -56,4 +56,12 @@ public class ClienteService {
 
     return repository.findAll(PageRequest.of(filter.getPage() - 1, filter.getQtd())).getContent();
   }
+
+  public void removerContato(ContatoEntity contato) {
+    if (contato.getId() != null) contatoRepository.deleteById(contato.getId());
+  }
+
+  public void removerEndereco(EnderecoEntity endereco) {
+    if (endereco.getId() != null) enderecoRepository.deleteById(endereco.getId());
+  }
 }
