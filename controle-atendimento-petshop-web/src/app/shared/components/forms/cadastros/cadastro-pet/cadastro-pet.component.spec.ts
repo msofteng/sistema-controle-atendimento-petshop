@@ -68,6 +68,17 @@ describe('CadastroPetComponent', () => {
 
     expect(component.pet).toBeTruthy();
 
+    // pet sem raças
+    component.pet = {
+      ...petMock,
+      raca: undefined as any
+    };
+    component.ngOnChanges({
+      'pet': new SimpleChange(undefined, petMock, true)
+    });
+
+    expect(component.pet).toBeTruthy();
+
     // testando adição de raça no cadastro do pet
     component.racas = [];
     component.adicionarRacaPet(racaMock);

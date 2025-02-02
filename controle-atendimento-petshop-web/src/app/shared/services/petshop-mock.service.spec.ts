@@ -156,4 +156,42 @@ describe('PetshopMockService', () => {
       done();
     });
   });
+
+  it('testando login', (done) => {
+    service.login({
+      nomeCpf: 'mateus',
+      senha: '123'
+    }).subscribe(data => {
+      expect(data.nome).toBe('mateus');
+      done();
+    });
+  });
+
+  it('testando listagem de clientes', (done) => {
+    service.listarClientes({}).subscribe(data => {
+      expect(data.length).toEqual(0);
+      done();
+    });
+  });
+
+  it('testando listagem de atendimentos', (done) => {
+    service.listarAtendimentos({}).subscribe(data => {
+      expect(data.length).toEqual(1);
+      done();
+    });
+  });
+
+  it('testando listagem de pets', (done) => {
+    service.listarPets({}).subscribe(data => {
+      expect(data.length).toEqual(1);
+      done();
+    });
+  });
+
+  it('testando listagem de raças dos animais', (done) => {
+    service.listarRacas({}).subscribe(data => {
+      expect(data.length).toEqual(1);
+      done();
+    });
+  });
 });

@@ -13,4 +13,48 @@ describe('httpInterceptor', () => {
   it('deve ser criado', () => {
     expect(interceptor).toBeTruthy();
   });
+
+  it('deve adicionar a URL base "https://localhost:8080"', (done) => {
+    const mockRequest: any = {
+      url: '',
+      clone: jasmine.createSpy('clone').and.callFake((updated) => ({
+        ...mockRequest,
+        ...updated,
+      })),
+    };
+
+    const mockNext: any = jasmine.createSpy('next').and.callFake((updatedReq) => {
+      expect(updatedReq.url).toBe('https://localhost:8080');
+      done();
+    });
+
+    interceptor(mockRequest, mockNext);
+    expect(mockRequest.clone).toHaveBeenCalledWith({
+      ...mockRequest,
+      url: 'https://localhost:8080',
+      withCredentials: true,
+    });
+  });
+
+  it('deve habilitar "withCredentials"', (done) => {
+    const mockRequest: any = {
+      url: '/api/secure',
+      clone: jasmine.createSpy('clone').and.callFake((updated) => ({
+        ...mockRequest,
+        ...updated,
+      })),
+    };
+
+    const mockNext: any = jasmine.createSpy('next').and.callFake((updatedReq) => {
+      expect(updatedReq.withCredentials).toBeTrue();
+      done();
+    });
+
+    interceptor(mockRequest, mockNext);
+    expect(mockRequest.clone).toHaveBeenCalledWith({
+      ...mockRequest,
+      url: 'https://localhost:8080/api/secure',
+      withCredentials: true,
+    });
+  });
 });

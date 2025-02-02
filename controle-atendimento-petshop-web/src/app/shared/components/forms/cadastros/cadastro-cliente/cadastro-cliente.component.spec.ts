@@ -8,6 +8,7 @@ import { base64ToFile } from '../../../../utils/file';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { TipoContato } from '../../../../enums/tipo-contato';
 import { HttpErrorResponse } from '@angular/common/http';
+import { changePerfil, changeTipoContato } from '../../../../utils/change-enum';
 
 describe('CadastroClienteComponent', () => {
   let component: CadastroClienteComponent;
@@ -83,6 +84,8 @@ describe('CadastroClienteComponent', () => {
     component.ngOnChanges({
       'cliente': new SimpleChange(undefined, clienteMock, true)
     });
+
+    expect(component.cliente).toBeTruthy();
   });
 
   it('testando envio de foto no cadastro do cliente', () => {
@@ -257,5 +260,35 @@ describe('CadastroClienteComponent', () => {
       cidade: enderecoMock.cidade,
       bairro: enderecoMock.bairro
     });
+  });
+
+  it('deve retornar Perfil.CLIENTE quando o perfil for "cliente"', () => {
+    const result = changePerfil('cliente');
+    expect(result).toBe(Perfil.CLIENTE);
+  });
+
+  it('deve retornar Perfil.ADMIN quando o perfil for "administrador"', () => {
+    const result = changePerfil('administrador');
+    expect(result).toBe(Perfil.ADMIN);
+  });
+
+  it('deve retornar Perfil.CLIENTE por padrão para valores desconhecidos', () => {
+    const result = changePerfil('desconhecido');
+    expect(result).toBe(Perfil.CLIENTE);
+  });
+
+  it('deve retornar TipoContato.EMAIL quando o tipo for "e-mail"', () => {
+    const result = changeTipoContato('e-mail');
+    expect(result).toBe(TipoContato.EMAIL);
+  });
+
+  it('deve retornar TipoContato.TELEFONE quando o tipo for "telefone"', () => {
+    const result = changeTipoContato('telefone');
+    expect(result).toBe(TipoContato.TELEFONE);
+  });
+
+  it('deve retornar TipoContato.EMAIL por padrão para valores desconhecidos', () => {
+    const result = changeTipoContato('outro');
+    expect(result).toBe(TipoContato.EMAIL);
   });
 });
