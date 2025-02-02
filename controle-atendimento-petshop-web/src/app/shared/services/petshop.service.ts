@@ -34,10 +34,10 @@ export class PetshopService {
         ...response,
         perfil: changePerfil(response.perfil),
         dataCadastro: corrigeData(new Date(response.dataCadastro)),
-        contatos: response.contatos.map<Contato>(contato => ({
+        contatos: response.contatos ? response.contatos.map<Contato>(contato => ({
           ...contato,
           tipo: changeTipoContato(contato.tipo)
-        }))
+        })) : []
       }))
     );
   }

@@ -110,6 +110,23 @@ describe('PetshopService', () => {
     req.flush(mockResponse);
   });
 
+  it('deve cadastrar um cliente sem contatos com sucesso', () => {
+    const mockResponse: Cliente = {
+      ...adminMock,
+      perfil: changePerfil(adminMock.perfil),
+      dataCadastro: corrigeData(new Date()),
+      contatos: undefined as any
+    };
+  
+    service.cadastrarCliente(adminMock).subscribe(response => {
+      expect(response).toBeTruthy();
+    });
+  
+    const req = httpMock.expectOne('/cliente/salvar');
+    expect(req.request.method).toBe('POST');
+    req.flush(mockResponse);
+  });
+
   it('deve cadastrar um atendimento com sucesso', () => {
     const mockResponse: Atendimento = {
       ...atendimentoMock,
