@@ -26,25 +26,13 @@ export class VisualizarRacasComponent implements OnInit {
   racaSelecionadoEdicao?: Raca;
 
   ngOnInit(): void {
-    this.isLoading = true;
-
-    this.service.listarRacas({ qtd: 0, page: 0 }).subscribe({
-      next: (racas: Raca[]) => this.racas = racas,
-      error: (err: HttpErrorResponse) => console.error(err),
-      complete: () => this.isLoading = false,
-    });
+    this.buscarRacas();
   }
 
   racaAdicionada(raca: Raca) {
     this.service.cadastrarRaca(raca).subscribe({
       next: (data: Raca) => {
-        this.isLoading = true;
-
-        this.service.listarRacas({ qtd: 0, page: 0 }).subscribe({
-          next: (racas: Raca[]) => this.racas = racas,
-          error: (err: HttpErrorResponse) => console.error(err),
-          complete: () => this.isLoading = false,
-        });
+        this.buscarRacas();
 
         this.openModalAtualizarRaca = false;
         this.racaSelecionadoEdicao = undefined;
@@ -63,6 +51,16 @@ export class VisualizarRacasComponent implements OnInit {
 
     this.service.excluirRaca(raca).subscribe({
       next: (res: boolean) => this.racas = this.racas.filter(a => a.id !== raca.id),
+      error: (err: HttpErrorResponse) => console.error(err),
+      complete: () => this.isLoading = false,
+    });
+  }
+
+  buscarRacas() {
+    this.isLoading = true;
+
+    this.service.listarRacas({ qtd: 0, page: 0 }).subscribe({
+      next: (racas: Raca[]) => this.racas = racas,
       error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
     });

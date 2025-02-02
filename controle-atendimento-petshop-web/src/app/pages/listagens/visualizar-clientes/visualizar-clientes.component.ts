@@ -27,25 +27,13 @@ export class VisualizarClientesComponent implements OnInit {
   clienteSelecionadoEdicao?: Cliente;
 
   ngOnInit(): void {
-    this.isLoading = true;
-
-    this.service.listarClientes({ qtd: 0, page: 0 }).subscribe({
-      next: (clientes: Cliente[]) => this.clientes = clientes,
-      error: (err: HttpErrorResponse) => console.error(err),
-      complete: () => this.isLoading = false,
-    })
+    this.buscarClientes();
   }
 
   clienteAdicionado(cliente: Cliente) {
     this.service.cadastrarCliente(cliente).subscribe({
       next: (data: Cliente) => {
-        this.isLoading = true;
-
-        this.service.listarClientes({ qtd: 0, page: 0 }).subscribe({
-          next: (clientes: Cliente[]) => this.clientes = clientes,
-          error: (err: HttpErrorResponse) => console.error(err),
-          complete: () => this.isLoading = false,
-        });
+        this.buscarClientes();
 
         this.openModalAtualizarCliente = false;
         this.clienteSelecionadoEdicao = undefined;
@@ -70,5 +58,15 @@ export class VisualizarClientesComponent implements OnInit {
       error: (err: HttpErrorResponse) => console.error(err),
       complete: () => this.isLoading = false,
     });
+  }
+
+  buscarClientes() {
+    this.isLoading = true;
+
+    this.service.listarClientes({ qtd: 0, page: 0 }).subscribe({
+      next: (clientes: Cliente[]) => this.clientes = clientes,
+      error: (err: HttpErrorResponse) => console.error(err),
+      complete: () => this.isLoading = false,
+    })
   }
 }

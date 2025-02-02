@@ -22,11 +22,6 @@ describe('VisualizarAtendimentosComponent', () => {
     enderecos: []
   };
 
-  let racaMock: Raca = {
-    id: 1,
-    descricao: 'vira lata'
-  };
-
   let petMock = {
     id: 1,
     nome: 'caramelo',
