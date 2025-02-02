@@ -33,25 +33,27 @@ export class ContaComponent implements OnInit {
 
   ngOnInit(): void {
     // pega os dados do usuário logado
-    this.btnDisabled = true;
+    // this.btnDisabled = true;
 
-    this.service.login({
-      nomeCpf: '',
-      senha: ''
-    }).subscribe({
-      next: (value: Usuario) => {
-        this.atualizacaoForm.patchValue(value);
+    // buscar os dados do cliente logado por JWT
 
-        if (value.foto) {
-          const dataTransfer = new DataTransfer();
-          dataTransfer.items.add(base64ToFile(value.foto));
+    // this.service.login({
+    //   nomeCpf: '',
+    //   senha: ''
+    // }).subscribe({
+    //   next: (value: Usuario) => {
+    //     this.atualizacaoForm.patchValue(value);
 
-          this.fotoUsuario.nativeElement.files = dataTransfer.files;
-        }
-      },
-      error: (err: HttpErrorResponse) => console.error(err),
-      complete: () => this.btnDisabled = false,
-    });
+    //     if (value.foto) {
+    //       const dataTransfer = new DataTransfer();
+    //       dataTransfer.items.add(base64ToFile(value.foto));
+
+    //       this.fotoUsuario.nativeElement.files = dataTransfer.files;
+    //     }
+    //   },
+    //   error: (err: HttpErrorResponse) => console.error(err),
+    //   complete: () => this.btnDisabled = false,
+    // });
   }
 
   atualizaCadastro(event: SubmitEvent) {
@@ -83,8 +85,7 @@ export class ContaComponent implements OnInit {
 
     if (files && files.length > 0) {
       convertFileToBase64(files[0])
-        .then(base64 => this.atualizacaoForm.get('foto')?.setValue(base64))
-        .catch(error => console.error('Erro ao converter arquivo para base64:', error));
+        .then(base64 => this.atualizacaoForm.get('foto')?.setValue(base64));
     } else {
       this.atualizacaoForm.get('foto')?.setValue('');
     }

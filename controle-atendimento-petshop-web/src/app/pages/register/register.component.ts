@@ -50,10 +50,7 @@ export class RegisterComponent {
           this.cadastroForm.get('perfil')?.setValue(Perfil.ADMIN);
           this.fotoUsuario.nativeElement.value = '';
         },
-        error: (err: HttpErrorResponse) => {
-          console.error(err);
-          this.btnDisabled = false;
-        },
+        error: (err: HttpErrorResponse) => console.error(err),
         complete: () => this.btnDisabled = false,
       });
     } else {
@@ -67,7 +64,6 @@ export class RegisterComponent {
     if (files && files.length > 0) {
       convertFileToBase64(files[0])
         .then(base64 => this.cadastroForm.get('foto')?.setValue(base64))
-        .catch(error => console.error('Erro ao converter arquivo para base64:', error));
     } else {
       this.cadastroForm.get('foto')?.setValue('');
     }

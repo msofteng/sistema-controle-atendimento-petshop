@@ -30,4 +30,18 @@ describe('HeaderComponent', () => {
   it('deve criar', () => {
     expect(component).toBeTruthy();
   });
+
+  it('testando abertura do menu de opções do usuário logado', () => {
+    // abrindo menu
+    component.toggleMenu(new MouseEvent('click'));
+    expect(component.showMenu).toBeTrue();
+
+    // fechando menu
+    let menuContainer = document.createElement('div');
+    menuContainer.classList.add('menu-container');
+    document.body.appendChild(menuContainer);
+
+    component.onClickOutside(new MouseEvent('click'));
+    expect(component.showMenu).toBeFalse();
+  });
 });
