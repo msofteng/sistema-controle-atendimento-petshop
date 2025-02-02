@@ -11,7 +11,7 @@ describe('VisualizarClientesComponent', () => {
   let fixture: ComponentFixture<VisualizarClientesComponent>;
   let service: jasmine.SpyObj<PetshopService>;
 
-  let clienteMock: Cliente = {
+  let clienteMock = {
     id: 1,
     nome: 'mateus',
     perfil: Perfil.CLIENTE,

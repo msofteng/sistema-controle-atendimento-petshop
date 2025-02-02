@@ -11,7 +11,7 @@ describe('VisualizarAtendimentosComponent', () => {
   let fixture: ComponentFixture<VisualizarAtendimentosComponent>;
   let service: jasmine.SpyObj<PetshopService>;
 
-  let clienteMock: Cliente = {
+  let clienteMock = {
     id: 1,
     nome: 'mateus',
     perfil: Perfil.CLIENTE,
@@ -30,7 +30,7 @@ describe('VisualizarAtendimentosComponent', () => {
     raca: []
   };
 
-  let atendimentoMock: Atendimento = {
+  let atendimentoMock = {
     id: 1,
     descricao: 'teste',
     valor: 200,

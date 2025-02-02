@@ -114,6 +114,6 @@ export class CadastroAtendimentoComponent implements OnChanges {
   }
 
   getPetsSelecionados(): string[] {
-    return Array.from(this.selectPets.nativeElement.options).filter(option => option.selected).map(option => option.textContent ?? '');
+    return Array.from(this.selectPets.nativeElement.options).filter(option => option.selected).map(option => `${option.textContent}`);
   }
 }

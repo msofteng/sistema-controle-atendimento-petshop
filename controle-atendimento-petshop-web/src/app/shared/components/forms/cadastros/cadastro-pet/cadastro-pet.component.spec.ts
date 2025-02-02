@@ -9,7 +9,7 @@ describe('CadastroPetComponent', () => {
   let component: CadastroPetComponent;
   let fixture: ComponentFixture<CadastroPetComponent>;
 
-  let clienteMock: Cliente = {
+  let clienteMock = {
     id: 1,
     nome: 'mateus',
     perfil: Perfil.CLIENTE,
