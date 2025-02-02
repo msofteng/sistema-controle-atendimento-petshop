@@ -66,12 +66,11 @@ export class CadastroPetComponent implements OnChanges {
     event.preventDefault();
     event.stopPropagation();
 
-    const selectedRacas = this.getRacasSelecionadas();
-    this.racas = this.racas.filter(raca => !selectedRacas.includes(raca.descricao));
+    this.racas = this.racas.filter(raca => !this.getRacasSelecionadas().includes(raca.descricao));
   }
 
   getRacasSelecionadas(): string[] {
-    return Array.from(this.selectRacas.nativeElement.options).filter(option => option.selected).map(option => option.textContent ?? '');
+    return Array.from(this.selectRacas.nativeElement.options).filter(option => option.selected).map(option => `${option.textContent}`);
   }
 
   adicionarPet(event: SubmitEvent) {
@@ -99,8 +98,7 @@ export class CadastroPetComponent implements OnChanges {
 
     if (files && files.length > 0) {
       convertFileToBase64(files[0])
-        .then(base64 => this.petForm.get('foto')?.setValue(base64))
-        .catch(error => console.error('Erro ao converter arquivo para base64:', error));
+        .then(base64 => this.petForm.get('foto')?.setValue(base64));
     } else {
       this.petForm.get('foto')?.setValue('');
     }
