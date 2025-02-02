@@ -3,7 +3,6 @@ import { CadastroPetComponent } from './cadastro-pet.component';
 import { Perfil } from '../../../../enums/perfil';
 import { Cliente } from '../../../../interfaces/petshop.entities';
 import { ElementRef, SimpleChange } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { base64ToFile } from '../../../../utils/file';
 
 describe('CadastroPetComponent', () => {

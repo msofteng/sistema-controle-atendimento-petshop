@@ -67,7 +67,6 @@ export class CadastroClienteComponent {
     if (files && files.length > 0) {
       convertFileToBase64(files[0])
         .then(base64 => this.clienteForm.get('foto')?.setValue(base64))
-        .catch(error => console.error('Erro ao converter arquivo para base64:', error));
     } else {
       this.clienteForm.get('foto')?.setValue('');
     }
@@ -104,30 +103,18 @@ export class CadastroClienteComponent {
 
       this.clienteForm.get('dataCadastro')?.setValue(this.clienteForm.get('dataCadastro')?.value.toISOString().split('T')[0]);
 
-      if (!this.clienteForm.value.id && !this.cliente)
+      if (!this.clienteForm.value.id)
         delete this.clienteForm.value.id;
       if (!this.clienteForm.value.foto)
         delete this.clienteForm.value.foto;
       if (!this.clienteForm.value.cpf)
         delete this.clienteForm.value.cpf;
 
-      for (let i = 0; i < this.clienteForm.value.contatos.length; i++) {
-        if (!this.clienteForm.value.contatos[i].id)
-          delete this.clienteForm.value.contatos[i].id;
-        if (!this.clienteForm.value.contatos[i].tag)
-          delete this.clienteForm.value.contatos[i].tag;
-      }
-
-      for (let i = 0; i < this.clienteForm.value.enderecos.length; i++) {
-        if (!this.clienteForm.value.enderecos[i].id)
-          delete this.clienteForm.value.enderecos[i].id;
-        if (!this.clienteForm.value.enderecos[i].complemento)
-          delete this.clienteForm.value.enderecos[i].complemento;
-        if (!this.clienteForm.value.enderecos[i].tag)
-          delete this.clienteForm.value.enderecos[i].tag;
-      }
-
-      this.clienteAdicionado.emit(this.clienteForm.value);
+      this.clienteAdicionado.emit({
+        ...this.clienteForm.value,
+        contatos: this.clienteForm.value.contatos.map(this.removerAtributosOpcionaisContato),
+        enderecos: this.clienteForm.value.enderecos.map(this.removerAtributosOpcionaisEndereco)
+      });
 
       this.contatos.clear();
       this.enderecos.clear();
@@ -171,5 +158,22 @@ export class CadastroClienteComponent {
       next: () => this.enderecos.removeAt(index),
       error: error => console.error(error)
     });
+  }
+
+  removerAtributosOpcionaisContato(contato: Contato) {
+    return {
+      ...contato,
+      id: contato.id ? contato.id : undefined,
+      tag: contato.tag ? contato.tag : undefined
+    };
+  }
+
+  removerAtributosOpcionaisEndereco(endereco: Endereco) {
+    return {
+      ...endereco,
+      id: endereco.id ? endereco.id : undefined,
+      complemento: endereco.complemento ? endereco.complemento : undefined,
+      tag: endereco.tag ? endereco.tag : undefined
+    };
   }
 }
