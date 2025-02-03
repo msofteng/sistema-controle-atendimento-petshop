@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,7 +18,6 @@ import com.metaway.petshop.dto.FilterDTO;
 import com.metaway.petshop.entity.AtendimentoEntity;
 import com.metaway.petshop.repository.*;
 
-@ExtendWith(MockitoExtension.class)
 public class AtendimentoServiceTest {
   @InjectMocks
   private AtendimentoService service;
@@ -187,7 +184,6 @@ public class AtendimentoServiceTest {
     AtendimentoEntity atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"senha\":\"12345678910\",\"cpf\":12345678910,\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
     when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
     service.cadastrar(atendimentoMock);
-    // assertEquals(15, filterNullQtd.getQtd());
 
     atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}]}]}", AtendimentoEntity.class);
     when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);

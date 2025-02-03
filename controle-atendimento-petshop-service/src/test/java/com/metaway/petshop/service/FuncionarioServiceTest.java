@@ -3,21 +3,23 @@ package com.metaway.petshop.service;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.*;
 import org.mockito.*;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.metaway.petshop.entity.FuncionarioEntity;
 import com.metaway.petshop.repository.FuncionarioRepository;
 
-@ExtendWith(MockitoExtension.class)
 public class FuncionarioServiceTest {
   @InjectMocks
   private FuncionarioService service;
 
   @Mock
   private FuncionarioRepository repository;
+
+  @BeforeEach
+  void setUp() {
+    MockitoAnnotations.openMocks(this);
+  }
 
   @Test
   void deveCadastrarFuncionario() {

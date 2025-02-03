@@ -9,16 +9,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.*;
 
 import com.metaway.petshop.dto.FilterDTO;
 import com.metaway.petshop.entity.PetEntity;
 import com.metaway.petshop.repository.PetRepository;
 
-@ExtendWith(MockitoExtension.class)
 public class PetServiceTest {
   @InjectMocks
   private PetService service;

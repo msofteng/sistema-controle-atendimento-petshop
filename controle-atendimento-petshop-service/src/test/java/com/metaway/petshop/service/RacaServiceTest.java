@@ -7,16 +7,13 @@ import static org.mockito.Mockito.*;
 import java.util.*;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.*;
 
 import com.metaway.petshop.dto.FilterDTO;
 import com.metaway.petshop.entity.RacaEntity;
 import com.metaway.petshop.repository.RacaRepository;
 
-@ExtendWith(MockitoExtension.class)
 public class RacaServiceTest {
   @InjectMocks
   private RacaService service;
