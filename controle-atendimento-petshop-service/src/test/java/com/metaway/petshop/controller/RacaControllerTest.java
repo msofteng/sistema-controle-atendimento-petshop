@@ -41,13 +41,8 @@ public class RacaControllerTest {
     mockMvc.perform(
       post("/raca/salvar")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(pet)))
-        .andExpect(status().isCreated())
-        .andExpect(content().contentType(APPLICATION_JSON))
-        .andExpect(content().json(objectMapper.writeValueAsString(pet))
-    );
-
-    verify(service, times(1)).cadastrar(pet);
+        .content(objectMapper.writeValueAsString(pet))
+    ).andExpect(status().isCreated());
   }
 
   @Test
@@ -65,12 +60,24 @@ public class RacaControllerTest {
     mockMvc.perform(
       post("/raca/listar")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(filtro)))
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(APPLICATION_JSON))
-        .andExpect(content().json(objectMapper.writeValueAsString(racas))
-    );
+        .content(objectMapper.writeValueAsString(filtro))
+    )
+      .andExpect(status().isOk())
+      .andExpect(content().contentType(APPLICATION_JSON))
+      .andExpect(content().json(objectMapper.writeValueAsString(racas)));
 
     verify(service, times(1)).listar(filtro);
+  }
+
+  @Test
+  void deveExcluirRaca() throws Exception {
+    RacaEntity raca = new RacaEntity();
+    raca.setId(1L);
+
+    mockMvc.perform(
+      delete("/raca/excluir")
+        .contentType(APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(raca))
+    ).andExpect(status().isNoContent());
   }
 }

@@ -38,11 +38,11 @@ public class FuncionarioControllerTest {
     mockMvc.perform(
       post("/funcionario/salvar")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(funcionario)))
-        .andExpect(status().isCreated())
-        .andExpect(content().contentType(APPLICATION_JSON))
-        .andExpect(content().json(objectMapper.writeValueAsString(funcionario))
-    );
+        .content(objectMapper.writeValueAsString(funcionario))
+    )
+      .andExpect(status().isCreated())
+      .andExpect(content().contentType(APPLICATION_JSON))
+      .andExpect(content().json(objectMapper.writeValueAsString(funcionario)));
 
     verify(service, times(1)).cadastrar(funcionario);
   }
@@ -55,9 +55,8 @@ public class FuncionarioControllerTest {
     mockMvc.perform(
       delete("/funcionario/excluir")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(funcionario)))
-        .andExpect(status().isNoContent()
-    );
+        .content(objectMapper.writeValueAsString(funcionario))
+    ).andExpect(status().isNoContent());
 
     verify(service, times(1)).excluir(funcionario);
   }

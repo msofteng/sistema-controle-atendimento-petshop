@@ -41,11 +41,11 @@ public class AtendimentoControllerTest {
     mockMvc.perform(
       post("/atendimento/salvar")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(atendimento)))
-        .andExpect(status().isCreated())
-        .andExpect(content().contentType(APPLICATION_JSON))
-        .andExpect(content().json(objectMapper.writeValueAsString(atendimento))
-    );
+        .content(objectMapper.writeValueAsString(atendimento))
+    )
+      .andExpect(status().isCreated())
+      .andExpect(content().contentType(APPLICATION_JSON))
+      .andExpect(content().json(objectMapper.writeValueAsString(atendimento)));
 
     verify(service, times(1)).cadastrar(atendimento);
   }
@@ -58,9 +58,8 @@ public class AtendimentoControllerTest {
     mockMvc.perform(
       delete("/atendimento/excluir")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(atendimento)))
-        .andExpect(status().isNoContent()
-    );
+        .content(objectMapper.writeValueAsString(atendimento))
+    ).andExpect(status().isNoContent());
 
     verify(service, times(1)).excluir(atendimento);
   }
@@ -80,11 +79,11 @@ public class AtendimentoControllerTest {
     mockMvc.perform(
       post("/atendimento/listar")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(filtro)))
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(APPLICATION_JSON))
-        .andExpect(content().json(objectMapper.writeValueAsString(atendimentos))
-    );
+        .content(objectMapper.writeValueAsString(filtro))
+    )
+      .andExpect(status().isOk())
+      .andExpect(content().contentType(APPLICATION_JSON))
+      .andExpect(content().json(objectMapper.writeValueAsString(atendimentos)));
 
     verify(service, times(1)).listar(filtro);
   }

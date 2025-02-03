@@ -41,11 +41,11 @@ public class PetControllerTest {
     mockMvc.perform(
       post("/pet/salvar")
         .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(pet)))
-        .andExpect(status().isCreated())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(content().json(objectMapper.writeValueAsString(pet))
-    );
+        .content(objectMapper.writeValueAsString(pet))
+    )
+      .andExpect(status().isCreated())
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      .andExpect(content().json(objectMapper.writeValueAsString(pet)));
 
     verify(service, times(1)).cadastrar(pet);
   }
@@ -58,9 +58,8 @@ public class PetControllerTest {
     mockMvc.perform(
       delete("/pet/excluir")
         .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(pet)))
-        .andExpect(status().isNoContent()
-    );
+        .content(objectMapper.writeValueAsString(pet))
+    ).andExpect(status().isNoContent());
 
     verify(service, times(1)).excluir(pet);
   }
@@ -80,11 +79,11 @@ public class PetControllerTest {
     mockMvc.perform(
       post("/pet/listar")
         .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(filtro)))
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(content().json(objectMapper.writeValueAsString(pets))
-    );
+        .content(objectMapper.writeValueAsString(filtro))
+    )
+      .andExpect(status().isOk())
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      .andExpect(content().json(objectMapper.writeValueAsString(pets)));
 
     verify(service, times(1)).listar(filtro);
   }

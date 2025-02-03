@@ -43,9 +43,8 @@ public class ClienteControllerTest {
     mockMvc.perform(
       post("/cliente/salvar")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(cliente)))
-        .andExpect(status().isCreated()
-    );
+        .content(objectMapper.writeValueAsString(cliente))
+    ).andExpect(status().isCreated());
 
     verify(service, times(1)).cadastrar(cliente);
   }
@@ -58,9 +57,8 @@ public class ClienteControllerTest {
     mockMvc.perform(
       delete("/cliente/excluir")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(cliente)))
-        .andExpect(status().isNoContent()
-    );
+        .content(objectMapper.writeValueAsString(cliente))
+    ).andExpect(status().isNoContent());
 
     verify(service, times(1)).excluir(cliente);
   }
@@ -73,9 +71,8 @@ public class ClienteControllerTest {
     mockMvc.perform(
       delete("/cliente/contato/excluir")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(contato)))
-        .andExpect(status().isNoContent()
-    );
+        .content(objectMapper.writeValueAsString(contato))
+    ).andExpect(status().isNoContent());
 
     verify(service, times(1)).removerContato(contato);
   }
@@ -88,9 +85,8 @@ public class ClienteControllerTest {
     mockMvc.perform(
       delete("/cliente/endereco/excluir")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(endereco)))
-        .andExpect(status().isNoContent()
-    );
+        .content(objectMapper.writeValueAsString(endereco))
+    ).andExpect(status().isNoContent());
 
     verify(service, times(1)).removerEndereco(endereco);
   }
@@ -110,11 +106,11 @@ public class ClienteControllerTest {
     mockMvc.perform(
       post("/cliente/listar")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(filtro)))
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(APPLICATION_JSON))
-        .andExpect(content().json(objectMapper.writeValueAsString(clientes))
-    );
+        .content(objectMapper.writeValueAsString(filtro))
+    )
+      .andExpect(status().isOk())
+      .andExpect(content().contentType(APPLICATION_JSON))
+      .andExpect(content().json(objectMapper.writeValueAsString(clientes)));
 
     verify(service, times(1)).listar(filtro);
   }
