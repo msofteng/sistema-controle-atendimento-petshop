@@ -37,22 +37,24 @@ public class AtendimentoService {
   public AtendimentoEntity cadastrar(AtendimentoEntity atendimento) {
     ClienteEntity cliente = atendimento.getPets().iterator().next().getCliente();
 
-    if (cliente.getId() == null) {
-      cliente = clienteRepository.save(cliente);
-    } else {
-      cliente = clienteRepository.findById(cliente.getId()).get();
+    if (cliente != null) {
+      if (cliente.getId() == null) {
+        cliente = clienteRepository.save(cliente);
+      } else {
+        cliente = clienteRepository.findById(cliente.getId()).orElse(cliente);
+      }
     }
 
     final var cli = cliente;
 
-    if (cli.getContatos() != null && !cli.getContatos().isEmpty()) {
+    if (cli != null && cli.getContatos() != null && !cli.getContatos().isEmpty()) {
       cli.setContatos(contatoRepository.saveAll(cli.getContatos().stream().map(contato -> {
         contato.setCliente(cli);
         return contato;
       }).collect(Collectors.toList())));
     }
 
-    if (cli.getEnderecos() != null && !cli.getEnderecos().isEmpty()) {
+    if (cli != null && cli.getEnderecos() != null && !cli.getEnderecos().isEmpty()) {
       cli.setEnderecos(enderecoRepository.saveAll(cli.getEnderecos().stream().map(endereco -> {
         endereco.setCliente(cli);
         return endereco;
@@ -61,13 +63,13 @@ public class AtendimentoService {
 
     atendimento.setPets(atendimento.getPets().stream().map(pet -> {
       if (pet.getId() != null) {
-        pet = petRepository.findById(pet.getId()).get();
+        pet = petRepository.findById(pet.getId()).orElse(pet);
       }
 
       if (pet.getRaca() != null && !pet.getRaca().isEmpty()) {
         pet.setRaca(pet.getRaca().stream().map(raca -> {
           if (raca.getId() != null) {
-            return racaRepository.findById(raca.getId()).get();
+            return racaRepository.findById(raca.getId()).orElse(raca);
           } else {
             return racaRepository.save(raca);
           }
