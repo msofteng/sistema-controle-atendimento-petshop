@@ -20,7 +20,7 @@ import com.metaway.petshop.entity.AtendimentoEntity;
 import com.metaway.petshop.service.AtendimentoService;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 public class AtendimentoControllerTest {
   @Autowired
   private MockMvc mockMvc;

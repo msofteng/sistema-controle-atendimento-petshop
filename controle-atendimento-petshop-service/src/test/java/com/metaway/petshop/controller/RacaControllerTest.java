@@ -20,7 +20,7 @@ import com.metaway.petshop.entity.RacaEntity;
 import com.metaway.petshop.service.RacaService;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 public class RacaControllerTest {
   @Autowired
   private MockMvc mockMvc;

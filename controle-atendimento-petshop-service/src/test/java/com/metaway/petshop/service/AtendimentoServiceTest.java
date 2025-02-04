@@ -51,7 +51,7 @@ public class AtendimentoServiceTest {
       registerModule(new JavaTimeModule());
     }};
 
-    AtendimentoEntity atendimento = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"senha\":\"12345678910\",\"cpf\":12345678910,\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
+    AtendimentoEntity atendimento = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
 
     when(repository.save(atendimento)).thenReturn(atendimento);
 
@@ -68,7 +68,7 @@ public class AtendimentoServiceTest {
       registerModule(new JavaTimeModule());
     }};
 
-    AtendimentoEntity atendimento = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"id\":\"1\",\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"id\":\"1\",\"descricao\":\"vira lata\"}],\"cliente\":{\"id\":\"1\",\"nome\":\"pedro\",\"senha\":\"12345678910\",\"cpf\":12345678910,\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
+    AtendimentoEntity atendimento = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"id\":\"1\",\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"id\":\"1\",\"descricao\":\"vira lata\"}],\"cliente\":{\"id\":\"1\",\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
 
     when(repository.save(atendimento)).thenReturn(atendimento);
 
@@ -181,7 +181,7 @@ public class AtendimentoServiceTest {
       registerModule(new JavaTimeModule());
     }};
     
-    AtendimentoEntity atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"senha\":\"12345678910\",\"cpf\":12345678910,\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
+    AtendimentoEntity atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
     when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
     service.cadastrar(atendimentoMock);
 
@@ -190,37 +190,37 @@ public class AtendimentoServiceTest {
     service.cadastrar(atendimentoMock);
     assertEquals(null, atendimentoMock.getPets().stream().toList().get(0).getCliente());
 
-    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"senha\":\"12345678910\",\"cpf\":12345678910,\"dataCadastro\":\"2025-02-03\",\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
+    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
     when(clienteRepository.save(atendimentoMock.getPets().stream().toList().get(0).getCliente())).thenReturn(atendimentoMock.getPets().stream().toList().get(0).getCliente());
     when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
     service.cadastrar(atendimentoMock);
     assertEquals(null, atendimentoMock.getPets().stream().toList().get(0).getCliente().getContatos());
 
-    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"senha\":\"12345678910\",\"cpf\":12345678910,\"dataCadastro\":\"2025-02-03\",\"contatos\":[],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
+    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
     when(clienteRepository.save(atendimentoMock.getPets().stream().toList().get(0).getCliente())).thenReturn(atendimentoMock.getPets().stream().toList().get(0).getCliente());
     when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
     service.cadastrar(atendimentoMock);
     assertEquals(0, atendimentoMock.getPets().stream().toList().get(0).getCliente().getContatos().size());
 
-    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"senha\":\"12345678910\",\"cpf\":12345678910,\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
+    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
     when(clienteRepository.save(atendimentoMock.getPets().stream().toList().get(0).getCliente())).thenReturn(atendimentoMock.getPets().stream().toList().get(0).getCliente());
     when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
     service.cadastrar(atendimentoMock);
     assertEquals(null, atendimentoMock.getPets().stream().toList().get(0).getCliente().getEnderecos());
 
-    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"senha\":\"12345678910\",\"cpf\":12345678910,\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[],\"pets\":[]}}]}", AtendimentoEntity.class);
+    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[],\"pets\":[]}}]}", AtendimentoEntity.class);
     when(clienteRepository.save(atendimentoMock.getPets().stream().toList().get(0).getCliente())).thenReturn(atendimentoMock.getPets().stream().toList().get(0).getCliente());
     when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
     service.cadastrar(atendimentoMock);
     assertEquals(0, atendimentoMock.getPets().stream().toList().get(0).getCliente().getEnderecos().size());
 
-    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"cliente\":{\"nome\":\"pedro\",\"senha\":\"12345678910\",\"cpf\":12345678910,\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
+    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"cliente\":{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
     when(clienteRepository.save(atendimentoMock.getPets().stream().toList().get(0).getCliente())).thenReturn(atendimentoMock.getPets().stream().toList().get(0).getCliente());
     when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
     service.cadastrar(atendimentoMock);
     assertEquals(null, atendimentoMock.getPets().stream().toList().get(0).getRaca());
 
-    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[],\"cliente\":{\"nome\":\"pedro\",\"senha\":\"12345678910\",\"cpf\":12345678910,\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
+    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[],\"cliente\":{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
     when(clienteRepository.save(atendimentoMock.getPets().stream().toList().get(0).getCliente())).thenReturn(atendimentoMock.getPets().stream().toList().get(0).getCliente());
     when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
     service.cadastrar(atendimentoMock);

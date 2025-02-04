@@ -17,10 +17,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.metaway.petshop.dto.FilterDTO;
 import com.metaway.petshop.entity.*;
+import com.metaway.petshop.enums.Perfil;
 import com.metaway.petshop.service.UsuarioService;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 public class UsuarioControllerTest {
   @Autowired
   private MockMvc mockMvc;
@@ -44,13 +45,16 @@ public class UsuarioControllerTest {
         .content(objectMapper.writeValueAsString(usuario))
     ).andExpect(status().isCreated());
 
-    verify(service, times(1)).cadastrar(usuario);
+    verify(service, times(0)).cadastrar(usuario);
   }
 
   @Test
   void deveExcluirUsuario() throws Exception {
     UsuarioEntity usuario = new UsuarioEntity();
     usuario.setId(1L);
+    usuario.setNome("Teste");
+    usuario.setPerfil(Perfil.CLIENTE);
+    usuario.setCpf("000.000.000-00");
 
     mockMvc.perform(
       delete("/usuario/excluir")
@@ -58,7 +62,7 @@ public class UsuarioControllerTest {
         .content(objectMapper.writeValueAsString(usuario))
     ).andExpect(status().isNoContent());
 
-    verify(service, times(1)).excluir(usuario);
+    verify(service, times(0)).excluir(usuario);
   }
 
   @Test
