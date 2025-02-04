@@ -35,7 +35,7 @@ public class UsuarioEntity implements UserDetails {
 	private Perfil perfil;
 
 	@Column(nullable = true)
-	private Long cpf;
+	private String cpf;
 
 	@Column(columnDefinition = "TEXT", nullable = true)
 	private String foto;
@@ -43,15 +43,15 @@ public class UsuarioEntity implements UserDetails {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataCadastro;
 
-	@OneToMany(mappedBy = "cliente", cascade = ALL)
+	@OneToMany(mappedBy = "cliente", cascade = ALL, fetch = FetchType.EAGER)
 	@JsonIgnoreProperties(value = "cliente", allowSetters = true)
 	private List<ContatoEntity> contatos;
 
-	@OneToMany(mappedBy = "cliente", cascade = ALL)
+	@OneToMany(mappedBy = "cliente", cascade = ALL, fetch = FetchType.EAGER)
 	@JsonIgnoreProperties(value = "cliente", allowSetters = true)
 	private List<EnderecoEntity> enderecos;
 
-	@OneToMany(mappedBy = "cliente", cascade = ALL)
+	@OneToMany(mappedBy = "cliente", cascade = ALL, fetch = FetchType.EAGER)
 	@JsonIgnoreProperties(value = "cliente", allowSetters = true)
 	private List<PetEntity> pets;
 

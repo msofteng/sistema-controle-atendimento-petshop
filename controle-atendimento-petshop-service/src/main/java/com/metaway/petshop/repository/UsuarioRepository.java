@@ -10,7 +10,8 @@ import com.metaway.petshop.entity.UsuarioEntity;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
-  Optional<UsuarioEntity> findByNome(String nome);    
+  @Query(nativeQuery = true, value = "SELECT * FROM USUARIO_ENTITY WHERE NOME = :nomeCpf OR CPF = :nomeCpf")
+  Optional<UsuarioEntity> findByNome(@Param("nomeCpf") String nomeCpf);    
   
   @Modifying
   @Query(nativeQuery = true, value = "DELETE FROM ATENDIMENTOS_PET WHERE PET_ID IN (SELECT ID FROM PET_ENTITY WHERE CLIENTE_ID = :clienteId)")
