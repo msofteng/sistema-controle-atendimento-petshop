@@ -88,9 +88,4 @@ public class UsuarioEntity implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "UsuarioEntity [id=" + id + ", nome=" + nome + ", perfil=" + perfil + ", cpf=" + cpf + "]";
-	}
 }
