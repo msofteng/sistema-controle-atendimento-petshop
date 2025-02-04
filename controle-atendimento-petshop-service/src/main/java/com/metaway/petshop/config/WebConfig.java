@@ -10,19 +10,4 @@ public class WebConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/", "/docs");
     }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry
-            .addMapping("/**")
-            .allowedMethods("GET", "POST", "PUT", "DELETE")
-            .allowedHeaders("*")
-            .allowedOrigins(
-                "http://localhost:4200",
-                "https://4200-idx-sistema-controle-atendimento-petsho-1738315737017.cluster-m7tpz3bmgjgoqrktlvd4ykrc2m.cloudworkstations.dev",
-                "http://localhost:8080",
-                "https://8080-idx-sistema-controle-atendimento-petsho-1738315737017.cluster-m7tpz3bmgjgoqrktlvd4ykrc2m.cloudworkstations.dev"
-            )
-            .allowCredentials(true);
-    }
 }
