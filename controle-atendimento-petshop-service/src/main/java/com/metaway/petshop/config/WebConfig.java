@@ -18,9 +18,9 @@ public class WebConfig implements WebMvcConfigurer {
             .allowedMethods("GET", "POST", "PUT", "DELETE")
             .allowedHeaders("*")
             .allowedOrigins(
-                "https://localhost:4200",
+                "http://localhost:4200",
                 "https://4200-idx-sistema-controle-atendimento-petsho-1738315737017.cluster-m7tpz3bmgjgoqrktlvd4ykrc2m.cloudworkstations.dev",
-                "https://localhost:8080",
+                "http://localhost:8080",
                 "https://8080-idx-sistema-controle-atendimento-petsho-1738315737017.cluster-m7tpz3bmgjgoqrktlvd4ykrc2m.cloudworkstations.dev"
             )
             .allowCredentials(true);

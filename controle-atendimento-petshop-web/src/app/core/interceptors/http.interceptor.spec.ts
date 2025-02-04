@@ -14,7 +14,7 @@ describe('httpInterceptor', () => {
     expect(interceptor).toBeTruthy();
   });
 
-  it('deve adicionar a URL base "https://localhost:8080"', (done) => {
+  it('deve adicionar a URL base "http://localhost:8080"', (done) => {
     const mockRequest: any = {
       url: '',
       clone: jasmine.createSpy('clone').and.callFake((updated) => ({
@@ -24,14 +24,14 @@ describe('httpInterceptor', () => {
     };
 
     const mockNext: any = jasmine.createSpy('next').and.callFake((updatedReq) => {
-      expect(updatedReq.url).toBe('https://localhost:8080');
+      expect(updatedReq.url).toBe('http://localhost:8080');
       done();
     });
 
     interceptor(mockRequest, mockNext);
     expect(mockRequest.clone).toHaveBeenCalledWith({
       ...mockRequest,
-      url: 'https://localhost:8080',
+      url: 'http://localhost:8080',
       withCredentials: true,
     });
   });
@@ -53,7 +53,7 @@ describe('httpInterceptor', () => {
     interceptor(mockRequest, mockNext);
     expect(mockRequest.clone).toHaveBeenCalledWith({
       ...mockRequest,
-      url: 'https://localhost:8080/api/secure',
+      url: 'http://localhost:8080/api/secure',
       withCredentials: true,
     });
   });

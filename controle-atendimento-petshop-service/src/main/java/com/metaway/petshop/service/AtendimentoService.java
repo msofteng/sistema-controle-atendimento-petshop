@@ -19,7 +19,7 @@ public class AtendimentoService {
   private AtendimentoRepository repository;
 
   @Autowired
-  private ClienteRepository clienteRepository;
+  private UsuarioRepository usuarioRepository;
 
   @Autowired
   private ContatoRepository contatoRepository;
@@ -35,13 +35,13 @@ public class AtendimentoService {
 
   @Transactional
   public AtendimentoEntity cadastrar(AtendimentoEntity atendimento) {
-    ClienteEntity cliente = atendimento.getPets().iterator().next().getCliente();
+    UsuarioEntity cliente = atendimento.getPets().iterator().next().getCliente();
 
     if (cliente != null) {
       if (cliente.getId() == null) {
-        cliente = clienteRepository.save(cliente);
+        cliente = usuarioRepository.save(cliente);
       } else {
-        cliente = clienteRepository.findById(cliente.getId()).orElse(cliente);
+        cliente = usuarioRepository.findById(cliente.getId()).orElse(cliente);
       }
     }
 

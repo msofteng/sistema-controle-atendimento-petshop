@@ -14,9 +14,9 @@ import com.metaway.petshop.repository.*;
 import jakarta.transaction.Transactional;
 
 @Service
-public class ClienteService {
+public class UsuarioService {
   @Autowired
-  private ClienteRepository repository;
+  private UsuarioRepository repository;
 
   @Autowired
   private ContatoRepository contatoRepository;
@@ -24,7 +24,7 @@ public class ClienteService {
   @Autowired
   private EnderecoRepository enderecoRepository;
 
-  public ClienteEntity cadastrar(ClienteEntity cliente) {
+  public UsuarioEntity cadastrar(UsuarioEntity cliente) {
     cliente.setContatos(contatoRepository.saveAll(cliente.getContatos().stream().map(contato -> {
       contato.setCliente(cliente);
       return contato;
@@ -39,16 +39,16 @@ public class ClienteService {
   }
 
   @Transactional
-  public void excluir(ClienteEntity cliente) {
-    repository.removerAtendimentosPetsCliente(cliente.getId());
-    repository.removerRacasPetsCliente(cliente.getId());
-    repository.removerPetsCliente(cliente.getId());
-    repository.removerContatosCliente(cliente.getId());
-    repository.removerEnderecosCliente(cliente.getId());
-    repository.removerCliente(cliente.getId());
+  public void excluir(UsuarioEntity cliente) {
+    repository.removerAtendimentosPetsUsuario(cliente.getId());
+    repository.removerRacasPetsUsuario(cliente.getId());
+    repository.removerPetsUsuario(cliente.getId());
+    repository.removerContatosUsuario(cliente.getId());
+    repository.removerEnderecosUsuario(cliente.getId());
+    repository.removerUsuario(cliente.getId());
   }
 
-  public List<ClienteEntity> listar(FilterDTO<ClienteEntity> filter) {
+  public List<UsuarioEntity> listar(FilterDTO<UsuarioEntity> filter) {
     filter.setPage(filter.getPage() != null && filter.getPage() >= 1 ? filter.getPage() : 1);
     filter.setQtd(filter.getQtd() != null && filter.getQtd() >= 1 ? filter.getQtd() : Integer.parseInt(Long.toString(repository.count() > 0 ? repository.count() : 10)));
 
