@@ -27,5 +27,5 @@ public class EnderecoEntity {
 
   @ManyToOne
   @JsonIgnoreProperties(value = "enderecos", allowSetters = true)
-  private ClienteEntity cliente;
+  private UsuarioEntity cliente;
 }

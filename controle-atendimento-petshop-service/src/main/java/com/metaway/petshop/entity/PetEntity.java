@@ -30,7 +30,7 @@ public class PetEntity {
 
   @ManyToOne(cascade = ALL, fetch = LAZY)
   @JsonIgnoreProperties(value = "pets", allowSetters = true)
-  private ClienteEntity cliente;
+  private UsuarioEntity cliente;
 
   @ManyToMany(cascade = ALL)
   @JoinTable(

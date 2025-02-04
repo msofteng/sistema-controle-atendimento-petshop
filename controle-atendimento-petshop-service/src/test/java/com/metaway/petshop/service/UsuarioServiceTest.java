@@ -14,12 +14,12 @@ import com.metaway.petshop.dto.FilterDTO;
 import com.metaway.petshop.entity.*;
 import com.metaway.petshop.repository.*;
 
-public class ClienteServiceTest {
+public class UsuarioServiceTest {
   @InjectMocks
-  private ClienteService service;
+  private UsuarioService service;
 
   @Mock
-  private ClienteRepository repository;
+  private UsuarioRepository repository;
 
   @Mock
   private ContatoRepository contatoRepository;
@@ -33,50 +33,50 @@ public class ClienteServiceTest {
   }
 
   @Test
-  void deveCadastrarCliente() {
-    ClienteEntity cliente = new ClienteEntity();
-    cliente.setNome("Teste");
-    cliente.setContatos(Arrays.asList(new ContatoEntity()));
-    cliente.setEnderecos(Arrays.asList(new EnderecoEntity()));
-    cliente.setPets(Arrays.asList(new PetEntity()));
+  void deveCadastrarUsuario() {
+    UsuarioEntity usuario = new UsuarioEntity();
+    usuario.setNome("Teste");
+    usuario.setContatos(Arrays.asList(new ContatoEntity()));
+    usuario.setEnderecos(Arrays.asList(new EnderecoEntity()));
+    usuario.setPets(Arrays.asList(new PetEntity()));
 
-    when(repository.save(cliente)).thenReturn(cliente);
+    when(repository.save(usuario)).thenReturn(usuario);
 
-    ClienteEntity clienteSalvo = service.cadastrar(cliente);
+    UsuarioEntity usuarioSalvo = service.cadastrar(usuario);
 
-    assertNotNull(clienteSalvo);
-    assertEquals("Teste", clienteSalvo.getNome());
-    verify(repository, times(1)).save(cliente);
+    assertNotNull(usuarioSalvo);
+    assertEquals("Teste", usuarioSalvo.getNome());
+    verify(repository, times(1)).save(usuario);
   }
 
   @Test
-  void deveExcluirCliente() {
-    ClienteEntity cliente = new ClienteEntity();
-    cliente.setId(1L);
+  void deveExcluirUsuario() {
+    UsuarioEntity usuario = new UsuarioEntity();
+    usuario.setId(1L);
 
-    service.excluir(cliente);
+    service.excluir(usuario);
 
-    verify(repository, times(1)).removerAtendimentosPetsCliente(1L);
-    verify(repository, times(1)).removerPetsCliente(1L);
-    verify(repository, times(1)).removerRacasPetsCliente(1L);
-    verify(repository, times(1)).removerEnderecosCliente(1L);
-    verify(repository, times(1)).removerContatosCliente(1L);
-    verify(repository, times(1)).removerCliente(1L);
+    verify(repository, times(1)).removerAtendimentosPetsUsuario(1L);
+    verify(repository, times(1)).removerPetsUsuario(1L);
+    verify(repository, times(1)).removerRacasPetsUsuario(1L);
+    verify(repository, times(1)).removerEnderecosUsuario(1L);
+    verify(repository, times(1)).removerContatosUsuario(1L);
+    verify(repository, times(1)).removerUsuario(1L);
   }
 
   @Test
-  void deveListarClientes() {
-    FilterDTO<ClienteEntity> filter = new FilterDTO<ClienteEntity>();
+  void deveListarUsuarios() {
+    FilterDTO<UsuarioEntity> filter = new FilterDTO<UsuarioEntity>();
     filter.setPage(1);
     filter.setQtd(10);
 
-    List<ClienteEntity> clientes = new ArrayList<ClienteEntity>();
-    clientes.add(new ClienteEntity());
-    clientes.add(new ClienteEntity());
+    List<UsuarioEntity> usuarios = new ArrayList<UsuarioEntity>();
+    usuarios.add(new UsuarioEntity());
+    usuarios.add(new UsuarioEntity());
 
-    when(repository.findAll(any(Pageable.class))).thenReturn(new PageImpl<ClienteEntity>(clientes));
+    when(repository.findAll(any(Pageable.class))).thenReturn(new PageImpl<UsuarioEntity>(usuarios));
 
-    List<ClienteEntity> lista = service.listar(filter);
+    List<UsuarioEntity> lista = service.listar(filter);
 
     assertEquals(2, lista.size());
     verify(repository, times(1)).findAll(any(Pageable.class));
@@ -84,21 +84,21 @@ public class ClienteServiceTest {
 
   @Test
   void testSetPage() {
-    List<ClienteEntity> listaClientes = Arrays.asList(new ClienteEntity(), new ClienteEntity());
-    Page<ClienteEntity> pageMock = new PageImpl<ClienteEntity>(listaClientes);
+    List<UsuarioEntity> listaUsuarios = Arrays.asList(new UsuarioEntity(), new UsuarioEntity());
+    Page<UsuarioEntity> pageMock = new PageImpl<UsuarioEntity>(listaUsuarios);
 
     when(repository.findAll(any(Pageable.class))).thenReturn(pageMock);
 
-    FilterDTO<ClienteEntity> filterNullPage = new FilterDTO<ClienteEntity>();
+    FilterDTO<UsuarioEntity> filterNullPage = new FilterDTO<UsuarioEntity>();
     service.listar(filterNullPage);
     assertEquals(1, filterNullPage.getPage());
 
-    FilterDTO<ClienteEntity> filterPageMenorQue1 = new FilterDTO<ClienteEntity>();
+    FilterDTO<UsuarioEntity> filterPageMenorQue1 = new FilterDTO<UsuarioEntity>();
     filterPageMenorQue1.setPage(0);
     service.listar(filterPageMenorQue1);
     assertEquals(1, filterPageMenorQue1.getPage());
 
-    FilterDTO<ClienteEntity> filterPageValida = new FilterDTO<ClienteEntity>();
+    FilterDTO<UsuarioEntity> filterPageValida = new FilterDTO<UsuarioEntity>();
     filterPageValida.setPage(3);
     service.listar(filterPageValida);
     assertEquals(3, filterPageValida.getPage());
@@ -106,28 +106,28 @@ public class ClienteServiceTest {
 
   @Test
   void testSetQtd() {
-    List<ClienteEntity> listaClientes = Arrays.asList(new ClienteEntity(), new ClienteEntity());
-    Page<ClienteEntity> pageMock = new PageImpl<ClienteEntity>(listaClientes);
+    List<UsuarioEntity> listaUsuarios = Arrays.asList(new UsuarioEntity(), new UsuarioEntity());
+    Page<UsuarioEntity> pageMock = new PageImpl<UsuarioEntity>(listaUsuarios);
 
     when(repository.findAll(any(Pageable.class))).thenReturn(pageMock);
     when(repository.count()).thenReturn(15L);
 
-    FilterDTO<ClienteEntity> filterNullQtd = new FilterDTO<ClienteEntity>();
+    FilterDTO<UsuarioEntity> filterNullQtd = new FilterDTO<UsuarioEntity>();
     service.listar(filterNullQtd);
     assertEquals(15, filterNullQtd.getQtd());
 
-    FilterDTO<ClienteEntity> filterQtdMenorQue1 = new FilterDTO<ClienteEntity>();
+    FilterDTO<UsuarioEntity> filterQtdMenorQue1 = new FilterDTO<UsuarioEntity>();
     filterQtdMenorQue1.setQtd(0);
     service.listar(filterQtdMenorQue1);
     assertEquals(15, filterQtdMenorQue1.getQtd());
 
-    FilterDTO<ClienteEntity> filterQtdValida = new FilterDTO<ClienteEntity>();
+    FilterDTO<UsuarioEntity> filterQtdValida = new FilterDTO<UsuarioEntity>();
     filterQtdValida.setQtd(2);
     service.listar(filterQtdValida);
     assertEquals(2, filterQtdValida.getQtd());
 
     when(repository.count()).thenReturn(0L);
-    FilterDTO<ClienteEntity> filterNullQtdCountZero = new FilterDTO<ClienteEntity>();
+    FilterDTO<UsuarioEntity> filterNullQtdCountZero = new FilterDTO<UsuarioEntity>();
     service.listar(filterNullQtdCountZero);
     assertEquals(10, filterNullQtdCountZero.getQtd());
   }

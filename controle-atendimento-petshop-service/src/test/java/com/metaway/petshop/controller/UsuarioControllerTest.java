@@ -17,11 +17,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.metaway.petshop.dto.FilterDTO;
 import com.metaway.petshop.entity.*;
-import com.metaway.petshop.service.ClienteService;
+import com.metaway.petshop.service.UsuarioService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ClienteControllerTest {
+public class UsuarioControllerTest {
   @Autowired
   private MockMvc mockMvc;
 
@@ -29,38 +29,36 @@ public class ClienteControllerTest {
   private ObjectMapper objectMapper;
 
   @MockitoBean
-  private ClienteService service;
+  private UsuarioService service;
 
   @Test
-  void deveSalvarCliente() throws Exception {
-    ClienteEntity cliente = new ClienteEntity();
-    cliente.setNome("Teste");
-    cliente.setContatos(new ArrayList<>());
-    cliente.setEnderecos(new ArrayList<>());
+  void deveSalvarUsuario() throws Exception {
+    UsuarioEntity usuario = new UsuarioEntity();
+    usuario.setNome("Teste");
 
-    when(service.cadastrar(cliente)).thenReturn(cliente);
+    when(service.cadastrar(usuario)).thenReturn(usuario);
 
     mockMvc.perform(
-      post("/cliente/salvar")
+      post("/usuario/salvar")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(cliente))
+        .content(objectMapper.writeValueAsString(usuario))
     ).andExpect(status().isCreated());
 
-    verify(service, times(1)).cadastrar(cliente);
+    verify(service, times(1)).cadastrar(usuario);
   }
 
   @Test
-  void deveExcluirCliente() throws Exception {
-    ClienteEntity cliente = new ClienteEntity();
-    cliente.setId(1L);
+  void deveExcluirUsuario() throws Exception {
+    UsuarioEntity usuario = new UsuarioEntity();
+    usuario.setId(1L);
 
     mockMvc.perform(
-      delete("/cliente/excluir")
+      delete("/usuario/excluir")
         .contentType(APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(cliente))
+        .content(objectMapper.writeValueAsString(usuario))
     ).andExpect(status().isNoContent());
 
-    verify(service, times(1)).excluir(cliente);
+    verify(service, times(1)).excluir(usuario);
   }
 
   @Test
@@ -69,7 +67,7 @@ public class ClienteControllerTest {
     contato.setId(1L);
 
     mockMvc.perform(
-      delete("/cliente/contato/excluir")
+      delete("/usuario/contato/excluir")
         .contentType(APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(contato))
     ).andExpect(status().isNoContent());
@@ -83,7 +81,7 @@ public class ClienteControllerTest {
     endereco.setId(1L);
 
     mockMvc.perform(
-      delete("/cliente/endereco/excluir")
+      delete("/usuario/endereco/excluir")
         .contentType(APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(endereco))
     ).andExpect(status().isNoContent());
@@ -92,25 +90,25 @@ public class ClienteControllerTest {
   }
 
   @Test
-  void deveListarClientes() throws Exception {
-    FilterDTO<ClienteEntity> filtro = new FilterDTO<>();
+  void deveListarUsuarios() throws Exception {
+    FilterDTO<UsuarioEntity> filtro = new FilterDTO<>();
     filtro.setPage(1);
     filtro.setQtd(10);
 
-    List<ClienteEntity> clientes = new ArrayList<>();
-    clientes.add(new ClienteEntity());
-    clientes.add(new ClienteEntity());
+    List<UsuarioEntity> usuarios = new ArrayList<>();
+    usuarios.add(new UsuarioEntity());
+    usuarios.add(new UsuarioEntity());
 
-    when(service.listar(filtro)).thenReturn(clientes);
+    when(service.listar(filtro)).thenReturn(usuarios);
 
     mockMvc.perform(
-      post("/cliente/listar")
+      post("/usuario/listar")
         .contentType(APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(filtro))
     )
       .andExpect(status().isOk())
       .andExpect(content().contentType(APPLICATION_JSON))
-      .andExpect(content().json(objectMapper.writeValueAsString(clientes)));
+      .andExpect(content().json(objectMapper.writeValueAsString(usuarios)));
 
     verify(service, times(1)).listar(filtro);
   }

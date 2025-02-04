@@ -26,7 +26,7 @@ public class AtendimentoServiceTest {
   private AtendimentoRepository repository;
 
   @Mock
-  private ClienteRepository clienteRepository;
+  private UsuarioRepository clienteRepository;
 
   @Mock
   private ContatoRepository contatoRepository;

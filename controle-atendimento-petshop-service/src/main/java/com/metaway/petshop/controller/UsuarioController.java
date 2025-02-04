@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.*;
 
 import com.metaway.petshop.dto.FilterDTO;
 import com.metaway.petshop.entity.*;
-import com.metaway.petshop.service.ClienteService;
+import com.metaway.petshop.service.UsuarioService;
 
 @RestController
-@RequestMapping("/cliente")
-public class ClienteController {
+@RequestMapping("/usuario")
+public class UsuarioController {
   @Autowired
-  private ClienteService service;
+  private UsuarioService service;
 
   @PostMapping("/salvar")
   @ResponseStatus(CREATED)
-  public ClienteEntity salvarCliente(@RequestBody ClienteEntity cliente) {
+  public UsuarioEntity salvarCliente(@RequestBody UsuarioEntity cliente) {
     return service.cadastrar(cliente);
   }
 
   @DeleteMapping("/excluir")
   @ResponseStatus(NO_CONTENT)
-  public void excluirCliente(@RequestBody ClienteEntity cliente) {
+  public void excluirCliente(@RequestBody UsuarioEntity cliente) {
     service.excluir(cliente);
   }
 
@@ -43,7 +43,7 @@ public class ClienteController {
 
   @PostMapping("/listar")
   @ResponseStatus(OK)
-  public List<ClienteEntity> listarClientes(@RequestBody FilterDTO<ClienteEntity> filtro) {
+  public List<UsuarioEntity> listarClientes(@RequestBody FilterDTO<UsuarioEntity> filtro) {
     return service.listar(filtro);
   }
 }

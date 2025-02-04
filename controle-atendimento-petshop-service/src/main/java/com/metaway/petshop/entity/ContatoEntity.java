@@ -21,5 +21,5 @@ public class ContatoEntity {
 
   @ManyToOne
   @JsonIgnoreProperties(value = "contatos", allowSetters = true)
-  private ClienteEntity cliente;
+  private UsuarioEntity cliente;
 }
