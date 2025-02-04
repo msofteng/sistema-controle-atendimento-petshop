@@ -20,7 +20,7 @@ export class PetshopService {
   }
 
   cadastrarFuncionario(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>('/funcionario/salvar', usuario).pipe(
+    return this.http.post<Usuario>('/auth/signup', usuario).pipe(
       map(response => ({
         ...response,
         perfil: Perfil.ADMIN
