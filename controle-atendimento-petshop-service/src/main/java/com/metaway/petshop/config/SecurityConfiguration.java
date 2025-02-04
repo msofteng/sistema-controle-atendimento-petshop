@@ -27,7 +27,7 @@ public class SecurityConfiguration {
 
   @Bean
   public WebSecurityCustomizer webSecurityCustomizer() {
-    return (web) -> web.ignoring().requestMatchers("/docs", "/", "/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**");
+    return (web) -> web.ignoring().requestMatchers("/", "/h2-console/**");
   }
 
   @Bean
@@ -35,7 +35,7 @@ public class SecurityConfiguration {
     return http
       .csrf(csrf -> csrf.disable())
       .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/auth/**")
+        .requestMatchers("/auth/**", "/docs", "/swagger-ui/**", "/v3/api-docs/**")
         .permitAll()
         .anyRequest()
         .authenticated()
