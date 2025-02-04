@@ -3,6 +3,7 @@ package com.metaway.petshop.controller;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.http.MediaType.*;
 
 import java.util.*;
 
@@ -10,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -40,11 +40,11 @@ public class PetControllerTest {
 
     mockMvc.perform(
       post("/pet/salvar")
-        .contentType(MediaType.APPLICATION_JSON)
+        .contentType(APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(pet))
     )
       .andExpect(status().isCreated())
-      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      .andExpect(content().contentType(APPLICATION_JSON))
       .andExpect(content().json(objectMapper.writeValueAsString(pet)));
 
     verify(service, times(1)).cadastrar(pet);
@@ -57,7 +57,7 @@ public class PetControllerTest {
 
     mockMvc.perform(
       delete("/pet/excluir")
-        .contentType(MediaType.APPLICATION_JSON)
+        .contentType(APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(pet))
     ).andExpect(status().isNoContent());
 
@@ -78,11 +78,11 @@ public class PetControllerTest {
 
     mockMvc.perform(
       post("/pet/listar")
-        .contentType(MediaType.APPLICATION_JSON)
+        .contentType(APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(filtro))
     )
       .andExpect(status().isOk())
-      .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+      .andExpect(content().contentType(APPLICATION_JSON))
       .andExpect(content().json(objectMapper.writeValueAsString(pets)));
 
     verify(service, times(1)).listar(filtro);
