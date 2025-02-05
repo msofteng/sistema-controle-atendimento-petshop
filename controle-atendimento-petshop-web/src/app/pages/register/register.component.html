@@ -9,9 +9,9 @@
 
   <br><br>
   Senha: <br>
-  <input type="password" formControlName="senha">
+  <input type="password" formControlName="password">
 
-  @if (cadastroForm.get('senha')?.touched && cadastroForm.get('senha')?.hasError('required')) {
+  @if (cadastroForm.get('password')?.touched && cadastroForm.get('password')?.hasError('required')) {
     <br>
     <sup>A senha não pode ficar em branco</sup>
   }

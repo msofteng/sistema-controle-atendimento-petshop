@@ -21,7 +21,7 @@ export class RegisterComponent {
   cadastroForm: FormGroup = new FormGroup({
     nome: new FormControl<string>('', [Validators.required]),
     perfil: new FormControl<Perfil>(Perfil.ADMIN, [Validators.required]),
-    senha: new FormControl<string>('', [Validators.required]),
+    password: new FormControl<string>('', [Validators.required]),
     cpf: new FormControl<string>('', []),
     foto: new FormControl<string>('', [])
   });

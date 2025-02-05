@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Usuario } from '../../shared/interfaces/petshop.entities';
+import { LoginResponse } from '../../shared/interfaces/login-response';
 import { PetshopService } from '../../shared/services/petshop.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class LoginComponent {
 
   loginForm: FormGroup = new FormGroup({
     nomeCpf: new FormControl<string>('', [Validators.required]),
-    senha: new FormControl<string>('', [Validators.required])
+    password: new FormControl<string>('', [Validators.required])
   });
 
   btnDisabled = false;
@@ -29,12 +29,12 @@ export class LoginComponent {
       this.btnDisabled = true;
 
       this.service.login(this.loginForm.value).subscribe({
-        next: (value: Usuario) => {
+        next: (value: LoginResponse) => {
           console.log(value);
         },
-        error: (err: HttpErrorResponse) => console.error(err),
-        complete: () => this.btnDisabled = false,
+        error: (err: HttpErrorResponse) => console.error(err)
       });
+      this.btnDisabled = false;
     } else {
       this.loginForm.markAllAsTouched();
     }

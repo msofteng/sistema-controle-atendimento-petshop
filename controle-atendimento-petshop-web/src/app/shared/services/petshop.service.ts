@@ -7,6 +7,7 @@ import { LoginParams } from '../interfaces/login-params';
 import { PageParams } from '../interfaces/page-params';
 import { Atendimento, Cliente, Contato, Endereco, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
 import { changePerfil, changeTipoContato } from '../utils/change-enum';
+import { LoginResponse } from '../interfaces/login-response';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,12 @@ import { changePerfil, changeTipoContato } from '../utils/change-enum';
 export class PetshopService {
   private http = inject(HttpClient);
 
-  login(data: LoginParams): Observable<Usuario> {
-    // implementar o login com JWT aqui
-    return this.http.post<Usuario>('/NOT_IMPLEMENTED', data);
+  login(data: LoginParams): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>('/auth/login', data);
+  }
+
+  getUsuarioLogado(): Observable<Usuario> {
+    return this.http.get<Usuario>('/auth/me');
   }
 
   cadastrarFuncionario(usuario: Usuario): Observable<Usuario> {

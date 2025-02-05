@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'cpf'
 })
 export class CpfPipe implements PipeTransform {
-  transform(value: number | undefined): string {
+  transform(value?: string): string {
     let strValue = value?.toString();
 
     if (!strValue) return '';

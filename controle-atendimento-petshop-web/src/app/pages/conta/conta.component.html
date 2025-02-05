@@ -11,9 +11,9 @@
 
   <br><br>
   Senha: <br>
-  <input type="password" formControlName="senha">
+  <input type="password" formControlName="password">
 
-  @if (atualizacaoForm.get('senha')?.touched && atualizacaoForm.get('senha')?.hasError('required')) {
+  @if (atualizacaoForm.get('password')?.touched && atualizacaoForm.get('password')?.hasError('required')) {
     <br>
     <sup>A senha não pode ficar em branco</sup>
   }

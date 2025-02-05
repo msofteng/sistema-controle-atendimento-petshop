@@ -23,7 +23,7 @@ export class CadastroClienteComponent {
     id: new FormControl<number>(0, []),
     nome: new FormControl<string>('', [Validators.required]),
     perfil: new FormControl<Perfil>(Perfil.CLIENTE, []),
-    senha: new FormControl<string>('', [Validators.required]),
+    password: new FormControl<string>('', [Validators.required]),
     cpf: new FormControl<string>('', [Validators.required]),
     foto: new FormControl<string>('', []),
     dataCadastro: new FormControl<Date>(new Date(), []),
@@ -126,7 +126,7 @@ export class CadastroClienteComponent {
   }
 
   atualizarSenha(event: FocusEvent) {
-    this.clienteForm.get('senha')?.setValue(this.clienteForm.get('cpf')?.value);
+    this.clienteForm.get('password')?.setValue(this.clienteForm.get('cpf')?.value);
   }
 
   get contatos(): FormArray {

@@ -10,9 +10,9 @@
   <br>
   <br>
   Senha: <br>
-  <input type="password" formControlName="senha">
+  <input type="password" formControlName="password">
 
-  @if (loginForm.get('senha')?.touched && loginForm.get('senha')?.hasError('required')) {
+  @if (loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')) {
     <br>
     <sup>A senha não pode ficar em branco</sup>
   }

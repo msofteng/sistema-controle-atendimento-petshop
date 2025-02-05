@@ -65,7 +65,10 @@ describe('LoginComponent', () => {
     component.loginForm.get('nomeCpf')?.setValue(usuario.cpf?.toString());
     component.loginForm.get('senha')?.setValue(usuario.cpf?.toString());
 
-    service.login.and.returnValue(of(usuario));
+    service.login.and.returnValue(of({
+      token: '',
+      expiresIn: 0
+    }));
 
     component.enviarLogin(new SubmitEvent('submit'));
 
