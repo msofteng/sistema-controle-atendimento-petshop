@@ -10,7 +10,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.metaway.petshop.repository.UsuarioRepository;
 
+import lombok.Generated;
+
 @Configuration
+@Generated
 public class ApplicationConfiguration {
   @Autowired
   private UsuarioRepository usuarioRepository;

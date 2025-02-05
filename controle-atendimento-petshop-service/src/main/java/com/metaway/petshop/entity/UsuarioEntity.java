@@ -5,15 +5,12 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.CascadeType.ALL;
 
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.*;
 import com.metaway.petshop.enums.Perfil;
 
 import jakarta.persistence.*;
