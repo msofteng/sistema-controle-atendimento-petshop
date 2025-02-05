@@ -1,13 +1,13 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { PetshopService } from './petshop.service';
-import { LoginParams } from '../interfaces/login-params';
-import { Atendimento, Cliente, Contato, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
 import { Perfil } from '../enums/perfil';
 import { corrigeData } from '../functions/date';
-import { changePerfil, changeTipoContato } from '../utils/change-enum';
+import { LoginParams } from '../interfaces/login-params';
 import { PageParams } from '../interfaces/page-params';
+import { Atendimento, Cliente, Contato, Pet, Raca } from '../interfaces/petshop.entities';
+import { changePerfil, changeTipoContato } from '../utils/change-enum';
+import { PetshopService } from './petshop.service';
 
 describe('PetshopService', () => {
   let service: PetshopService;
@@ -17,9 +17,9 @@ describe('PetshopService', () => {
     id: 1,
     nome: 'mateus',
     perfil: Perfil.ADMIN,
-    senha: '123',
+    password: '123',
     dataCadastro: new Date(),
-    cpf: 12345678910,
+    cpf: '12345678910',
     foto: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII=',
     contatos: [
       {
@@ -68,7 +68,7 @@ describe('PetshopService', () => {
   });
 
   it('deve realizar o login com sucesso', () => {
-    const loginParams: LoginParams = { nomeCpf: 'user', senha: 'password' };
+    const loginParams: LoginParams = { nomeCpf: 'user', password: 'password' };
   
     service.login(loginParams).subscribe(response => {
       expect(response).toEqual(adminMock);

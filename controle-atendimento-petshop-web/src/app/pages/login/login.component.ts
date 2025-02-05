@@ -18,7 +18,7 @@ export class LoginComponent {
   toastr: ToastrService = inject(ToastrService);
 
   loginForm: FormGroup = new FormGroup({
-    nomeCpf: new FormControl<string | number>('', [Validators.required]),
+    nomeCpf: new FormControl<string>('', [Validators.required]),
     senha: new FormControl<string>('', [Validators.required])
   });
 
@@ -26,9 +26,6 @@ export class LoginComponent {
 
   enviarLogin(event: SubmitEvent) {
     if (this.loginForm.valid) {
-      if (!isNaN(this.loginForm.get('nomeCpf')?.value) && this.loginForm.get('nomeCpf')?.value.length === 11)
-        this.loginForm.get('nomeCpf')?.setValue(Number(this.loginForm.value.nomeCpf));
-
       this.btnDisabled = true;
 
       this.service.login(this.loginForm.value).subscribe({

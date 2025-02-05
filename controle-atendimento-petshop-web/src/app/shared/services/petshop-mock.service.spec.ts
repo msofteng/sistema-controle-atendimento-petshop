@@ -21,7 +21,7 @@ describe('PetshopMockService', () => {
       id: 0,
       nome: 'mateus',
       perfil: Perfil.ADMIN,
-      senha: '123'
+      password: '123'
     }));
 
     expect(funcionario.nome).toBe('mateus');
@@ -32,7 +32,7 @@ describe('PetshopMockService', () => {
       id: 0,
       nome: 'lucas',
       perfil: Perfil.CLIENTE,
-      senha: '123',
+      password: '123',
       dataCadastro: new Date(),
       contatos: [],
       enderecos: []
@@ -65,7 +65,7 @@ describe('PetshopMockService', () => {
         id: 0,
         nome: '',
         perfil: '',
-        senha: '',
+        password: '',
         dataCadastro: '',
         contatos: [],
         enderecos: [],
@@ -91,7 +91,7 @@ describe('PetshopMockService', () => {
       id: 0,
       nome: 'mateus',
       perfil: Perfil.ADMIN,
-      senha: '123'
+      password: '123'
     }).subscribe(data => {
       expect(data).toBe(true);
       done();
@@ -103,7 +103,7 @@ describe('PetshopMockService', () => {
       id: 0,
       nome: 'lucas',
       perfil: Perfil.CLIENTE,
-      senha: '123',
+      password: '123',
       dataCadastro: new Date(),
       contatos: [],
       enderecos: []
@@ -135,7 +135,7 @@ describe('PetshopMockService', () => {
         id: 0,
         nome: '',
         perfil: '',
-        senha: '',
+        password: '',
         dataCadastro: new Date(),
         contatos: [],
         enderecos: [],
@@ -160,7 +160,7 @@ describe('PetshopMockService', () => {
   it('testando login', (done) => {
     service.login({
       nomeCpf: 'mateus',
-      senha: '123'
+      password: '123'
     }).subscribe(data => {
       expect(data.nome).toBe('mateus');
       done();

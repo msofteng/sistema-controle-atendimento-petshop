@@ -1,11 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
-import { Usuario } from '../../shared/interfaces/petshop.entities';
-import { PetshopService } from '../../shared/services/petshop.service';
-import { ContaComponent } from './conta.component';
-import { base64ToFile } from '../../shared/utils/file';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Perfil } from '../../shared/enums/perfil';
+import { PetshopService } from '../../shared/services/petshop.service';
+import { base64ToFile } from '../../shared/utils/file';
+import { ContaComponent } from './conta.component';
 
 describe('ContaComponent', () => {
   let component: ContaComponent;
@@ -16,9 +15,9 @@ describe('ContaComponent', () => {
     id: 1,
     nome: 'mateus',
     perfil: Perfil.ADMIN,
-    senha: '123',
+    password: '123',
     dataCadastro: new Date(),
-    cpf: 12345678910,
+    cpf: '12345678910',
     foto: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII=',
     contatos: [],
     enderecos: []

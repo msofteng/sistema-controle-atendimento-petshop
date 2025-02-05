@@ -98,9 +98,6 @@ export class CadastroClienteComponent {
 
   adicionarCliente(event: SubmitEvent) {
     if (this.clienteForm.valid) {
-      if (!isNaN(this.clienteForm.get('cpf')?.value) && this.clienteForm.get('cpf')?.value.length === 11)
-        this.clienteForm.get('cpf')?.setValue(Number(this.clienteForm.value.cpf));
-
       this.clienteForm.get('dataCadastro')?.setValue(this.clienteForm.get('dataCadastro')?.value.toISOString().split('T')[0]);
 
       if (!this.clienteForm.value.id)

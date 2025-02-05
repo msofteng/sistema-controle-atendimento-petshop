@@ -1,9 +1,8 @@
-import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CadastroAtendimentoComponent } from './cadastro-atendimento.component';
-import { Perfil } from '../../../../enums/perfil';
-import { Cliente, Atendimento } from '../../../../interfaces/petshop.entities';
+import { provideHttpClient } from '@angular/common/http';
 import { ElementRef, SimpleChange } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Perfil } from '../../../../enums/perfil';
+import { CadastroAtendimentoComponent } from './cadastro-atendimento.component';
 
 describe('CadastroAtendimentoComponent', () => {
   let component: CadastroAtendimentoComponent;
@@ -13,9 +12,9 @@ describe('CadastroAtendimentoComponent', () => {
     id: 1,
     nome: 'mateus',
     perfil: Perfil.CLIENTE,
-    senha: '123',
+    password: '123',
     dataCadastro: new Date(),
-    cpf: 12345678910,
+    cpf: '12345678910',
     contatos: [],
     enderecos: []
   };

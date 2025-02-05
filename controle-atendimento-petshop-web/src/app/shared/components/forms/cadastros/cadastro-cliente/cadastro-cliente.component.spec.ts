@@ -1,14 +1,13 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { of, throwError } from 'rxjs';
-import { PetshopService } from '../../../../services/petshop.service';
-import { CadastroClienteComponent } from './cadastro-cliente.component';
-import { Perfil } from '../../../../enums/perfil';
-import { SimpleChange } from '@angular/core';
-import { base64ToFile } from '../../../../utils/file';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { TipoContato } from '../../../../enums/tipo-contato';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SimpleChange } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of, throwError } from 'rxjs';
+import { Perfil } from '../../../../enums/perfil';
+import { TipoContato } from '../../../../enums/tipo-contato';
+import { PetshopService } from '../../../../services/petshop.service';
 import { changePerfil, changeTipoContato } from '../../../../utils/change-enum';
+import { base64ToFile } from '../../../../utils/file';
+import { CadastroClienteComponent } from './cadastro-cliente.component';
 
 describe('CadastroClienteComponent', () => {
   let component: CadastroClienteComponent;
@@ -33,9 +32,9 @@ describe('CadastroClienteComponent', () => {
     id: 1,
     nome: 'mateus',
     perfil: Perfil.CLIENTE,
-    senha: '123',
+    password: '123',
     dataCadastro: new Date(),
-    cpf: 12345678910,
+    cpf: '12345678910',
     foto: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII=',
     contatos: Array.from({ length: 30 }).map((_, index) => ({ ...contatoMock, id: index + 1 })),
     enderecos: Array.from({ length: 30 }).map((_, index) => ({ ...enderecoMock, id: index + 1 }))

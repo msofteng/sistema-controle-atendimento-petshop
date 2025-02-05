@@ -20,7 +20,7 @@ export class PetshopMockService {
       id: 0,
       nome: `${data.nomeCpf}`,
       perfil: 'cliente',
-      senha: ''
+      password: ''
     }).pipe(delay(this.seconds));
   }
 

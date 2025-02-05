@@ -60,8 +60,8 @@ export class ContaComponent implements OnInit {
     if (this.atualizacaoForm.valid) {
       this.atualizacaoForm.get('perfil')?.setValue(changePerfil(this.atualizacaoForm.get('perfil')?.value));
 
-      if (!isNaN(this.atualizacaoForm.get('cpf')?.value) && this.atualizacaoForm.get('cpf')?.value.length === 11)
-        this.atualizacaoForm.get('cpf')?.setValue(Number(this.atualizacaoForm.value.cpf));
+      if (!this.atualizacaoForm.value.cpf)
+        delete this.atualizacaoForm.value.cpf;
 
       if (!this.atualizacaoForm.value.foto)
         delete this.atualizacaoForm.value.foto;

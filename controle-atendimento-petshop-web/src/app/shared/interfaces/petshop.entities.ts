@@ -22,9 +22,9 @@ export interface Contato {
 export interface Usuario {
   id: number;
   nome: string;
-  cpf?: number;
+  cpf?: string;
   perfil: Perfil | string;
-  senha: string;
+  password: string;
   foto?: string;
 }
 

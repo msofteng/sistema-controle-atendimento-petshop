@@ -1,9 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CadastroPetComponent } from './cadastro-pet.component';
-import { Perfil } from '../../../../enums/perfil';
-import { Cliente } from '../../../../interfaces/petshop.entities';
 import { ElementRef, SimpleChange } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Perfil } from '../../../../enums/perfil';
 import { base64ToFile } from '../../../../utils/file';
+import { CadastroPetComponent } from './cadastro-pet.component';
 
 describe('CadastroPetComponent', () => {
   let component: CadastroPetComponent;
@@ -13,9 +12,9 @@ describe('CadastroPetComponent', () => {
     id: 1,
     nome: 'mateus',
     perfil: Perfil.CLIENTE,
-    senha: '123',
+    password: '123',
     dataCadastro: new Date(),
-    cpf: 12345678910,
+    cpf: '12345678910',
     contatos: [],
     enderecos: []
   };

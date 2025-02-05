@@ -14,7 +14,7 @@
           "id": 1,
           "nome": "Rosana Costa",
           "perfil": "cliente",
-          "senha": "123",
+          "password": "123",
           "dataCadastro": "2025-01-27",
           "foto": "data:image/png;base64,...",
           "contatos": [

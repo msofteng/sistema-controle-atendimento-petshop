@@ -1,4 +1,4 @@
 export interface LoginParams {
-  nomeCpf: string | number;
-  senha: string;
+  nomeCpf: string;
+  password: string;
 }

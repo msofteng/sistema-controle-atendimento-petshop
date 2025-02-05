@@ -29,9 +29,9 @@ describe('VisualizarPetsComponent', () => {
     id: 1,
     nome: 'mateus',
     perfil: Perfil.CLIENTE,
-    senha: '123',
+    password: '123',
     dataCadastro: new Date(),
-    cpf: 12345678910,
+    cpf: '12345678910',
     contatos: Array.from({ length: 30 }).map((_, index) => ({ ...contatoMock, id: index + 1 })),
     enderecos: Array.from({ length: 30 }).map((_, index) => ({ ...enderecoMock, id: index + 1 }))
   };

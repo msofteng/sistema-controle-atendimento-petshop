@@ -1,10 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
-import { PetshopService } from '../../shared/services/petshop.service';
-import { RegisterComponent } from './register.component';
-import { base64ToFile } from '../../shared/utils/file';
 import { Perfil } from '../../shared/enums/perfil';
-import { HttpErrorResponse } from '@angular/common/http';
+import { PetshopService } from '../../shared/services/petshop.service';
+import { base64ToFile } from '../../shared/utils/file';
+import { RegisterComponent } from './register.component';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -15,9 +15,9 @@ describe('RegisterComponent', () => {
     id: 1,
     nome: 'mateus',
     perfil: Perfil.ADMIN,
-    senha: '123',
+    password: '123',
     dataCadastro: new Date(),
-    cpf: 12345678910,
+    cpf: '12345678910',
     foto: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII=',
     contatos: [],
     enderecos: []

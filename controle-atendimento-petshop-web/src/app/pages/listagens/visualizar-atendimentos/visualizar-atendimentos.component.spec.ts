@@ -1,10 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
+import { Perfil } from '../../../shared/enums/perfil';
 import { PetshopService } from '../../../shared/services/petshop.service';
 import { VisualizarAtendimentosComponent } from './visualizar-atendimentos.component';
-import { Atendimento, Cliente, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
-import { Perfil } from '../../../shared/enums/perfil';
-import { HttpErrorResponse } from '@angular/common/http';
 
 describe('VisualizarAtendimentosComponent', () => {
   let component: VisualizarAtendimentosComponent;
@@ -15,9 +14,9 @@ describe('VisualizarAtendimentosComponent', () => {
     id: 1,
     nome: 'mateus',
     perfil: Perfil.CLIENTE,
-    senha: '123',
+    password: '123',
     dataCadastro: new Date(),
-    cpf: 12345678910,
+    cpf: '12345678910',
     contatos: [],
     enderecos: []
   };
