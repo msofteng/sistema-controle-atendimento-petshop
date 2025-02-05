@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
+import { Perfil } from '../../../shared/enums/perfil';
 import { PetshopService } from '../../../shared/services/petshop.service';
 import { VisualizarPetsComponent } from './visualizar-pets.component';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Perfil } from '../../../shared/enums/perfil';
-import { Cliente, Contato, Endereco } from '../../../shared/interfaces/petshop.entities';
+
+import HttpErrorResponse from '../../../core/errors/http-error-response';
 
 describe('VisualizarPetsComponent', () => {
   let component: VisualizarPetsComponent;

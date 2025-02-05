@@ -3,11 +3,10 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Perfil } from '../enums/perfil';
 import { corrigeData } from '../functions/date';
-import { LoginParams } from '../interfaces/login-params';
-import { PageParams } from '../interfaces/page-params';
-import { Atendimento, Cliente, Contato, Endereco, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
-import { changePerfil, changeTipoContato } from '../utils/change-enum';
 import { LoginResponse } from '../interfaces/login-response';
+import { Atendimento, Cliente, Contato, Endereco, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
+import { LoginParams, PageParams } from '../interfaces/request';
+import { changePerfil, changeTipoContato } from '../utils/change-enum';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +32,7 @@ export class PetshopService {
   }
 
   cadastrarCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>('/cliente/salvar', cliente).pipe(
+    return this.http.post<Cliente>('/usuario/salvar', cliente).pipe(
       map(response => ({
         ...response,
         perfil: changePerfil(response.perfil),
@@ -80,21 +79,21 @@ export class PetshopService {
   }
 
   excluirCliente(cliente: Cliente): Observable<boolean> {
-    return this.http.delete<boolean>('/cliente/excluir', { body: cliente, observe: 'response' }).pipe(
+    return this.http.delete<boolean>('/usuario/excluir', { body: cliente, observe: 'response' }).pipe(
       catchError(error => throwError(() => error)),
       map(response => response.status === 204)
     );
   }
 
   excluirEndereco(endereco: Endereco): Observable<boolean> {
-    return this.http.delete<boolean>('/cliente/endereco/excluir', { body: endereco, observe: 'response' }).pipe(
+    return this.http.delete<boolean>('/usuario/endereco/excluir', { body: endereco, observe: 'response' }).pipe(
       catchError(error => throwError(() => error)),
       map(response => response.status === 204)
     );
   }
 
   excluirContato(contato: Contato): Observable<boolean> {
-    return this.http.delete<boolean>('/cliente/contato/excluir', { body: contato, observe: 'response' }).pipe(
+    return this.http.delete<boolean>('/usuario/contato/excluir', { body: contato, observe: 'response' }).pipe(
       catchError(error => throwError(() => error)),
       map(response => response.status === 204)
     );
@@ -121,8 +120,8 @@ export class PetshopService {
     );
   }
 
-  listarClientes(filters: PageParams<Cliente>): Observable<Cliente[]> {
-    return this.http.post<Cliente[]>('/cliente/listar', filters).pipe(
+  listarClientes(filters?: PageParams<Cliente>): Observable<Cliente[]> {
+    return this.http.post<Cliente[]>('/usuario/listar', filters).pipe(
       map(response => response.map(res => ({
         ...res,
         perfil: changePerfil(res.perfil),
@@ -135,7 +134,7 @@ export class PetshopService {
     );
   }
 
-  listarAtendimentos(filters: PageParams<Atendimento>): Observable<Atendimento[]> {
+  listarAtendimentos(filters?: PageParams<Atendimento>): Observable<Atendimento[]> {
     return this.http.post<Atendimento[]>('/atendimento/listar', filters).pipe(
       map(response => response.map(res => ({
         ...res,
@@ -155,7 +154,7 @@ export class PetshopService {
     );
   }
 
-  listarPets(filters: PageParams<Pet>): Observable<Pet[]> {
+  listarPets(filters?: PageParams<Pet>): Observable<Pet[]> {
     return this.http.post<Pet[]>('/pet/listar', filters).pipe(
       map(response => response.map(res => ({
         ...res,
@@ -164,7 +163,7 @@ export class PetshopService {
     );
   }
 
-  listarRacas(filters: PageParams<Raca>): Observable<Raca[]> {
+  listarRacas(filters?: PageParams<Raca>): Observable<Raca[]> {
     return this.http.post<Raca[]>('/raca/listar', filters);
   }
 }

@@ -31,7 +31,7 @@ public class PetController {
 
   @PostMapping("/listar")
   @ResponseStatus(OK)
-  public List<PetEntity> listarPets(@RequestBody FilterDTO<PetEntity> filtro) {
+  public List<PetEntity> listarPets(@RequestBody(required = false) FilterDTO<PetEntity> filtro) {
     return service.listar(filtro);
   }
 }

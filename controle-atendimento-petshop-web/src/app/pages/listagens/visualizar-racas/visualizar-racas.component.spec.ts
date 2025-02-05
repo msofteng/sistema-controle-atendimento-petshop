@@ -2,7 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { PetshopService } from '../../../shared/services/petshop.service';
 import { VisualizarRacasComponent } from './visualizar-racas.component';
-import { HttpErrorResponse } from '@angular/common/http';
+
+import HttpErrorResponse from '../../../core/errors/http-error-response';
 
 describe('VisualizarRacasComponent', () => {
   let component: VisualizarRacasComponent;
@@ -47,7 +48,7 @@ describe('VisualizarRacasComponent', () => {
     service = TestBed.inject(PetshopService) as jasmine.SpyObj<PetshopService>;
 
     service.listarRacas.and.returnValue(of([]));
-    
+
     service.excluirRaca.and.returnValue(of(true));
 
     fixture.detectChanges();
@@ -83,9 +84,9 @@ describe('VisualizarRacasComponent', () => {
     service.excluirRaca.and.returnValue(of(true));
     component.racas = Array.from({ length: 30 }).map((_, index) => ({ ...racaMock, id: index + 1 }));
     component.excluirRaca(racaMock);
-    
+
     expect(service.excluirRaca).toBeTruthy();
-    
+
     // com erro
     service.excluirRaca.and.returnValue(throwError(() => errorMock));
     component.excluirRaca(racaMock);

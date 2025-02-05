@@ -1,11 +1,13 @@
 import { CurrencyPipe } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CadastroAtendimentoComponent } from '../../../shared/components/forms/cadastros/cadastro-atendimento/cadastro-atendimento.component';
 import { ModalComponent } from '../../../shared/components/page/modal/modal.component';
 import { corrigeData } from '../../../shared/functions/date';
 import { Atendimento, Cliente, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
+import { ResponseError } from '../../../shared/interfaces/response';
 import { PetshopService } from '../../../shared/services/petshop.service';
+
+import HttpErrorResponse from '../../../core/errors/http-error-response';
 
 @Component({
   selector: 'app-visualizar-atendimentos',
@@ -56,7 +58,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
         this.pets = [];
         this.atendimentoSelecionadoEdicao = undefined;
       },
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
     });
   }
 
@@ -80,7 +82,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
 
     this.service.excluirAtendimento(atendimento).subscribe({
       next: (res: boolean) => this.atendimentos = this.atendimentos.filter(a => a.id !== atendimento.id),
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
       complete: () => this.isLoading = false,
     });
   }
@@ -90,15 +92,17 @@ export class VisualizarAtendimentosComponent implements OnInit {
   }
 
   buscarAnimaisCliente(cliente?: Cliente) {
+    console.log(cliente?.dataCadastro);
+
     if (cliente && cliente.dataCadastro && cliente.dataCadastro instanceof Date)
       cliente.dataCadastro = (cliente.dataCadastro as Date).toISOString().split('T')[0];
 
     this.isLoading = true;
     this.pets = [];
     if (cliente) {
-      this.service.listarPets({ qtd: 0, page: 0, filter: { cliente: cliente } }).subscribe({
+      this.service.listarPets({ filter: { cliente: cliente } }).subscribe({
         next: (pets: Pet[]) => this.pets = pets,
-        error: (err: HttpErrorResponse) => console.error(err),
+        error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
         complete: () => this.isLoading = false,
       });
     }
@@ -107,21 +111,21 @@ export class VisualizarAtendimentosComponent implements OnInit {
   listarAtendimentosClientesRacasPet() {
     this.isLoading = true;
 
-    this.service.listarAtendimentos({}).subscribe({
+    this.service.listarAtendimentos().subscribe({
       next: (atendimentos: Atendimento[]) => this.atendimentos = atendimentos,
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
       complete: () => this.isLoading = false,
     });
 
-    this.service.listarClientes({}).subscribe({
+    this.service.listarClientes().subscribe({
       next: (clientes: Cliente[]) => this.clientes = clientes,
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
       complete: () => {},
     });
 
-    this.service.listarRacas({}).subscribe({
+    this.service.listarRacas().subscribe({
       next: (racas: Raca[]) => this.racas = racas,
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
       complete: () => {},
     });
   }

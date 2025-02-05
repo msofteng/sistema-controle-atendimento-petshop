@@ -90,6 +90,10 @@ public class AtendimentoService {
   }
 
   public List<AtendimentoEntity> listar(FilterDTO<AtendimentoEntity> filter) {
+    if (filter == null) {
+      filter = new FilterDTO<AtendimentoEntity>();
+    }
+
     filter.setPage(filter.getPage() != null && filter.getPage() >= 1 ? filter.getPage() : 1);
     filter.setQtd(filter.getQtd() != null && filter.getQtd() >= 1 ? filter.getQtd() : Integer.parseInt(Long.toString(repository.count() > 0 ? repository.count() : 10)));
 

@@ -1,10 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ToastrService } from 'ngx-toastr';
 import { of, throwError } from 'rxjs';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
 import { PetshopService } from '../../shared/services/petshop.service';
 import { LoginComponent } from './login.component';
+
+import HttpErrorResponse from '../../core/errors/http-error-response';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

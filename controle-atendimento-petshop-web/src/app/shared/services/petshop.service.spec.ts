@@ -3,9 +3,8 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { Perfil } from '../enums/perfil';
 import { corrigeData } from '../functions/date';
-import { LoginParams } from '../interfaces/login-params';
-import { PageParams } from '../interfaces/page-params';
 import { Atendimento, Cliente, Contato, Pet, Raca } from '../interfaces/petshop.entities';
+import { LoginParams, PageParams } from '../interfaces/request';
 import { changePerfil, changeTipoContato } from '../utils/change-enum';
 import { PetshopService } from './petshop.service';
 
@@ -412,7 +411,7 @@ describe('PetshopService', () => {
       expect(response[0].nome).toBe('mateus');
     });
   
-    const req = httpMock.expectOne('/cliente/listar');
+    const req = httpMock.expectOne('/usuario/listar');
     expect(req.request.method).toBe('POST');
     req.flush(mockClientes);
   });

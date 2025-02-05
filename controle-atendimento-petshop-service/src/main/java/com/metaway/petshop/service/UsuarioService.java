@@ -1,10 +1,12 @@
 package com.metaway.petshop.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.metaway.petshop.dto.FilterDTO;
@@ -24,7 +26,20 @@ public class UsuarioService {
   @Autowired
   private EnderecoRepository enderecoRepository;
 
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
   public UsuarioEntity cadastrar(UsuarioEntity cliente) {
+    if (cliente.getId() != null && cliente.getId() > 0) {
+      Optional<UsuarioEntity> clienteEncontrado = repository.findById(cliente.getId());
+
+      if (clienteEncontrado.isPresent() && !cliente.getPassword().equals("")) {
+        cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
+      } else {
+        cliente.setPassword(clienteEncontrado.get().getPassword());
+      }
+    }
+
     cliente.setContatos(contatoRepository.saveAll(cliente.getContatos().stream().map(contato -> {
       contato.setCliente(cliente);
       return contato;
@@ -49,12 +64,19 @@ public class UsuarioService {
   }
 
   public List<UsuarioEntity> listar(FilterDTO<UsuarioEntity> filter) {
+    if (filter == null) {
+      filter = new FilterDTO<UsuarioEntity>();
+    }
+
     filter.setPage(filter.getPage() != null && filter.getPage() >= 1 ? filter.getPage() : 1);
     filter.setQtd(filter.getQtd() != null && filter.getQtd() >= 1 ? filter.getQtd() : Integer.parseInt(Long.toString(repository.count() > 0 ? repository.count() : 10)));
 
     // implementar os filtros no front-end e buscar aqui com filter.getFilter() em uma consulta personalizada no repositório JPA
 
-    return repository.findAll(PageRequest.of(filter.getPage() - 1, filter.getQtd())).getContent();
+    return repository.findAll(PageRequest.of(filter.getPage() - 1, filter.getQtd())).getContent().stream().map(user -> {
+      user.setPassword(null);
+      return user;
+    }).toList();
   }
 
   public void removerContato(ContatoEntity contato) {

@@ -43,7 +43,7 @@ public class UsuarioController {
 
   @PostMapping("/listar")
   @ResponseStatus(OK)
-  public List<UsuarioEntity> listarClientes(@RequestBody FilterDTO<UsuarioEntity> filtro) {
+  public List<UsuarioEntity> listarClientes(@RequestBody(required = false) FilterDTO<UsuarioEntity> filtro) {
     return service.listar(filtro);
   }
 }

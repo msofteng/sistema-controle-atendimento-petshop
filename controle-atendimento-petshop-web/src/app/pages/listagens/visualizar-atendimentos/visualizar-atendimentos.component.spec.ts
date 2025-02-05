@@ -1,9 +1,10 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { Perfil } from '../../../shared/enums/perfil';
 import { PetshopService } from '../../../shared/services/petshop.service';
 import { VisualizarAtendimentosComponent } from './visualizar-atendimentos.component';
+
+import HttpErrorResponse from '../../../core/errors/http-error-response';
 
 describe('VisualizarAtendimentosComponent', () => {
   let component: VisualizarAtendimentosComponent;

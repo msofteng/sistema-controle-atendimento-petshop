@@ -21,6 +21,12 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @JsonInclude(NON_EMPTY)
+@JsonIgnoreProperties({
+  "accountNonExpired",
+  "accountNonLocked",
+  "credentialsNonExpired",
+  "enabled"
+})
 public class UsuarioEntity implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

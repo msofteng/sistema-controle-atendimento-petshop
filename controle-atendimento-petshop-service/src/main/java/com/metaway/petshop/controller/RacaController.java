@@ -31,7 +31,7 @@ public class RacaController {
 
   @PostMapping("/listar")
   @ResponseStatus(OK)
-  public List<RacaEntity> listarRacas(@RequestBody FilterDTO<RacaEntity> filtro) {
+  public List<RacaEntity> listarRacas(@RequestBody(required = false) FilterDTO<RacaEntity> filtro) {
     return service.listar(filtro);
   }
 }

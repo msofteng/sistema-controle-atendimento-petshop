@@ -1,9 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { CadastroPetComponent } from "../../../shared/components/forms/cadastros/cadastro-pet/cadastro-pet.component";
 import { ModalComponent } from "../../../shared/components/page/modal/modal.component";
 import { Cliente, Contato, Endereco, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
+import { ResponseError } from '../../../shared/interfaces/response';
 import { PetshopService } from '../../../shared/services/petshop.service';
+
+import HttpErrorResponse from '../../../core/errors/http-error-response';
 
 @Component({
   selector: 'app-visualizar-pets',
@@ -52,7 +54,7 @@ export class VisualizarPetsComponent implements OnInit {
         this.openModalAtualizarPet = false;
         this.petSelecionadoEdicao = undefined;
       },
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
     });
   }
 
@@ -69,7 +71,7 @@ export class VisualizarPetsComponent implements OnInit {
 
     this.service.excluirPet(pet).subscribe({
       next: (res: boolean) => this.pets = this.pets.filter(a => a.id !== pet.id),
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
       complete: () => this.isLoading = false,
     });
   }
@@ -81,20 +83,20 @@ export class VisualizarPetsComponent implements OnInit {
   buscarClientesPetsRacas() {
     this.isLoading = true;
 
-    this.service.listarPets({}).subscribe({
+    this.service.listarPets().subscribe({
       next: (pets: Pet[]) => this.pets = pets,
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
       complete: () => this.isLoading = false,
     });
 
-    this.service.listarClientes({}).subscribe({
+    this.service.listarClientes().subscribe({
       next: (clientes: Cliente[]) => this.clientes = clientes,
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
     });
 
-    this.service.listarRacas({}).subscribe({
+    this.service.listarRacas().subscribe({
       next: (racas: Raca[]) => this.racas = racas,
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
     });
   }
 

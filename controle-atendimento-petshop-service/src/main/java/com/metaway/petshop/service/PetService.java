@@ -29,6 +29,10 @@ public class PetService {
   }
 
   public List<PetEntity> listar(FilterDTO<PetEntity> filter) {
+    if (filter == null) {
+      filter = new FilterDTO<PetEntity>();
+    }
+
     filter.setPage(filter.getPage() != null && filter.getPage() >= 1 ? filter.getPage() : 1);
     filter.setQtd(filter.getQtd() != null && filter.getQtd() >= 1 ? filter.getQtd() : Integer.parseInt(Long.toString(repository.count() > 0 ? repository.count() : 10)));
 

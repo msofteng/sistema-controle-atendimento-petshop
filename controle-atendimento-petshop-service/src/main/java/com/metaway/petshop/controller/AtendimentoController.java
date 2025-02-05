@@ -31,7 +31,7 @@ public class AtendimentoController {
 
   @PostMapping("/listar")
   @ResponseStatus(OK)
-  public List<AtendimentoEntity> listarAtendimentos(@RequestBody FilterDTO<AtendimentoEntity> filtro) {
+  public List<AtendimentoEntity> listarAtendimentos(@RequestBody(required = false) FilterDTO<AtendimentoEntity> filtro) {
     return service.listar(filtro);
   }
 }

@@ -1,11 +1,13 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Perfil } from '../../shared/enums/perfil';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
+import { ResponseError } from '../../shared/interfaces/response';
 import { PetshopService } from '../../shared/services/petshop.service';
-import { changePerfil } from '../../shared/utils/change-enum';
 import { convertFileToBase64 } from '../../shared/utils/file';
+
+import HttpErrorResponse from '../../core/errors/http-error-response';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +19,7 @@ import { convertFileToBase64 } from '../../shared/utils/file';
 })
 export class RegisterComponent {
   service: PetshopService = inject(PetshopService);
+  router: Router = inject(Router);
 
   cadastroForm: FormGroup = new FormGroup({
     nome: new FormControl<string>('', [Validators.required]),
@@ -33,13 +36,13 @@ export class RegisterComponent {
 
   enviarCadastro(event: SubmitEvent) {
     if (this.cadastroForm.valid) {
-      this.cadastroForm.get('perfil')?.setValue(changePerfil(this.cadastroForm.get('perfil')?.value));
-
       if (!this.cadastroForm.value.cpf)
         delete this.cadastroForm.value.cpf;
 
       if (!this.cadastroForm.value.foto)
         delete this.cadastroForm.value.foto;
+
+      this.cadastroForm.value.dataCadastro = new Date().toISOString().split('T')[0];
 
       this.btnDisabled = true;
 
@@ -49,9 +52,13 @@ export class RegisterComponent {
           this.cadastroForm.reset();
           this.cadastroForm.get('perfil')?.setValue(Perfil.ADMIN);
           this.fotoUsuario.nativeElement.value = '';
+          this.btnDisabled = false;
+          this.router.navigate(['/login']);
         },
-        error: (err: HttpErrorResponse) => console.error(err),
-        complete: () => this.btnDisabled = false,
+        error: (err: HttpErrorResponse<ResponseError>) => {
+          console.error(err);
+          this.btnDisabled = false;
+        }
       });
     } else {
       this.cadastroForm.markAllAsTouched();

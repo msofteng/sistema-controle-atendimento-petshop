@@ -1,11 +1,13 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Perfil } from '../../shared/enums/perfil';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
+import { ResponseError } from '../../shared/interfaces/response';
 import { PetshopService } from '../../shared/services/petshop.service';
 import { changePerfil } from '../../shared/utils/change-enum';
 import { base64ToFile, convertFileToBase64 } from '../../shared/utils/file';
+
+import HttpErrorResponse from '../../core/errors/http-error-response';
 
 @Component({
   selector: 'app-conta',
@@ -21,7 +23,7 @@ export class ContaComponent implements OnInit {
   atualizacaoForm: FormGroup = new FormGroup({
     nome: new FormControl<string>('', [Validators.required]),
     perfil: new FormControl<Perfil>(Perfil.ADMIN, [Validators.required]),
-    password: new FormControl<string>('', [Validators.required]),
+    password: new FormControl<string>('', []),
     cpf: new FormControl<string>('', []),
     foto: new FormControl<string>('', [])
   });
@@ -33,27 +35,29 @@ export class ContaComponent implements OnInit {
 
   ngOnInit(): void {
     // pega os dados do usuário logado
-    // this.btnDisabled = true;
+    this.btnDisabled = true;
 
     // buscar os dados do cliente logado por JWT
 
-    // this.service.login({
-    //   nomeCpf: '',
-    //   senha: ''
-    // }).subscribe({
-    //   next: (value: Usuario) => {
-    //     this.atualizacaoForm.patchValue(value);
+    this.service.getUsuarioLogado().subscribe({
+      next: (value: Usuario) => {
+        value.password = '';
+        this.atualizacaoForm.patchValue(value);
 
-    //     if (value.foto) {
-    //       const dataTransfer = new DataTransfer();
-    //       dataTransfer.items.add(base64ToFile(value.foto));
+        if (value.foto) {
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(base64ToFile(value.foto));
 
-    //       this.fotoUsuario.nativeElement.files = dataTransfer.files;
-    //     }
-    //   },
-    //   error: (err: HttpErrorResponse) => console.error(err),
-    //   complete: () => this.btnDisabled = false,
-    // });
+          this.fotoUsuario.nativeElement.files = dataTransfer.files;
+        }
+
+        this.btnDisabled = false;
+      },
+      error: (err: HttpErrorResponse<ResponseError>) => {
+        console.error(err);
+        this.btnDisabled = false;
+      }
+    });
   }
 
   atualizaCadastro(event: SubmitEvent) {
@@ -72,7 +76,7 @@ export class ContaComponent implements OnInit {
         next: (value: Usuario) => {
           console.log(value);
         },
-        error: (err: HttpErrorResponse) => console.error(err),
+        error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
         complete: () => this.btnDisabled = false,
       });
     } else {

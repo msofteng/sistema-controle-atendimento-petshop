@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, delay, of } from 'rxjs';
 import { corrigeData } from '../functions/date';
-import { LoginParams } from '../interfaces/login-params';
-import { PageParams } from '../interfaces/page-params';
 import { Atendimento, Cliente, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
+import { LoginParams, PageParams } from '../interfaces/request';
 
 import atendimentos from '../../data/mocks/atendimentos.json';
 import pets from '../../data/mocks/pets.json';

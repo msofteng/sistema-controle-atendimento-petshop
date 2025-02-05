@@ -1,9 +1,13 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { LoginResponse } from '../../shared/interfaces/login-response';
+import { ResponseError } from '../../shared/interfaces/response';
 import { PetshopService } from '../../shared/services/petshop.service';
+
+import HttpErrorResponse from '../../core/errors/http-error-response';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +20,8 @@ import { PetshopService } from '../../shared/services/petshop.service';
 export class LoginComponent {
   service: PetshopService = inject(PetshopService);
   toastr: ToastrService = inject(ToastrService);
+  cookieService: CookieService = inject(CookieService);
+  router: Router = inject(Router);
 
   loginForm: FormGroup = new FormGroup({
     nomeCpf: new FormControl<string>('', [Validators.required]),
@@ -29,12 +35,16 @@ export class LoginComponent {
       this.btnDisabled = true;
 
       this.service.login(this.loginForm.value).subscribe({
-        next: (value: LoginResponse) => {
-          console.log(value);
+        next: (data: LoginResponse) => {
+          this.cookieService.set('token', data.token, { expires: data.expiresIn });
+          this.router.navigate(['/dashboard']);
+          this.btnDisabled = false;
         },
-        error: (err: HttpErrorResponse) => console.error(err)
+        error: (err: HttpErrorResponse<ResponseError>) => {
+          console.log(err.error.message);
+          this.btnDisabled = false;
+        }
       });
-      this.btnDisabled = false;
     } else {
       this.loginForm.markAllAsTouched();
     }

@@ -23,7 +23,7 @@ export class CadastroClienteComponent {
     id: new FormControl<number>(0, []),
     nome: new FormControl<string>('', [Validators.required]),
     perfil: new FormControl<Perfil>(Perfil.CLIENTE, []),
-    password: new FormControl<string>('', [Validators.required]),
+    password: new FormControl<string>('', []),
     cpf: new FormControl<string>('', [Validators.required]),
     foto: new FormControl<string>('', []),
     dataCadastro: new FormControl<Date>(new Date(), []),
@@ -44,6 +44,7 @@ export class CadastroClienteComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['cliente'].previousValue !== changes['cliente'].currentValue && this.cliente) {
+      this.cliente.password = '';
       this.clienteForm.patchValue(this.cliente);
 
       if (this.cliente.contatos && this.cliente.contatos.length > 0)

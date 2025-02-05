@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
@@ -8,6 +7,8 @@ import { PetshopService } from '../../../../services/petshop.service';
 import { changePerfil, changeTipoContato } from '../../../../utils/change-enum';
 import { base64ToFile } from '../../../../utils/file';
 import { CadastroClienteComponent } from './cadastro-cliente.component';
+
+import HttpErrorResponse from '../../../../../core/errors/http-error-response';
 
 describe('CadastroClienteComponent', () => {
   let component: CadastroClienteComponent;

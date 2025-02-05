@@ -1,10 +1,12 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { CadastroClienteComponent } from "../../../shared/components/forms/cadastros/cadastro-cliente/cadastro-cliente.component";
 import { ModalComponent } from "../../../shared/components/page/modal/modal.component";
 import { Cliente } from '../../../shared/interfaces/petshop.entities';
+import { ResponseError } from '../../../shared/interfaces/response';
 import { CpfPipe } from '../../../shared/pipes/cpf.pipe';
 import { PetshopService } from '../../../shared/services/petshop.service';
+
+import HttpErrorResponse from '../../../core/errors/http-error-response';
 
 @Component({
   selector: 'app-visualizar-clientes',
@@ -38,7 +40,7 @@ export class VisualizarClientesComponent implements OnInit {
         this.openModalAtualizarCliente = false;
         this.clienteSelecionadoEdicao = undefined;
       },
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
     });
   }
 
@@ -55,7 +57,7 @@ export class VisualizarClientesComponent implements OnInit {
 
     this.service.excluirCliente(cliente).subscribe({
       next: (res: boolean) => this.clientes = this.clientes.filter(a => a.id !== cliente.id),
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
       complete: () => this.isLoading = false,
     });
   }
@@ -63,9 +65,9 @@ export class VisualizarClientesComponent implements OnInit {
   buscarClientes() {
     this.isLoading = true;
 
-    this.service.listarClientes({ qtd: 0, page: 0 }).subscribe({
+    this.service.listarClientes().subscribe({
       next: (clientes: Cliente[]) => this.clientes = clientes,
-      error: (err: HttpErrorResponse) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
       complete: () => this.isLoading = false,
     })
   }

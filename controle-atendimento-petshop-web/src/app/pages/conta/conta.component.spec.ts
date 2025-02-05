@@ -1,10 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { Perfil } from '../../shared/enums/perfil';
 import { PetshopService } from '../../shared/services/petshop.service';
 import { base64ToFile } from '../../shared/utils/file';
 import { ContaComponent } from './conta.component';
+
+import HttpErrorResponse from '../../core/errors/http-error-response';
 
 describe('ContaComponent', () => {
   let component: ContaComponent;
