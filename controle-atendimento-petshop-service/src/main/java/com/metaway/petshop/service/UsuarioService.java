@@ -40,15 +40,19 @@ public class UsuarioService {
       }
     }
 
-    cliente.setContatos(contatoRepository.saveAll(cliente.getContatos().stream().map(contato -> {
-      contato.setCliente(cliente);
-      return contato;
-    }).collect(Collectors.toList())));
+    if (cliente.getContatos() != null && !cliente.getContatos().isEmpty()) {
+      cliente.setContatos(contatoRepository.saveAll(cliente.getContatos().stream().map(contato -> {
+        contato.setCliente(cliente);
+        return contato;
+      }).collect(Collectors.toList())));
+    }
 
-    cliente.setEnderecos(enderecoRepository.saveAll(cliente.getEnderecos().stream().map(endereco -> {
-      endereco.setCliente(cliente);
-      return endereco;
-    }).collect(Collectors.toList())));
+    if (cliente.getContatos() != null && !cliente.getContatos().isEmpty()) {
+      cliente.setEnderecos(enderecoRepository.saveAll(cliente.getEnderecos().stream().map(endereco -> {
+        endereco.setCliente(cliente);
+        return endereco;
+      }).collect(Collectors.toList())));
+    }
     
     return repository.save(cliente);
   }

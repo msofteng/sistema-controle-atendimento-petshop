@@ -26,7 +26,8 @@ export class RegisterComponent {
     perfil: new FormControl<Perfil>(Perfil.ADMIN, [Validators.required]),
     password: new FormControl<string>('', [Validators.required]),
     cpf: new FormControl<string>('', []),
-    foto: new FormControl<string>('', [])
+    foto: new FormControl<string>('', []),
+    dataCadastro: new FormControl<string>(new Date().toISOString().split('T')[0], []),
   });
 
   btnDisabled = false;

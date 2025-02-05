@@ -26,7 +26,7 @@ export class CadastroClienteComponent {
     password: new FormControl<string>('', []),
     cpf: new FormControl<string>('', [Validators.required]),
     foto: new FormControl<string>('', []),
-    dataCadastro: new FormControl<Date>(new Date(), []),
+    dataCadastro: new FormControl<string>(new Date().toISOString().split('T')[0], []),
     contatos: new FormArray([], []),
     enderecos: new FormArray([], [])
   });
@@ -99,8 +99,6 @@ export class CadastroClienteComponent {
 
   adicionarCliente(event: SubmitEvent) {
     if (this.clienteForm.valid) {
-      this.clienteForm.get('dataCadastro')?.setValue(this.clienteForm.get('dataCadastro')?.value.toISOString().split('T')[0]);
-
       if (!this.clienteForm.value.id)
         delete this.clienteForm.value.id;
       if (!this.clienteForm.value.foto)
@@ -119,7 +117,7 @@ export class CadastroClienteComponent {
       this.clienteForm.reset();
 
       this.clienteForm.get('perfil')?.setValue(Perfil.CLIENTE);
-      this.clienteForm.get('dataCadastro')?.setValue(new Date());
+      this.clienteForm.get('dataCadastro')?.setValue(new Date().toISOString().split('T')[0]);
       this.fotoCliente.nativeElement.value = '';
     } else {
       this.clienteForm.markAllAsTouched();

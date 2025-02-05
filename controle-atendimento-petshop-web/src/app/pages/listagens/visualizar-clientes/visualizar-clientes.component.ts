@@ -33,6 +33,9 @@ export class VisualizarClientesComponent implements OnInit {
   }
 
   clienteAdicionado(cliente: Cliente) {
+    if (cliente.dataCadastro instanceof Date)
+      cliente.dataCadastro = (cliente.dataCadastro as Date).toISOString().split('T')[0];
+    
     this.service.cadastrarCliente(cliente).subscribe({
       next: (data: Cliente) => {
         this.buscarClientes();

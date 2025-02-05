@@ -21,6 +21,7 @@ export class ContaComponent implements OnInit {
   service: PetshopService = inject(PetshopService);
 
   atualizacaoForm: FormGroup = new FormGroup({
+    id: new FormControl<number>(0, [Validators.required]),
     nome: new FormControl<string>('', [Validators.required]),
     perfil: new FormControl<Perfil>(Perfil.ADMIN, [Validators.required]),
     password: new FormControl<string>('', []),
@@ -72,7 +73,7 @@ export class ContaComponent implements OnInit {
 
       this.btnDisabled = true;
 
-      this.service.cadastrarFuncionario(this.atualizacaoForm.value).subscribe({
+      this.service.cadastrarCliente(this.atualizacaoForm.value).subscribe({
         next: (value: Usuario) => {
           console.log(value);
         },
