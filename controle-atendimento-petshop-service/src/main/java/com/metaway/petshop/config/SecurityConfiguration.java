@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -44,7 +43,7 @@ public class SecurityConfiguration {
       )
       .authenticationProvider(authenticationProvider)
       .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-      .httpBasic(Customizer.withDefaults())
+      .cors((cors) -> cors.configurationSource(corsConfigurationSource()))
       .build();
   }
 
@@ -54,18 +53,19 @@ public class SecurityConfiguration {
 
     configuration.setAllowedOrigins(List.of(
       "http://localhost:4200",
-      "https://4200-idx-sistema-controle-atendimento-petsho-1738315737017.cluster-m7tpz3bmgjgoqrktlvd4ykrc2m.cloudworkstations.dev",
-      "http://localhost:8080",
-      "https://8080-idx-sistema-controle-atendimento-petsho-1738315737017.cluster-m7tpz3bmgjgoqrktlvd4ykrc2m.cloudworkstations.dev"
+      "http://localhost:8080"
     ));
     configuration.setAllowedMethods(List.of(
       "GET",
       "POST",
       "PUT",
-      "DELETE"
+      "PATCH",
+      "DELETE",
+      "OPTIONS"
     ));
     configuration.setAllowedHeaders(List.of(
-      "Authorization", "Content-Type"
+      "Authorization",
+      "Content-Type"
     ));
     configuration.setAllowCredentials(true);
 

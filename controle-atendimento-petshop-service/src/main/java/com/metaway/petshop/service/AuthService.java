@@ -40,15 +40,19 @@ public class AuthService {
   public UsuarioEntity register(UsuarioEntity usuario) {
     usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
-    usuario.setContatos(contatoRepository.saveAll(usuario.getContatos().stream().map(contato -> {
-      contato.setCliente(usuario);
-      return contato;
-    }).collect(Collectors.toList())));
+    if (usuario.getContatos() != null && !usuario.getContatos().isEmpty()) {
+      usuario.setContatos(contatoRepository.saveAll(usuario.getContatos().stream().map(contato -> {
+        contato.setCliente(usuario);
+        return contato;
+      }).collect(Collectors.toList())));
+    }
 
-    usuario.setEnderecos(enderecoRepository.saveAll(usuario.getEnderecos().stream().map(endereco -> {
-      endereco.setCliente(usuario);
-      return endereco;
-    }).collect(Collectors.toList())));
+    if (usuario.getEnderecos() != null && !usuario.getEnderecos().isEmpty()) {
+      usuario.setEnderecos(enderecoRepository.saveAll(usuario.getEnderecos().stream().map(endereco -> {
+        endereco.setCliente(usuario);
+        return endereco;
+      }).collect(Collectors.toList())));
+    }
 
     return usuarioRepository.save(usuario);
   }
