@@ -13,12 +13,9 @@ public class GlobalExceptionHandler {
 	public ProblemDetail handleSecurityException(Exception exception) {
 		ProblemDetail errorDetail = null;
 
-		exception.printStackTrace();
-
 		if (exception instanceof BadCredentialsException) {
 			errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), exception.getMessage());
 			errorDetail.setProperty("message", "O nome de usuário ou senha está incorreto");
-			return errorDetail;
 		}
 
 		if (exception instanceof AccountStatusException) {

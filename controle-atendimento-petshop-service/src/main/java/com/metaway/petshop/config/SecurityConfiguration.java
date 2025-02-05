@@ -53,9 +53,9 @@ public class SecurityConfiguration {
     CorsConfiguration configuration = new CorsConfiguration();
 
     configuration.setAllowedOrigins(List.of(
-      "https://localhost:4200",
+      "http://localhost:4200",
       "https://4200-idx-sistema-controle-atendimento-petsho-1738315737017.cluster-m7tpz3bmgjgoqrktlvd4ykrc2m.cloudworkstations.dev",
-      "https://localhost:8080",
+      "http://localhost:8080",
       "https://8080-idx-sistema-controle-atendimento-petsho-1738315737017.cluster-m7tpz3bmgjgoqrktlvd4ykrc2m.cloudworkstations.dev"
     ));
     configuration.setAllowedMethods(List.of(
@@ -67,6 +67,7 @@ public class SecurityConfiguration {
     configuration.setAllowedHeaders(List.of(
       "Authorization", "Content-Type"
     ));
+    configuration.setAllowCredentials(true);
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
