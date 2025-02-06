@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, View
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Perfil } from '../../../../enums/perfil';
 import { TipoContato } from '../../../../enums/tipo-contato';
-import { Cliente, Contato, Endereco } from '../../../../interfaces/petshop.entities';
+import { Usuario, Contato, Endereco } from '../../../../interfaces/petshop.entities';
 import { PetshopService } from '../../../../services/petshop.service';
 import { base64ToFile, convertFileToBase64 } from '../../../../utils/file';
 import { CadastroContatoComponent } from "../cadastro-contato/cadastro-contato.component";
@@ -24,7 +24,7 @@ export class CadastroClienteComponent {
     nome: new FormControl<string>('', [Validators.required]),
     perfil: new FormControl<Perfil>(Perfil.CLIENTE, []),
     password: new FormControl<string>('', []),
-    cpf: new FormControl<string>('', [Validators.required]),
+    cpf: new FormControl<string>('', []),
     foto: new FormControl<string>('', []),
     dataCadastro: new FormControl<string>(new Date().toISOString().split('T')[0], []),
     contatos: new FormArray([], []),
@@ -34,10 +34,10 @@ export class CadastroClienteComponent {
   service: PetshopService = inject(PetshopService);
 
   @Input()
-  cliente?: Cliente;
+  cliente?: Usuario;
 
   @Output()
-  clienteAdicionado: EventEmitter<Cliente> = new EventEmitter<Cliente>();
+  clienteAdicionado: EventEmitter<Usuario> = new EventEmitter<Usuario>();
 
   @ViewChild('fotoCliente')
   private fotoCliente!: ElementRef<HTMLInputElement>;
@@ -50,7 +50,7 @@ export class CadastroClienteComponent {
       if (this.cliente.contatos && this.cliente.contatos.length > 0)
         this.cliente.contatos.forEach(contato => this.adicionarContato(contato));
 
-      if (this.cliente.enderecos && this.cliente.contatos.length > 0)
+      if (this.cliente.enderecos && this.cliente.enderecos.length > 0)
         this.cliente.enderecos.forEach(endereco => this.adicionarEndereco(endereco));
 
       if (this.cliente.foto) {

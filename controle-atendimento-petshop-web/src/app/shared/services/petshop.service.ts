@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 import { Perfil } from '../enums/perfil';
 import { corrigeData } from '../functions/date';
 import { LoginResponse } from '../interfaces/login-response';
-import { Atendimento, Cliente, Contato, Endereco, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
+import { Atendimento, Usuario, Contato, Endereco, Pet, Raca } from '../interfaces/petshop.entities';
 import { LoginParams, PageParams } from '../interfaces/request';
 import { changePerfil, changeTipoContato } from '../utils/change-enum';
 
@@ -13,6 +13,7 @@ import { changePerfil, changeTipoContato } from '../utils/change-enum';
 })
 export class PetshopService {
   private http = inject(HttpClient);
+  private usuario: BehaviorSubject<Usuario | undefined> = new BehaviorSubject<Usuario | undefined>(undefined);
 
   login(data: LoginParams): Observable<LoginResponse> {
     return this.http.post<LoginResponse>('/auth/login', data);
@@ -31,8 +32,8 @@ export class PetshopService {
     );
   }
 
-  cadastrarCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>('/usuario/salvar', cliente).pipe(
+  cadastrarCliente(cliente: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>('/usuario/salvar', cliente).pipe(
       map(response => ({
         ...response,
         perfil: changePerfil(response.perfil),
@@ -78,7 +79,7 @@ export class PetshopService {
     );
   }
 
-  excluirCliente(cliente: Cliente): Observable<boolean> {
+  excluirCliente(cliente: Usuario): Observable<boolean> {
     return this.http.delete<boolean>('/usuario/excluir', { body: cliente, observe: 'response' }).pipe(
       catchError(error => throwError(() => error)),
       map(response => response.status === 204)
@@ -120,8 +121,8 @@ export class PetshopService {
     );
   }
 
-  listarClientes(filters?: PageParams<Cliente>): Observable<Cliente[]> {
-    return this.http.post<Cliente[]>('/usuario/listar', filters).pipe(
+  listarClientes(filters?: PageParams<Usuario>): Observable<Usuario[]> {
+    return this.http.post<Usuario[]>('/usuario/listar', filters).pipe(
       map(response => response.map(res => ({
         ...res,
         perfil: changePerfil(res.perfil),
@@ -165,5 +166,13 @@ export class PetshopService {
 
   listarRacas(filters?: PageParams<Raca>): Observable<Raca[]> {
     return this.http.post<Raca[]>('/raca/listar', filters);
+  }
+
+  getUsuario(): Observable<Usuario | undefined> {
+    return this.usuario.asObservable();
+  }
+
+  setUsuario(value: Usuario | undefined) {
+    this.usuario.next(value);
   }
 }

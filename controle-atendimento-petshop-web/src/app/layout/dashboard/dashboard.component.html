@@ -3,7 +3,7 @@
 <div class="main-wrapper">
   <button (click)="openSidebar = true">Abrir</button>
   @if (openSidebar) {
-    <app-sidebar [(openMenu)]="openSidebar" />
+    <app-sidebar [(openMenu)]="openSidebar" [isCliente]="usuarioLogado?.perfil === 'CLIENTE'" />
   }
   <router-outlet />
 </div>

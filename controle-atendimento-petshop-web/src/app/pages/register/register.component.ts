@@ -25,7 +25,7 @@ export class RegisterComponent {
     nome: new FormControl<string>('', [Validators.required]),
     perfil: new FormControl<Perfil>(Perfil.ADMIN, [Validators.required]),
     password: new FormControl<string>('', [Validators.required]),
-    cpf: new FormControl<string>('', []),
+    cpf: new FormControl<string>('', [Validators.required]),
     foto: new FormControl<string>('', []),
     dataCadastro: new FormControl<string>(new Date().toISOString().split('T')[0], []),
   });

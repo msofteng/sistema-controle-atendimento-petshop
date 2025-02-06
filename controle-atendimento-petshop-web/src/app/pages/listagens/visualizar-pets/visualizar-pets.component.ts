@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CadastroPetComponent } from "../../../shared/components/forms/cadastros/cadastro-pet/cadastro-pet.component";
 import { ModalComponent } from "../../../shared/components/page/modal/modal.component";
-import { Cliente, Contato, Endereco, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
+import { Usuario, Contato, Endereco, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
 import { ResponseError } from '../../../shared/interfaces/response';
 import { PetshopService } from '../../../shared/services/petshop.service';
 
@@ -21,15 +21,17 @@ export class VisualizarPetsComponent implements OnInit {
 
   pets: Pet[] = [];
   racas: Raca[] = [];
-  clientes: Cliente[] = [];
+  clientes: Usuario[] = [];
 
   isLoading = false;
   openModalAtualizarPet = false;
 
   petSelecionadoEdicao?: Pet;
+  usuarioLogado?: Usuario;
 
   ngOnInit(): void {
     this.buscarClientesPetsRacas();
+    this.service.getUsuario().subscribe(usuario => this.usuarioLogado = usuario);
   }
 
   petAdicionado(pet: Pet) {
@@ -43,8 +45,8 @@ export class VisualizarPetsComponent implements OnInit {
       cli.enderecos = [];
       cli.pets = [];
 
-      pet.cliente.contatos = this.adicionarClienteContatos(pet.cliente.contatos, cli);
-      pet.cliente.enderecos = this.adicionarClienteEnderecos(pet.cliente.enderecos, cli);
+      pet.cliente.contatos = this.adicionarClienteContatos(cli, pet.cliente.contatos ?? []);
+      pet.cliente.enderecos = this.adicionarClienteEnderecos(cli, pet.cliente.enderecos ?? []);
     }
 
     this.service.cadastrarPet(pet).subscribe({
@@ -90,7 +92,7 @@ export class VisualizarPetsComponent implements OnInit {
     });
 
     this.service.listarClientes().subscribe({
-      next: (clientes: Cliente[]) => this.clientes = clientes,
+      next: (clientes: Usuario[]) => this.clientes = clientes,
       error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
     });
 
@@ -100,14 +102,14 @@ export class VisualizarPetsComponent implements OnInit {
     });
   }
 
-  adicionarClienteContatos(contatos: Contato[], cliente: Cliente): Contato[] {
+  adicionarClienteContatos(cliente: Usuario, contatos: Contato[]): Contato[] {
     return contatos.map(contato => ({
       ...contato,
       cliente
     }));
   }
   
-  adicionarClienteEnderecos(enderecos: Endereco[], cliente: Cliente): Endereco[] {
+  adicionarClienteEnderecos(cliente: Usuario, enderecos: Endereco[]): Endereco[] {
     return enderecos.map(endereco => ({
       ...endereco,
       cliente

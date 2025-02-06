@@ -53,7 +53,9 @@ public class SecurityConfiguration {
 
     configuration.setAllowedOrigins(List.of(
       "http://localhost:4200",
-      "http://localhost:8080"
+      "http://localhost:8080",
+      "https://4200-idx-sistema-controle-atendimento-petsho-1738781416065.cluster-etsqrqvqyvd4erxx7qq32imrjk.cloudworkstations.dev",
+      "https://8080-idx-sistema-controle-atendimento-petsho-1738781416065.cluster-etsqrqvqyvd4erxx7qq32imrjk.cloudworkstations.dev/"
     ));
     configuration.setAllowedMethods(List.of(
       "GET",

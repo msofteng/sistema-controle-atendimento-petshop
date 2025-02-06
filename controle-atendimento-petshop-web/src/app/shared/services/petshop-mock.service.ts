@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, delay, of } from 'rxjs';
 import { corrigeData } from '../functions/date';
-import { Atendimento, Cliente, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
+import { Atendimento, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
 import { LoginParams, PageParams } from '../interfaces/request';
 
 import atendimentos from '../../data/mocks/atendimentos.json';
@@ -19,7 +19,8 @@ export class PetshopMockService {
       id: 0,
       nome: `${data.nomeCpf}`,
       perfil: 'cliente',
-      password: ''
+      password: '',
+      dataCadastro: '2025-01-01'
     }).pipe(delay(this.seconds));
   }
 
@@ -27,7 +28,7 @@ export class PetshopMockService {
     return of(usuario).pipe(delay(this.seconds));
   }
 
-  cadastrarCliente(cliente: Cliente): Observable<Cliente> {
+  cadastrarCliente(cliente: Usuario): Observable<Usuario> {
     return of(cliente).pipe(delay(this.seconds));
   }
 
@@ -47,7 +48,7 @@ export class PetshopMockService {
     return of(true);
   }
 
-  excluirCliente(cliente: Cliente): Observable<boolean> {
+  excluirCliente(cliente: Usuario): Observable<boolean> {
     return of(true);
   }
 
@@ -63,7 +64,7 @@ export class PetshopMockService {
     return of(true);
   }
 
-  listarClientes(filters: PageParams<Cliente>): Observable<Cliente[]> {
+  listarClientes(filters: PageParams<Usuario>): Observable<Usuario[]> {
     return of([]).pipe(delay(this.seconds));
   }
 

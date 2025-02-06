@@ -29,8 +29,8 @@
         <br>
 
         <div class="options">
-          <button (click)="editarAtendimento(atendimento)">Alterar</button>
-          <button (click)="excluirAtendimento(atendimento)">Excluir</button>
+          <button [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="editarAtendimento(atendimento)">Alterar</button>
+          <button [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="excluirAtendimento(atendimento)">Excluir</button>
         </div>
       </fieldset>
     }

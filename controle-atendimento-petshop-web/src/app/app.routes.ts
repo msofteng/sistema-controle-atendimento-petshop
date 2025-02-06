@@ -10,6 +10,7 @@ import { VisualizarRacasComponent } from './pages/listagens/visualizar-racas/vis
 import { LoginComponent } from './pages/login/login.component';
 import { PainelComponent } from './pages/painel/painel.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',

@@ -19,8 +19,8 @@
         <b>Cliente: </b> {{ pet.cliente.nome }}
         <hr>
 
-        <button (click)="editarPet(pet)">Editar</button>
-        <button (click)="excluirPet(pet)">Excluir</button>
+        <button [disabled]="usuarioLogado?.perfil === 'CLIENTE' && pet.cliente.id !== usuarioLogado?.id" (click)="editarPet(pet)">Editar</button>
+        <button [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="excluirPet(pet)">Excluir</button>
       </fieldset>
     }
   </div>

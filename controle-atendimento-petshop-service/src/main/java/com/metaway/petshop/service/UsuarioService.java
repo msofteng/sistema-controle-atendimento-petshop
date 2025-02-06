@@ -33,21 +33,21 @@ public class UsuarioService {
     if (cliente.getId() != null && cliente.getId() > 0) {
       Optional<UsuarioEntity> clienteEncontrado = repository.findById(cliente.getId());
 
-      if (clienteEncontrado.isPresent() && !cliente.getPassword().equals("")) {
+      if (clienteEncontrado.isPresent() && cliente.getPassword() != null && !cliente.getPassword().equals("")) {
         cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
       } else {
         cliente.setPassword(clienteEncontrado.get().getPassword());
       }
     }
 
-    if (cliente.getContatos() != null && !cliente.getContatos().isEmpty()) {
+    if (cliente.getContatos() != null) {
       cliente.setContatos(contatoRepository.saveAll(cliente.getContatos().stream().map(contato -> {
         contato.setCliente(cliente);
         return contato;
       }).collect(Collectors.toList())));
     }
 
-    if (cliente.getContatos() != null && !cliente.getContatos().isEmpty()) {
+    if (cliente.getEnderecos() != null) {
       cliente.setEnderecos(enderecoRepository.saveAll(cliente.getEnderecos().stream().map(endereco -> {
         endereco.setCliente(cliente);
         return endereco;
@@ -83,11 +83,13 @@ public class UsuarioService {
     }).toList();
   }
 
+  @Transactional
   public void removerContato(ContatoEntity contato) {
-    if (contato.getId() != null) contatoRepository.deleteById(contato.getId());
+    if (contato.getId() != null) contatoRepository.removerContato(contato.getId());
   }
 
+  @Transactional
   public void removerEndereco(EnderecoEntity endereco) {
-    if (endereco.getId() != null) enderecoRepository.deleteById(endereco.getId());
+    if (endereco.getId() != null) enderecoRepository.removerEndereco(endereco.getId());
   }
 }

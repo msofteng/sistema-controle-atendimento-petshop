@@ -1,5 +1,5 @@
 <form [formGroup]="cadastroForm" (submit)="enviarCadastro($event)">
-  Nome: <br>
+  Nome: <b title="Obrigatório" class="required">*</b><br>
   <input type="text" formControlName="nome">
 
   @if (cadastroForm.get('nome')?.touched && cadastroForm.get('nome')?.hasError('required')) {
@@ -8,7 +8,7 @@
   }
 
   <br><br>
-  Senha: <br>
+  Senha: <b title="Obrigatório" class="required">*</b><br>
   <input type="password" formControlName="password">
 
   @if (cadastroForm.get('password')?.touched && cadastroForm.get('password')?.hasError('required')) {
@@ -17,8 +17,13 @@
   }
 
   <br><br>
-  CPF: <br>
+  CPF: <b title="Obrigatório" class="required">*</b><br>
   <input type="text" formControlName="cpf" maxlength="14">
+
+  @if (cadastroForm.get('cpf')?.touched && cadastroForm.get('cpf')?.hasError('required')) {
+    <br>
+    <sup>O CPF não pode ficar em branco</sup>
+  }
 
   <br><br>
   Foto: <br>

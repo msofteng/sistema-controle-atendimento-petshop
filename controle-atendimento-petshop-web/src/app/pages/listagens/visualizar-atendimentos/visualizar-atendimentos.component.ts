@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CadastroAtendimentoComponent } from '../../../shared/components/forms/cadastros/cadastro-atendimento/cadastro-atendimento.component';
 import { ModalComponent } from '../../../shared/components/page/modal/modal.component';
 import { corrigeData } from '../../../shared/functions/date';
-import { Atendimento, Cliente, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
+import { Atendimento, Usuario, Pet, Raca } from '../../../shared/interfaces/petshop.entities';
 import { ResponseError } from '../../../shared/interfaces/response';
 import { PetshopService } from '../../../shared/services/petshop.service';
 
@@ -23,7 +23,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
   service: PetshopService = inject(PetshopService);
 
   atendimentos: Atendimento[] = [];
-  clientes: Cliente[] = [];
+  clientes: Usuario[] = [];
   pets: Pet[] = [];
   racas: Raca[] = [];
 
@@ -32,11 +32,13 @@ export class VisualizarAtendimentosComponent implements OnInit {
   openModalAtualizarAtendimento = false;
 
   atendimentoSelecionadoEdicao?: Atendimento;
+  usuarioLogado?: Usuario;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.listarAtendimentosClientesRacasPet();
+    this.service.getUsuario().subscribe(usuario => this.usuarioLogado = usuario);
   }
 
   atendimentoAdicionado(atendimento: Atendimento) {
@@ -46,7 +48,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
     if (atendimento.pets.length > 0)
       atendimento.pets = atendimento.pets.map(pet => ({
         ...pet,
-        cliente: this.clientes.find(cli => cli.cpf === pet.cliente.cpf) as Cliente
+        cliente: this.clientes.find(cli => cli.cpf === pet.cliente.cpf) as Usuario
       }));
     
     this.service.cadastrarAtendimento(atendimento).subscribe({
@@ -91,7 +93,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
     return racas ? racas.map(r => r.descricao).join(', ') : '-';
   }
 
-  buscarAnimaisCliente(cliente?: Cliente) {
+  buscarAnimaisCliente(cliente?: Usuario) {
     console.log(cliente?.dataCadastro);
 
     if (cliente && cliente.dataCadastro && cliente.dataCadastro instanceof Date)
@@ -118,7 +120,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
     });
 
     this.service.listarClientes().subscribe({
-      next: (clientes: Cliente[]) => this.clientes = clientes,
+      next: (clientes: Usuario[]) => this.clientes = clientes,
       error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
       complete: () => {},
     });

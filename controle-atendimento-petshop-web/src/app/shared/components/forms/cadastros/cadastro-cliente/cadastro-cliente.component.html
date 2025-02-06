@@ -17,11 +17,6 @@
     CPF: <br>
     <input type="text" formControlName="cpf" maxlength="14" (blur)="atualizarSenha($event)">
 
-    @if (clienteForm.get('cpf')?.touched && clienteForm.get('cpf')?.hasError('required')) {
-      <br>
-      <sup>O CPF não pode ficar em branco</sup>
-    }
-
     <br><br>
     Foto: <br>
     <input type="file" (change)="onImagePicked($event)" accept="image/*" #fotoCliente>

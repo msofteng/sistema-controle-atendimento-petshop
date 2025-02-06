@@ -26,7 +26,8 @@ export class ContaComponent implements OnInit {
     perfil: new FormControl<Perfil>(Perfil.ADMIN, [Validators.required]),
     password: new FormControl<string>('', []),
     cpf: new FormControl<string>('', []),
-    foto: new FormControl<string>('', [])
+    foto: new FormControl<string>('', []),
+    dataCadastro: new FormControl<string>('', []),
   });
 
   btnDisabled = false;
@@ -40,24 +41,25 @@ export class ContaComponent implements OnInit {
 
     // buscar os dados do cliente logado por JWT
 
-    this.service.getUsuarioLogado().subscribe({
-      next: (value: Usuario) => {
+    this.service.getUsuario().subscribe(value => {
+      if (value) {
         value.password = '';
+        value.dataCadastro = new Date(value.dataCadastro).toISOString().split('T')[0];
+        
         this.atualizacaoForm.patchValue(value);
 
-        if (value.foto) {
-          const dataTransfer = new DataTransfer();
-          dataTransfer.items.add(base64ToFile(value.foto));
+        setTimeout(() => {
+          if (value.foto) {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(base64ToFile(value.foto));
 
-          this.fotoUsuario.nativeElement.files = dataTransfer.files;
-        }
-
-        this.btnDisabled = false;
-      },
-      error: (err: HttpErrorResponse<ResponseError>) => {
-        console.error(err);
-        this.btnDisabled = false;
+            if (this.fotoUsuario)
+              this.fotoUsuario.nativeElement.files = dataTransfer.files;
+          }
+        }, 1000);
       }
+
+      this.btnDisabled = false;
     });
   }
 
@@ -74,9 +76,7 @@ export class ContaComponent implements OnInit {
       this.btnDisabled = true;
 
       this.service.cadastrarCliente(this.atualizacaoForm.value).subscribe({
-        next: (value: Usuario) => {
-          console.log(value);
-        },
+        next: (value: Usuario) => this.service.setUsuario(value),
         error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
         complete: () => this.btnDisabled = false,
       });

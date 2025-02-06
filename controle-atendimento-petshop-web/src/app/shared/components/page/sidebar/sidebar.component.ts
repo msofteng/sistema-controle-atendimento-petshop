@@ -11,5 +11,6 @@ import { RouterModule } from '@angular/router';
 })
 export class SidebarComponent {
   @Input({ required: true }) openMenu!: boolean;
+  @Input({ required: true }) isCliente!: boolean;
   @Output() openMenuChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 }

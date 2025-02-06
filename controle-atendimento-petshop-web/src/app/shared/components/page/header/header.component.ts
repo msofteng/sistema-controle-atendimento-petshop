@@ -1,5 +1,8 @@
-import { Component, HostListener } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, HostListener, OnChanges, OnInit, SimpleChanges, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { PetshopService } from '../../../services/petshop.service';
+import { Usuario } from '../../../interfaces/petshop.entities';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +12,23 @@ import { RouterModule } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnChanges {
+  service: PetshopService = inject(PetshopService);
+  cookieService = inject(CookieService);
+  router: Router = inject(Router);
+  
+  usuarioLogado?: Usuario;
   showMenu = false;
+  
+  ngOnInit(): void {
+    this.service.getUsuario().subscribe(usuario => this.usuarioLogado = usuario);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['service'].previousValue !== changes['service'].currentValue) {
+      console.log('atualizou');
+    }
+  }
 
   toggleMenu(event: MouseEvent) {
     event.stopPropagation();
@@ -23,5 +41,12 @@ export class HeaderComponent {
     
     if (menuContainer && !menuContainer.contains(event.target as Node))
       this.showMenu = false;
+  }
+  
+  sair() {
+    // saindo
+    this.cookieService.delete('token');
+    this.service.setUsuario(undefined);
+    this.router.navigate(['/login']);
   }
 }

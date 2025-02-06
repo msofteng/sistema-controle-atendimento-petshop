@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.metaway.petshop.dto.FilterDTO;
@@ -33,9 +34,22 @@ public class AtendimentoService {
   @Autowired
   private RacaRepository racaRepository;
 
+  @Autowired
+  private PasswordEncoder passwordEncoder;
+
   @Transactional
   public AtendimentoEntity cadastrar(AtendimentoEntity atendimento) {
     UsuarioEntity cliente = atendimento.getPets().iterator().next().getCliente();
+
+    if (cliente.getId() != null && cliente.getId() > 0) {
+      if (cliente.getPassword() != null && !cliente.getPassword().equals("")) {
+        cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
+      } else {
+        cliente.setPassword(cliente.getPassword());
+      }
+    } else {
+      cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
+    }
 
     if (cliente != null) {
       if (cliente.getId() == null) {
@@ -47,14 +61,14 @@ public class AtendimentoService {
 
     final var cli = cliente;
 
-    if (cli != null && cli.getContatos() != null && !cli.getContatos().isEmpty()) {
+    if (cli != null && cli.getContatos() != null) {
       cli.setContatos(contatoRepository.saveAll(cli.getContatos().stream().map(contato -> {
         contato.setCliente(cli);
         return contato;
       }).collect(Collectors.toList())));
     }
 
-    if (cli != null && cli.getEnderecos() != null && !cli.getEnderecos().isEmpty()) {
+    if (cli != null && cli.getEnderecos() != null) {
       cli.setEnderecos(enderecoRepository.saveAll(cli.getEnderecos().stream().map(endereco -> {
         endereco.setCliente(cli);
         return endereco;
@@ -66,7 +80,7 @@ public class AtendimentoService {
         pet = petRepository.findById(pet.getId()).orElse(pet);
       }
 
-      if (pet.getRaca() != null && !pet.getRaca().isEmpty()) {
+      if (pet.getRaca() != null) {
         pet.setRaca(pet.getRaca().stream().map(raca -> {
           if (raca.getId() != null) {
             return racaRepository.findById(raca.getId()).orElse(raca);

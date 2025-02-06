@@ -143,8 +143,8 @@ describe('VisualizarPetsComponent', () => {
   });
 
   it('testando métodos de atribuir cliente a lista de contatos e endereços', () => {
-    let contatos = component.adicionarClienteContatos([contatoMock], clienteMock);
-    let enderecos = component.adicionarClienteEnderecos([enderecoMock], clienteMock);
+    let contatos = component.adicionarClienteContatos(clienteMock, [contatoMock]);
+    let enderecos = component.adicionarClienteEnderecos(clienteMock, [enderecoMock]);
 
     expect(contatos.length).toEqual(1);
     expect(enderecos.length).toEqual(1);

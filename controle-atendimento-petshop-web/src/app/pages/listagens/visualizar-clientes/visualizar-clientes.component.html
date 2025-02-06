@@ -17,8 +17,8 @@
         <sup>{{ cliente.cpf | cpf }}</sup>
 
         <br>
-        <button (click)="editarCliente(cliente)">Editar</button>
-        <button (click)="excluirCliente(cliente)">Excluir</button>
+        <button [disabled]="usuarioLogado?.perfil === 'CLIENTE' && cliente.id !== usuarioLogado?.id" (click)="editarCliente(cliente)">Editar</button>
+        <button [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="excluirCliente(cliente)">Excluir</button>
       </fieldset>
     }
   </div>

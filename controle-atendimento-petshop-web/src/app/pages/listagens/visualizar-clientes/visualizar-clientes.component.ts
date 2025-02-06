@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CadastroClienteComponent } from "../../../shared/components/forms/cadastros/cadastro-cliente/cadastro-cliente.component";
 import { ModalComponent } from "../../../shared/components/page/modal/modal.component";
-import { Cliente } from '../../../shared/interfaces/petshop.entities';
+import { Usuario } from '../../../shared/interfaces/petshop.entities';
 import { ResponseError } from '../../../shared/interfaces/response';
 import { CpfPipe } from '../../../shared/pipes/cpf.pipe';
 import { PetshopService } from '../../../shared/services/petshop.service';
@@ -21,23 +21,25 @@ import HttpErrorResponse from '../../../core/errors/http-error-response';
 export class VisualizarClientesComponent implements OnInit {
   service: PetshopService = inject(PetshopService);
 
-  clientes: Cliente[] = [];
+  clientes: Usuario[] = [];
 
   isLoading = false;
   openModalAtualizarCliente = false;
 
-  clienteSelecionadoEdicao?: Cliente;
+  clienteSelecionadoEdicao?: Usuario;
+  usuarioLogado?: Usuario;
 
   ngOnInit(): void {
     this.buscarClientes();
+    this.service.getUsuario().subscribe(usuario => this.usuarioLogado = usuario);
   }
 
-  clienteAdicionado(cliente: Cliente) {
+  clienteAdicionado(cliente: Usuario) {
     if (cliente.dataCadastro instanceof Date)
       cliente.dataCadastro = (cliente.dataCadastro as Date).toISOString().split('T')[0];
     
     this.service.cadastrarCliente(cliente).subscribe({
-      next: (data: Cliente) => {
+      next: (data: Usuario) => {
         this.buscarClientes();
 
         this.openModalAtualizarCliente = false;
@@ -47,12 +49,12 @@ export class VisualizarClientesComponent implements OnInit {
     });
   }
 
-  editarCliente(cliente: Cliente) {
+  editarCliente(cliente: Usuario) {
     this.clienteSelecionadoEdicao = cliente;
     this.openModalAtualizarCliente = true;
   }
 
-  excluirCliente(cliente: Cliente) {
+  excluirCliente(cliente: Usuario) {
     this.isLoading = true;
 
     if (cliente.dataCadastro instanceof Date)
@@ -69,7 +71,7 @@ export class VisualizarClientesComponent implements OnInit {
     this.isLoading = true;
 
     this.service.listarClientes().subscribe({
-      next: (clientes: Cliente[]) => this.clientes = clientes,
+      next: (clientes: Usuario[]) => this.clientes = clientes,
       error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
       complete: () => this.isLoading = false,
     })

@@ -3,7 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { Perfil } from '../enums/perfil';
 import { corrigeData } from '../functions/date';
-import { Atendimento, Cliente, Contato, Pet, Raca } from '../interfaces/petshop.entities';
+import { Atendimento, Usuario, Contato, Pet, Raca } from '../interfaces/petshop.entities';
 import { LoginParams, PageParams } from '../interfaces/request';
 import { changePerfil, changeTipoContato } from '../utils/change-enum';
 import { PetshopService } from './petshop.service';
@@ -90,7 +90,7 @@ describe('PetshopService', () => {
   });
 
   it('deve cadastrar um cliente com sucesso', () => {
-    const mockResponse: Cliente = {
+    const mockResponse: Usuario = {
       ...adminMock,
       perfil: changePerfil(adminMock.perfil),
       dataCadastro: corrigeData(new Date()),
@@ -110,7 +110,7 @@ describe('PetshopService', () => {
   });
 
   it('deve cadastrar um cliente sem contatos com sucesso', () => {
-    const mockResponse: Cliente = {
+    const mockResponse: Usuario = {
       ...adminMock,
       perfil: changePerfil(adminMock.perfil),
       dataCadastro: corrigeData(new Date()),
@@ -398,9 +398,9 @@ describe('PetshopService', () => {
   });
 
   it('deve listar os clientes com sucesso', () => {
-    const filters: PageParams<Cliente> = { page: 1, qtd: 10 };
+    const filters: PageParams<Usuario> = { page: 1, qtd: 10 };
 
-    const mockClientes: Cliente[] = Array.from({ length: 30 }).map((_, index) => ({
+    const mockClientes: Usuario[] = Array.from({ length: 30 }).map((_, index) => ({
       ...adminMock,
       id: index + 1,
       contatos: index % 2 == 0 ? adminMock.contatos : null as any

@@ -8,7 +8,7 @@ export interface Endereco {
   bairro: string;
   tag?: string;
   complemento?: string;
-  cliente?: Cliente;
+  cliente?: Usuario;
 }
 
 export interface Contato {
@@ -16,7 +16,7 @@ export interface Contato {
   tag: string;
   tipo: TipoContato | string;
   valor: string;
-  cliente?: Cliente;
+  cliente?: Usuario;
 }
 
 export interface Usuario {
@@ -26,12 +26,9 @@ export interface Usuario {
   perfil: Perfil | string;
   password: string;
   foto?: string;
-}
-
-export interface Cliente extends Usuario {
   dataCadastro: Date | string;
-  contatos: Contato[];
-  enderecos: Endereco[];
+  contatos?: Contato[];
+  enderecos?: Endereco[];
   pets?: Pet[];
 }
 
@@ -44,7 +41,7 @@ export interface Pet {
   id: number;
   nome: string;
   dataNascimento: Date | string;
-  cliente: Cliente;
+  cliente: Usuario;
   raca: Raca[];
   foto?: string;
 }

@@ -32,7 +32,7 @@ public class PetEntity {
   @JsonIgnoreProperties(value = "pets", allowSetters = true)
   private UsuarioEntity cliente;
 
-  @ManyToMany(cascade = ALL)
+  @ManyToMany(cascade = ALL, fetch = FetchType.EAGER)
   @JoinTable(
     name = "racas_pet",
     joinColumns = @JoinColumn(name = "pet_id"),

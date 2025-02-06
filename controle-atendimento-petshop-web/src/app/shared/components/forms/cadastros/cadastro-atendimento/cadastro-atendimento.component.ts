@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Atendimento, Cliente, Pet, Raca } from '../../../../interfaces/petshop.entities';
+import { Atendimento, Usuario, Pet, Raca } from '../../../../interfaces/petshop.entities';
 import { CadastroClienteComponent } from "../cadastro-cliente/cadastro-cliente.component";
 import { CadastroPetComponent } from "../cadastro-pet/cadastro-pet.component";
 
@@ -30,13 +30,13 @@ export class CadastroAtendimentoComponent implements OnChanges {
   atendimentoAdicionado: EventEmitter<Atendimento> = new EventEmitter<Atendimento>();
 
   @Input({ required: true })
-  clientes!: Cliente[];
+  clientes!: Usuario[];
 
   @Input({ required: true })
   pets!: Pet[];
 
   @Output()
-  buscarPetsCliente: EventEmitter<Cliente> = new EventEmitter<Cliente>();
+  buscarPetsCliente: EventEmitter<Usuario> = new EventEmitter<Usuario>();
 
   @Input({ required: true })
   racas!: Raca[];
@@ -73,7 +73,9 @@ export class CadastroAtendimentoComponent implements OnChanges {
       if (!this.atendimentoForm.value.id && !this.atendimento)
         delete this.atendimentoForm.value.id;
 
-      let cliente = this.clientes.find(cli => cli.nome === this.atendimentoForm.get('cliente')?.value) as Cliente;
+      let cliente = this.clientes.find(cli => cli.nome === this.atendimentoForm.get('cliente')?.value) as Usuario;
+      
+      cliente.dataCadastro = new Date(cliente.dataCadastro).toISOString().split('T')[0];
       cliente.pets = [];
 
       this.atendimentoForm.value.pets = this.getPetsSelecionados().map<Pet>((petName) => {
@@ -101,7 +103,7 @@ export class CadastroAtendimentoComponent implements OnChanges {
     });
   }
 
-  adicionarCliente(cliente: Cliente) {
+  adicionarCliente(cliente: Usuario) {
     this.clientes.push(cliente);
     setTimeout(() => {
       this.atendimentoForm.get('cliente')?.setValue(cliente.nome);

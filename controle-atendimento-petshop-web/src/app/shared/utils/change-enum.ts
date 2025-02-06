@@ -2,14 +2,7 @@ import { Perfil } from "../enums/perfil";
 import { TipoContato } from "../enums/tipo-contato";
 
 export function changePerfil(perfil: string) {
-  switch (perfil) {
-    case 'cliente':
-      return Perfil.CLIENTE
-    case 'administrador':
-      return Perfil.ADMIN
-    default:
-      return Perfil.CLIENTE;
-  }
+  return perfil == 'ADMINISTRADOR' ? Perfil.ADMIN : Perfil.CLIENTE;
 }
 
 export function changeTipoContato(tipo: string) {

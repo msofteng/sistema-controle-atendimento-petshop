@@ -1,7 +1,7 @@
 <h3>Minha Conta</h3>
 
 <form [formGroup]="atualizacaoForm" (submit)="atualizaCadastro($event)">
-  Nome: <br>
+  Nome: <b title="Obrigatório" class="required">*</b><br>
   <input type="text" formControlName="nome">
 
   @if (atualizacaoForm.get('nome')?.touched && atualizacaoForm.get('nome')?.hasError('required')) {
@@ -10,7 +10,7 @@
   }
 
   <br><br>
-  Senha: <br>
+  Senha: <b title="Obrigatório" class="required">*</b><br>
   <input type="password" formControlName="password">
 
   @if (atualizacaoForm.get('password')?.touched && atualizacaoForm.get('password')?.hasError('required')) {

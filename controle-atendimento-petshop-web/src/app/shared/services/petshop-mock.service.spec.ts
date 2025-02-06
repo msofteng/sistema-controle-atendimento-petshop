@@ -21,7 +21,8 @@ describe('PetshopMockService', () => {
       id: 0,
       nome: 'mateus',
       perfil: Perfil.ADMIN,
-      password: '123'
+      password: '123',
+      dataCadastro: '2025-01-01'
     }));
 
     expect(funcionario.nome).toBe('mateus');
@@ -91,7 +92,8 @@ describe('PetshopMockService', () => {
       id: 0,
       nome: 'mateus',
       perfil: Perfil.ADMIN,
-      password: '123'
+      password: '123',
+      dataCadastro: '2025-01-01'
     }).subscribe(data => {
       expect(data).toBe(true);
       done();

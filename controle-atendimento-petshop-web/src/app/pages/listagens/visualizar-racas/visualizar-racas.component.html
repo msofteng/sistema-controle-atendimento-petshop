@@ -12,8 +12,8 @@
           {{ raca.descricao }}
         </legend>
 
-        <button (click)="editarRaca(raca)">Editar</button>
-        <button (click)="excluirRaca(raca)">Excluir</button>
+        <button [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="editarRaca(raca)">Editar</button>
+        <button [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="excluirRaca(raca)">Excluir</button>
       </fieldset>
     }
   </div>

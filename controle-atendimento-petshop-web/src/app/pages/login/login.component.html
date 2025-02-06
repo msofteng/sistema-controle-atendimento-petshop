@@ -1,5 +1,5 @@
 <form [formGroup]="loginForm" (submit)="enviarLogin($event)">
-  Nome ou CPF: <br>
+  Nome ou CPF: <b title="Obrigatório" class="required">*</b><br>
   <input type="text" formControlName="nomeCpf">
 
   @if (loginForm.get('nomeCpf')?.touched && loginForm.get('nomeCpf')?.hasError('required')) {
@@ -9,7 +9,7 @@
 
   <br>
   <br>
-  Senha: <br>
+  Senha: <b title="Obrigatório" class="required">*</b><br>
   <input type="password" formControlName="password">
 
   @if (loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')) {

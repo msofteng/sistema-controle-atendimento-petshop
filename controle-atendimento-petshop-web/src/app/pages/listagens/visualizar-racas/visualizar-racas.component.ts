@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CadastroRacaComponent } from "../../../shared/components/forms/cadastros/cadastro-raca/cadastro-raca.component";
 import { ModalComponent } from "../../../shared/components/page/modal/modal.component";
-import { Raca } from '../../../shared/interfaces/petshop.entities';
+import { Raca, Usuario } from '../../../shared/interfaces/petshop.entities';
 import { ResponseError } from '../../../shared/interfaces/response';
 import { PetshopService } from '../../../shared/services/petshop.service';
 
@@ -24,11 +24,12 @@ export class VisualizarRacasComponent implements OnInit {
   isLoading = false;
 
   openModalAtualizarRaca = false;
-
   racaSelecionadoEdicao?: Raca;
+  usuarioLogado?: Usuario;
 
   ngOnInit(): void {
     this.buscarRacas();
+    this.service.getUsuario().subscribe(usuario => this.usuarioLogado = usuario);
   }
 
   racaAdicionada(raca: Raca) {

@@ -10,10 +10,10 @@
 <span></span>
 
 <div class="menu-container" (click)="toggleMenu($event)">
-  <img src="assets/img/woman.png" alt="mulher" />
+  <img [src]="(usuarioLogado && usuarioLogado.foto) ?? 'assets/img/woman.png'" alt="mulher" />
 
   <ul [class.menu]="true" [class.show]="showMenu">
     <li routerLink="/dashboard">Painel (Atendimento)</li>
-    <li routerLink="/login">Sair</li>
+    <li (click)="sair()" routerLink="/login">Sair</li>
   </ul>
 </div>

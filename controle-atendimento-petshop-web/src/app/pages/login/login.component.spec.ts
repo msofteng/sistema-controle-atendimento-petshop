@@ -60,7 +60,8 @@ describe('LoginComponent', () => {
       nome: 'mateus',
       perfil: 'cliente',
       password: '123',
-      cpf: '12345678901'
+      cpf: '12345678901',
+      dataCadastro: '2025-01-01'
     };
 
     component.loginForm.get('nomeCpf')?.setValue(usuario.cpf?.toString());
