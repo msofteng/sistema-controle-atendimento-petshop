@@ -35,8 +35,13 @@ export class VisualizarPetsComponent implements OnInit {
   }
 
   petAdicionado(pet: Pet) {
+    console.log(pet);
     if (pet.id && pet.id > 0) {
-      pet.cliente = this.clientes.find(cli => cli.nome === pet.cliente.nome) ?? pet.cliente;
+      if (pet.cliente)
+        pet.cliente = this.clientes.find(cli => cli.nome === pet.cliente.nome) ?? pet.cliente;
+      else
+        pet.cliente = this.petSelecionadoEdicao!.cliente;
+      
       if (pet.cliente.dataCadastro && pet.cliente.dataCadastro instanceof Date) pet.cliente.dataCadastro = (pet.cliente.dataCadastro as Date).toISOString().split('T')[0];
       pet.cliente.pets = [];
 
