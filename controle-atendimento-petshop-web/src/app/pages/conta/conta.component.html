@@ -1,31 +1,53 @@
 <h3>Minha Conta</h3>
 
-<form [formGroup]="atualizacaoForm" (submit)="atualizaCadastro($event)">
-  Nome: <b title="Obrigatório" class="required">*</b><br>
-  <input type="text" formControlName="nome">
+<form class="row g-3" [formGroup]="atualizacaoForm" (submit)="atualizaCadastro($event)">
+  <div class="col-12">
+    <label for="validationName" class="form-label">
+      Nome <b title="Obrigatório" class="required">*</b>
+    </label>
 
-  @if (atualizacaoForm.get('nome')?.touched && atualizacaoForm.get('nome')?.hasError('required')) {
-    <br>
-    <sup>O nome não pode ficar em branco</sup>
-  }
+    <input type="text" class="form-control" [class.is-invalid]="" id="validationName" formControlName="nome" />
 
-  <br><br>
-  Senha: <b title="Obrigatório" class="required">*</b><br>
-  <input type="password" formControlName="password">
+    @if (atualizacaoForm.get('nome')?.touched && atualizacaoForm.get('nome')?.hasError('required')) {
+      <div class="invalid-feedback">
+        O nome não pode ficar em branco
+      </div>
+    }
+  </div>
 
-  @if (atualizacaoForm.get('password')?.touched && atualizacaoForm.get('password')?.hasError('required')) {
-    <br>
-    <sup>A senha não pode ficar em branco</sup>
-  }
+  <div class="col-12">
+    <label for="validationPassword" class="form-label">
+      Senha
+    </label>
 
-  <br><br>
-  CPF: <br>
-  <input type="text" formControlName="cpf" maxlength="14">
+    <input type="password" class="form-control"
+      id="validationPassword" formControlName="password"
+    />
+  </div>
 
-  <br><br>
-  Foto: <br>
-  <input type="file" (change)="onImagePicked($event)" accept="image/*" #fotoUsuario>
+  <div class="col-12">
+    <label for="validationCpf" class="form-label">
+      CPF
+    </label>
 
-  <br><br>
-  <button type="submit" [disabled]="btnDisabled">Atualizar</button>
+    <input type="text" class="form-control"
+      id="validationCpf" formControlName="cpf" maxlength="14"
+    />
+  </div>
+
+  <div class="col-12">
+    <label for="validationImage" class="form-label">
+      Foto
+    </label>
+
+    <input type="file" class="form-control"
+      id="validationImage" (change)="onImagePicked($event)" accept="image/*" #fotoUsuario
+    />
+  </div>
+
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit" [disabled]="btnDisabled">
+      Atualizar
+    </button>
+  </div>
 </form>

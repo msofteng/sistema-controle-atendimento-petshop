@@ -1,7 +1,7 @@
 <form class="row g-3" [formGroup]="enderecoForm" (submit)="adicionarEndereco($event)">
   <div class="col-12">
     <label for="validationAddress" class="form-label">
-      Logradouro: <b title="Obrigatório" class="required">*</b>
+      Logradouro <b title="Obrigatório" class="required">*</b>
     </label>
     
     <input type="text" class="form-control"
@@ -15,9 +15,10 @@
       </div>
     }
   </div>
+
   <div class="col-12">
     <label for="validationCity" class="form-label">
-      Cidade: <b title="Obrigatório" class="required">*</b>
+      Cidade <b title="Obrigatório" class="required">*</b>
     </label>
 
     <input type="text" class="form-control"
@@ -31,9 +32,10 @@
       </div>
     }
   </div>
+
   <div class="col-12">
     <label for="validationRegion" class="form-label">
-      Bairro: <b title="Obrigatório" class="required">*</b>
+      Bairro <b title="Obrigatório" class="required">*</b>
     </label>
 
     <input type="text" class="form-control"
@@ -47,6 +49,7 @@
       </div>
     }
   </div>
+
   <div class="col-12">
     <label for="validationCompl" class="form-label">
       Complemento:
@@ -54,6 +57,7 @@
 
     <input type="text" class="form-control" id="validationCompl" formControlName="complemento" />
   </div>
+
   <div class="col-12">
     <label for="validationTagAddress" class="form-label">
       Tag:
@@ -61,6 +65,7 @@
 
     <input type="text" class="form-control" id="validationTagAddress" formControlName="tag" />
   </div>
+  
   <div class="col-12">
     <input type="hidden" formControlName="id">
     <button class="btn btn-primary" type="submit">

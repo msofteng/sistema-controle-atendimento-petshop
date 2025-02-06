@@ -1,69 +1,91 @@
 <fieldset>
   <legend>{{ this.atendimento ? 'Atualizar' : 'Criar' }} Atendimento</legend>
-  <form [formGroup]="atendimentoForm" (submit)="adicionarAtendimento($event)">
-    Descrição: <b title="Obrigatório" class="required">*</b><br>
-    <textarea formControlName="descricao"></textarea>
 
-    @if (atendimentoForm.get('descricao')?.touched && atendimentoForm.get('descricao')?.hasError('required')) {
-      <br>
-      <sup>A descrição não pode ficar em branco</sup>
-    }
+  <form class="row g-3" [formGroup]="atendimentoForm" (submit)="adicionarAtendimento($event)">
+    <div class="col-12">
+      <label for="validationDescription" class="form-label">
+        Descrição <b title="Obrigatório" class="required">*</b>
+      </label>
 
-    <br><br>
-    Valor: <b title="Obrigatório" class="required">*</b><br>
-    <input type="number" step="0.01" formControlName="valor">
+      <textarea class="form-control"
+        [class.is-invalid]="atendimentoForm.get('descricao')?.touched && atendimentoForm.get('descricao')?.hasError('required')"
+        id="validationDescription" formControlName="descricao"
+      ></textarea>
 
-    @if (atendimentoForm.get('valor')?.touched && atendimentoForm.get('valor')?.hasError('required')) {
-      <br>
-      <sup>O valor não pode ficar em branco</sup>
-    }
-
-    <br><br>
-
-    Selecionar (Cliente): <b title="Obrigatório" class="required">*</b><br><br>
-    <select formControlName="cliente" (change)="atualizarCliente()">
-      <option value="">--- Selecione ---</option>
-      @for (cliente of clientes; track $index) {
-        <option [value]="cliente.nome" [innerHTML]="cliente.nome"></option>
+      @if (atendimentoForm.get('descricao')?.touched && atendimentoForm.get('descricao')?.hasError('required')) {
+        <div class="invalid-feedback">
+          A descrição não pode ficar em branco
+        </div>
       }
-    </select>
+    </div>
 
-    @if (atendimentoForm.get('cliente')?.touched && atendimentoForm.get('cliente')?.hasError('required')) {
-      <br>
-      <sup>Selecione um cliente</sup>
-    }
+    <div class="col-12">
+      <label for="validationPrice" class="form-label">
+        Valor <b title="Obrigatório" class="required">*</b>
+      </label>
 
-    <br><br>
+      <input type="number" class="form-control"
+        [class.is-invalid]="atendimentoForm.get('valor')?.touched && atendimentoForm.get('valor')?.hasError('required')"
+        id="validationPrice" step="0.01" formControlName="valor"
+      />
 
-    &nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;
-    ou
-
-    <br><br>
-
-    <app-cadastro-cliente (clienteAdicionado)="adicionarCliente($event)"></app-cadastro-cliente>
-
-    <br><br>
-
-    Selecionar Pets (Cliente): <b title="Obrigatório" class="required">*</b><br>
-    <select multiple #selectPets>
-      @for (pet of pets; track $index) {
-        <option [value]="pet.nome" [innerHTML]="pet.nome"></option>
+      @if (atendimentoForm.get('valor')?.touched && atendimentoForm.get('valor')?.hasError('required')) {
+        <div class="invalid-feedback">
+          O valor não pode ficar em branco
+        </div>
       }
-    </select>
+    </div>
 
-    <br><br>
+    <div class="col-8 pt-3">
+      <app-cadastro-cliente (clienteAdicionado)="adicionarCliente($event)"></app-cadastro-cliente>
+    </div>
 
-    &nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;
-    ou
+    <div class="col-1 pt-3">ou</div>
 
-    <br><br>
+    <div class="col-3 pt-3">
+      <label for="validationCustomer" class="form-label">
+        Selecionar (Cliente) <b title="Obrigatório" class="required">*</b>
+      </label>
 
-    <app-cadastro-pet [racas]="racas" (petAdicionado)="adicionarPet($event)"></app-cadastro-pet>
+      <select class="form-control"
+        [class.is-invalid]="atendimentoForm.get('cliente')?.touched && atendimentoForm.get('cliente')?.hasError('required')"
+        id="validationCustomer" formControlName="cliente" (change)="atualizarCliente()"
+      >
+        <option value="">--- Selecione ---</option>
+        @for (cliente of clientes; track $index) {
+          <option [value]="cliente.nome" [innerHTML]="cliente.nome"></option>
+        }
+      </select>
 
-    <br>
+      @if (atendimentoForm.get('cliente')?.touched && atendimentoForm.get('cliente')?.hasError('required')) {
+        <div class="invalid-feedback">
+          Selecione um cliente
+        </div>
+      }
+    </div>
 
-    <button>{{ this.atendimento ? 'Atualizar' : 'Criar' }} Atendimento</button>
+    <div class="col-8 pt-3">
+      <app-cadastro-pet [racas]="racas" (petAdicionado)="adicionarPet($event)"></app-cadastro-pet>
+    </div>
+
+    <div class="col-1 pt-3">ou</div>
+
+    <div class="col-3 pt-3">
+      <label for="validationPetsCustomer" class="form-label">
+        Selecionar Pets (Cliente) <b title="Obrigatório" class="required">*</b>
+      </label>
+
+      <select class="form-control" id="validationPetsCustomer" multiple #selectPets>
+        @for (pet of pets; track $index) {
+          <option [value]="pet.nome" [innerHTML]="pet.nome"></option>
+        }
+      </select>
+    </div>
+    
+    <div class="col-12 pt-2">
+      <button class="btn btn-primary" type="submit">
+        {{ this.atendimento ? 'Atualizar' : 'Criar' }} Atendimento
+      </button>
+    </div>
   </form>
 </fieldset>

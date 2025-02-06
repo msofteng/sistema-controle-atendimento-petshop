@@ -1,59 +1,82 @@
 <fieldset>
   <legend>{{ this.pet ? 'Atualizar' : 'Adicionar' }} Pet</legend>
-  <form [formGroup]="petForm" (submit)="adicionarPet($event)">
-    Nome: <b title="Obrigatório" class="required">*</b><br>
-    <input type="text" formControlName="nome">
 
-    @if (petForm.get('nome')?.touched && petForm.get('nome')?.hasError('required')) {
-      <br>
-      <sup>O nome do pet não pode ficar em branco</sup>
-    }
+  <form class="row g-3" [formGroup]="petForm" (submit)="adicionarPet($event)">
+    <div class="col-12">
+      <label for="validationPetName" class="form-label">
+        Nome <b title="Obrigatório" class="required">*</b>
+      </label>
 
-    <br><br>
-    Data de Nascimento: <b title="Obrigatório" class="required">*</b><br>
-    <input type="date" formControlName="dataNascimento">
+      <input type="text" class="form-control"
+        [class.is-invalid]="petForm.get('nome')?.touched && petForm.get('nome')?.hasError('required')"
+        id="validationPetName" formControlName="nome"
+      />
 
-    @if (petForm.get('dataNascimento')?.touched && petForm.get('dataNascimento')?.hasError('required')) {
-      <br>
-      <sup>A data de nascimento do pet não pode ficar em branco</sup>
-    }
-
-    <br><br>
-    Raça: <b title="Obrigatório" class="required">*</b><br>
-    <select multiple #selectRacas>
-      @for (raca of racas; track $index) {
-        <option [value]="raca.id" [innerHTML]="raca.descricao"></option>
+      @if (petForm.get('nome')?.touched && petForm.get('nome')?.hasError('required')) {
+        <div class="invalid-feedback">
+          O nome do pet não pode ficar em branco
+        </div>
       }
-    </select>
+    </div>
 
-    @if (petForm.get('nome')?.touched && getRacasSelecionadas().length == 0) {
-      <br>
-      <sup>A raça do pet não pode ficar em branco</sup>
-    }
+    <div class="col-12">
+      <label for="validationBirthDate" class="form-label">
+        Data de Nascimento <b title="Obrigatório" class="required">*</b>
+      </label>
 
-    <br>
+      <input type="date" class="form-control"
+        [class.is-invalid]="petForm.get('dataNascimento')?.touched && petForm.get('dataNascimento')?.hasError('required')"
+        id="validationBirthDate" formControlName="dataNascimento"
+      />
 
-    <button (click)="removerRacasSelecionadas($event)">Excluir Selecionados</button>
+      @if (petForm.get('dataNascimento')?.touched && petForm.get('dataNascimento')?.hasError('required')) {
+        <div class="invalid-feedback">
+          A data de nascimento do pet não pode ficar em branco
+        </div>
+      }
+    </div>
 
-    <br><br>
+    <div class="col-12">
+      <label for="validationBreed" class="form-label">
+        Raça <b title="Obrigatório" class="required">*</b>
+      </label>
 
-    &nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;
-    ou
+      <select class="form-control mb-3" id="validationBreed" multiple #selectRacas>
+        @for (raca of racas; track $index) {
+          <option [value]="raca.id" [innerHTML]="raca.descricao"></option>
+        }
+      </select>
 
-    <br><br>
+      <button class="btn btn-danger" (click)="removerRacasSelecionadas($event)">
+        Excluir Selecionados
+      </button>
 
-    <app-cadastro-raca (racaAdicionada)="adicionarRacaPet($event)"></app-cadastro-raca>
+      @if (petForm.get('nome')?.touched && getRacasSelecionadas().length == 0) {
+        <div class="invalid-feedback">
+          A raça do pet não pode ficar em branco
+        </div>
+      }
+    </div>
 
-    <br>
+    <div class="col-12">
+      <app-cadastro-raca (racaAdicionada)="adicionarRacaPet($event)"></app-cadastro-raca>
+    </div>
 
-    Foto: <br>
-    <input type="file" (change)="onImagePicked($event)" accept="image/*" #fotoPet>
+    <div class="col-12">
+      <label for="validationImage" class="form-label">
+        Foto:
+      </label>
 
-    <input type="hidden" formControlName="id">
-
-    <br><br>
-
-    <button type="submit">{{ this.pet ? 'Atualizar' : 'Adicionar' }} Pet</button>
+      <input type="file" class="form-control"
+        id="validationImage" (change)="onImagePicked($event)" accept="image/*" #fotoPet
+      />
+    </div>
+    
+    <div class="col-12">
+      <input type="hidden" formControlName="id">
+      <button class="btn btn-primary" type="submit">
+        {{ this.pet ? 'Atualizar' : 'Adicionar' }} Pet
+      </button>
+    </div>
   </form>
 </fieldset>

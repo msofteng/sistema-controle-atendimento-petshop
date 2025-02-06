@@ -18,6 +18,7 @@
         </div>
       }
     </div>
+
     <div class="col-12">
       <label for="validationPassword" class="form-label">
         Senha
@@ -25,6 +26,7 @@
 
       <input type="text" class="form-control" id="validationPassword" formControlName="password"/>
     </div>
+
     <div class="col-12">
       <label for="validationCpf" class="form-label">
         CPF
@@ -32,6 +34,7 @@
 
       <input type="text" class="form-control" id="validationCpf" formControlName="cpf" maxlength="14" (blur)="atualizarSenha($event)" />
     </div>
+
     <div class="col-12">
       <label for="validationImage" class="form-label">
         Foto
@@ -39,6 +42,7 @@
 
       <input type="file" class="form-control" id="validationImage" (change)="onImagePicked($event)" accept="image/*" #fotoCliente />
     </div>
+
     <div class="col-12 pt-3">
       <fieldset>
         <legend>Adicionar Contato</legend>
@@ -101,6 +105,7 @@
         </fieldset>
       </fieldset>
     </div>
+
     <div class="col-12 pt-3">
       <fieldset>
         <legend>Adicionar Endereço</legend>
@@ -179,6 +184,7 @@
         </fieldset>
       </fieldset>
     </div>
+    
     <div class="col-12">
       <input type="hidden" formControlName="id">
       <button class="btn btn-primary" type="submit">
