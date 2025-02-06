@@ -1,37 +1,70 @@
-<form [formGroup]="enderecoForm" (submit)="adicionarEndereco($event)">
-  Logradouro: <b title="Obrigatório" class="required">*</b><br>
-  <input type="text" formControlName="logradouro">
-  @if (enderecoForm.get('logradouro')?.touched && enderecoForm.get('logradouro')?.hasError('required')) {
-    <br>
-    <sup>O logradouro não pode ficar em branco</sup>
-  }
+<form class="row g-3" [formGroup]="enderecoForm" (submit)="adicionarEndereco($event)">
+  <div class="col-12">
+    <label for="validationAddress" class="form-label">
+      Logradouro: <b title="Obrigatório" class="required">*</b>
+    </label>
+    
+    <input type="text" class="form-control"
+      [class.is-invalid]="enderecoForm.get('logradouro')?.touched && enderecoForm.get('logradouro')?.hasError('required')"
+      id="validationAddress" formControlName="logradouro"
+    />
 
-  <br><br>
-  Cidade: <b title="Obrigatório" class="required">*</b><br>
-  <input type="text" formControlName="cidade">
-  @if (enderecoForm.get('cidade')?.touched && enderecoForm.get('cidade')?.hasError('required')) {
-    <br>
-    <sup>A cidade não pode ficar em branco</sup>
-  }
+    @if (enderecoForm.get('logradouro')?.touched && enderecoForm.get('logradouro')?.hasError('required')) {
+      <div class="invalid-feedback">
+        O logradouro não pode ficar em branco
+      </div>
+    }
+  </div>
+  <div class="col-12">
+    <label for="validationCity" class="form-label">
+      Cidade: <b title="Obrigatório" class="required">*</b>
+    </label>
 
-  <br><br>
-  Bairro: <b title="Obrigatório" class="required">*</b><br>
-  <input type="text" formControlName="bairro">
-  @if (enderecoForm.get('bairro')?.touched && enderecoForm.get('bairro')?.hasError('required')) {
-    <br>
-    <sup>O bairro não pode ficar em branco</sup>
-  }
+    <input type="text" class="form-control"
+      [class.is-invalid]="enderecoForm.get('cidade')?.touched && enderecoForm.get('cidade')?.hasError('required')"
+      id="validationCity" formControlName="cidade"
+    />
 
-  <br><br>
-  Complemento: <br>
-  <input type="text" formControlName="complemento">
+    @if (enderecoForm.get('cidade')?.touched && enderecoForm.get('cidade')?.hasError('required')) {
+      <div class="invalid-feedback">
+        A cidade não pode ficar em branco
+      </div>
+    }
+  </div>
+  <div class="col-12">
+    <label for="validationRegion" class="form-label">
+      Bairro: <b title="Obrigatório" class="required">*</b>
+    </label>
 
-  <br><br>
-  Tag: <br>
-  <input type="text" formControlName="tag">
+    <input type="text" class="form-control"
+      [class.is-invalid]="enderecoForm.get('bairro')?.touched && enderecoForm.get('bairro')?.hasError('required')"
+      id="validationRegion" formControlName="bairro"
+    />
 
-  <input type="hidden" formControlName="id">
+    @if (enderecoForm.get('bairro')?.touched && enderecoForm.get('bairro')?.hasError('required')) {
+      <div class="invalid-feedback">
+        O bairro não pode ficar em branco
+      </div>
+    }
+  </div>
+  <div class="col-12">
+    <label for="validationCompl" class="form-label">
+      Complemento:
+    </label>
 
-  <br><br>
-  <button type="submit">{{ this.endereco ? 'Atualizar' : 'Adicionar' }} Endereço</button>
+    <input type="text" class="form-control" id="validationCompl" formControlName="complemento" />
+  </div>
+  <div class="col-12">
+    <label for="validationTagAddress" class="form-label">
+      Tag:
+    </label>
+
+    <input type="text" class="form-control" id="validationTagAddress" formControlName="tag" />
+  </div>
+  <div class="col-12">
+    <input type="hidden" formControlName="id">
+    <button class="btn btn-primary" type="submit">
+      {{ this.endereco ? 'Atualizar' : 'Adicionar' }} Endereço
+    </button>
+  </div>
 </form>

@@ -1,31 +1,51 @@
-<form [formGroup]="contatoForm" (submit)="adicionarContato($event)">
-  Contato: <b title="Obrigatório" class="required">*</b><br>
-  <input type="text" formControlName="valor">
+<form class="row g-3" [formGroup]="contatoForm" (submit)="adicionarContato($event)">
+  <div class="col-12">
+    <label for="validationValue" class="form-label">
+      Contato <b title="Obrigatório" class="required">*</b>
+    </label>
 
-  @if (contatoForm.get('valor')?.touched && contatoForm.get('valor')?.hasError('required')) {
-    <br>
-    <sup>O contato não pode ficar em branco</sup>
-  }
+    <input type="text" class="form-control"
+      [class.is-invalid]="contatoForm.get('valor')?.touched && contatoForm.get('valor')?.hasError('required')"
+      id="validationValue" formControlName="valor"
+    />
 
-  <br><br>
-  Tipo: <b title="Obrigatório" class="required">*</b><br>
-  <select formControlName="tipo">
-    <option value="">--- Selecione ---</option>
-    <option value="telefone">Telefone</option>
-    <option value="e-mail">E-mail</option>
-  </select>
+    @if (contatoForm.get('valor')?.touched && contatoForm.get('valor')?.hasError('required')) {
+      <div class="invalid-feedback">
+        O contato não pode ficar em branco
+      </div>
+    }
+  </div>
+  <div class="col-12">
+    <label for="validationType" class="form-label">
+      Tipo <b title="Obrigatório" class="required">*</b>
+    </label>
 
-  @if (contatoForm.get('tipo')?.touched && contatoForm.get('tipo')?.hasError('required')) {
-    <br>
-    <sup>O tipo do contato não pode ficar em branco</sup>
-  }
+    <select class="form-control"
+      [class.is-invalid]="contatoForm.get('tipo')?.touched && contatoForm.get('tipo')?.hasError('required')"
+      id="validationType" formControlName="tipo"
+    >
+      <option value="">--- Selecione ---</option>
+      <option value="telefone">Telefone</option>
+      <option value="e-mail">E-mail</option>
+    </select>
 
-  <br><br>
-  Tag: <br>
-  <input type="text" formControlName="tag">
+    @if (contatoForm.get('tipo')?.touched && contatoForm.get('tipo')?.hasError('required')) {
+      <div class="invalid-feedback">
+        O tipo do contato não pode ficar em branco
+      </div>
+    }
+  </div>
+  <div class="col-12">
+    <label for="validationTagContact" class="form-label">
+      Tag
+    </label>
 
-  <input type="hidden" formControlName="id">
-
-  <br><br>
-  <button type="submit">{{ this.contato ? 'Atualizar' : 'Adicionar' }} Contato</button>
+    <input type="text" class="form-control" [class.is-invalid]="" id="validationTagContact" formControlName="tag" />
+  </div>
+  <div class="col-12">
+    <input type="hidden" formControlName="id">
+    <button class="btn btn-primary" type="submit">
+      {{ this.contato ? 'Atualizar' : 'Adicionar' }} Contato
+    </button>
+  </div>
 </form>

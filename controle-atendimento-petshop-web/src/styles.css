@@ -36,10 +36,6 @@ b.required {
   border-radius: 100%;
 }
 
-legend {
-  padding: 0px 10px;
-}
-
 .pagination {
   display: flex;
   justify-content: center;
@@ -48,4 +44,17 @@ legend {
 
 .pagination button:not(:first-child) {
   margin-left: 10px;
+}
+
+fieldset {
+  border: 1px solid lightgray;
+  padding: 20px 20px;
+  padding-top: 10px;
+  border-radius: 10px;
+}
+
+legend {
+  float: none;
+  width: auto;
+  padding: 0px 15px;
 }

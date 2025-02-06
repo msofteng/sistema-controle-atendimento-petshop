@@ -1,18 +1,30 @@
 <fieldset>
-  <legend>{{ this.raca ? 'Atualizar' : 'Adicionar' }} Raça</legend>
-  <form [formGroup]="racaForm" (submit)="adicionarRaca($event)">
-    Descrição: <b title="Obrigatório" class="required">*</b><br>
-    <textarea formControlName="descricao"></textarea>
+  <legend>
+    {{ this.raca ? 'Atualizar' : 'Adicionar' }} Raça
+  </legend>
 
-    @if (racaForm.get('descricao')?.touched && racaForm.get('descricao')?.hasError('required')) {
-      <br>
-      <sup>A raça do pet não pode ficar em branco</sup>
-    }
+  <form class="row g-3" [formGroup]="racaForm" (submit)="adicionarRaca($event)">
+    <div class="col-12">
+      <label for="validationDescription" class="form-label">
+        Descrição <b title="Obrigatório" class="required">*</b>
+      </label>
 
-    <br><br>
+      <textarea class="form-control"
+        [class.is-invalid]="racaForm.get('descricao')?.touched && racaForm.get('descricao')?.hasError('required')"
+        id="validationDescription" formControlName="descricao"
+      ></textarea>
 
-    <input type="hidden" formControlName="id">
-
-    <button type="submit">{{ this.raca ? 'Atualizar' : 'Adicionar' }} Raça</button>
+      @if (racaForm.get('descricao')?.touched && racaForm.get('descricao')?.hasError('required')) {
+        <div class="invalid-feedback">
+          A raça do pet não pode ficar em branco
+        </div>
+      }
+    </div>
+    <div class="col-12">
+      <input type="hidden" formControlName="id">
+      <button class="btn btn-primary" type="submit">
+        {{ this.raca ? 'Atualizar' : 'Adicionar' }} Raça
+      </button>
+    </div>
   </form>
 </fieldset>
