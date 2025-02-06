@@ -1,19 +1,26 @@
-<h2 routerLink="">
-  Sistema de Atendimento - PET SHOP
-</h2>
-
-<ul class="links">
-  <li routerLink="/login">Login</li>
-  <li routerLink="/cadastro">Cadastro</li>
-</ul>
-
-<span></span>
-
-<div class="menu-container" (click)="toggleMenu($event)">
-  <img [src]="(usuarioLogado && usuarioLogado.foto) ?? 'assets/img/woman.png'" alt="mulher" />
-
-  <ul [class.menu]="true" [class.show]="showMenu">
-    <li routerLink="/dashboard">Painel (Atendimento)</li>
-    <li (click)="sair()" routerLink="/login">Sair</li>
-  </ul>
-</div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
+  <div class="container-fluid">
+    <a class="navbar-brand me-4" routerLink="/">
+      <img src="assets/img/montagem-dogs-cats.png" alt="animais" class="logo">
+      PET SHOP
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cadastro">Cadastro</a>
+        </li>
+      </ul>
+    </div>
+    <div class="menu-container logo-user" (click)="toggleMenu($event)">
+      <img [src]="(usuarioLogado && usuarioLogado.foto) ?? 'assets/img/woman.png'" alt="mulher" />
+      
+      <ul class="shadow-sm" [class.menu]="true" [class.d-none]="!usuarioLogado" [class.show]="showMenu">
+        <li routerLink="/dashboard">Painel (Atendimento)</li>
+        <li (click)="sair()" routerLink="/login">Sair</li>
+      </ul>
+    </div>
+  </div>
+</nav>

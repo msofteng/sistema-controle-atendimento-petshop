@@ -1,9 +1,12 @@
 <app-header />
 <div class="spacer-y"></div>
 <div class="main-wrapper">
-  <button (click)="openSidebar = true">Abrir</button>
   @if (openSidebar) {
     <app-sidebar [(openMenu)]="openSidebar" [isCliente]="usuarioLogado?.perfil === 'CLIENTE'" />
   }
+
+  <button class="btn-open-sidebar" [class.d-none]="openSidebar" (click)="openSidebar = true">
+    <i class="bi bi-list"></i>
+  </button>
   <router-outlet />
 </div>

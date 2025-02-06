@@ -4,32 +4,33 @@
   top: 0;
   left: 0;
   height: 100%;
-  width: calc(100% - 50px);
+  width: 100%;
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 0 25px;
+  padding: 30px;
+  z-index: 999;
 }
 
-:host:has(> .modal.open) {
+:host:has(> .modal-web.open) {
   display: flex;
 }
 
-.modal {
+.modal-web {
   background-color: white;
   padding: 20px;
   border-radius: 7.5px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   overflow-y: auto;
-  width: calc(100%);
-  height: calc(100% - 100px);
+  width: 100%;
+  height: 100%;
 }
 
-.modal .close {
+.modal-web .close {
   position: absolute;
   top: calc(50px);
-  right: calc(50px - 5px);
+  right: calc(50px);
   border: none;
   background-color: white;
   font-size: 1.25em;

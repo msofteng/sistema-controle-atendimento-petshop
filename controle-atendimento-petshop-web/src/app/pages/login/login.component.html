@@ -1,22 +1,37 @@
-<form [formGroup]="loginForm" (submit)="enviarLogin($event)">
-  Nome ou CPF: <b title="Obrigatório" class="required">*</b><br>
-  <input type="text" formControlName="nomeCpf">
+<form class="row g-3" [formGroup]="loginForm" (submit)="enviarLogin($event)">
+  <div class="col-12">
+    <label for="validationName" class="form-label">
+      Nome ou CPF <b title="Obrigatório" class="required">*</b>
+    </label>
+    
+    <input type="text" class="form-control"
+      [class.is-invalid]="loginForm.get('nomeCpf')?.touched && loginForm.get('nomeCpf')?.hasError('required')"
+      id="validationName" formControlName="nomeCpf"
+    />
 
-  @if (loginForm.get('nomeCpf')?.touched && loginForm.get('nomeCpf')?.hasError('required')) {
-    <br>
-    <sup>O nome ou CPF não pode ficar em branco</sup>
-  }
+    @if (loginForm.get('nomeCpf')?.touched && loginForm.get('nomeCpf')?.hasError('required')) {
+      <div class="invalid-feedback">
+        O nome ou CPF não pode ficar em branco
+      </div>
+    }
+  </div>
+  <div class="col-12">
+    <label for="validationPassword" class="form-label">
+      Senha <b title="Obrigatório" class="required">*</b>
+    </label>
 
-  <br>
-  <br>
-  Senha: <b title="Obrigatório" class="required">*</b><br>
-  <input type="password" formControlName="password">
+    <input type="password" class="form-control"
+      [class.is-invalid]="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')"
+      id="validationPassword" formControlName="password"
+    />
 
-  @if (loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')) {
-    <br>
-    <sup>A senha não pode ficar em branco</sup>
-  }
-
-  <br><br>
-  <button type="submit" [disabled]="btnDisabled">Enviar</button>
+    @if (loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')) {
+      <div class="invalid-feedback">
+        A senha não pode ficar em branco
+      </div>
+    }
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit" [disabled]="btnDisabled">Entrar</button>
+  </div>
 </form>

@@ -5,16 +5,35 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: calc(100% - 30px);
+  width: calc(100%);
   background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  width: 100%;
 }
 
 span {
   flex: 1 1 auto;
 }
 
-img {
-  width: 50px;
+.logo {
+  width: 40px;
+  cursor: pointer;
+  margin-right: 20px;
+  -webkit-filter: drop-shadow(5px 5px 5px #222);
+  filter: drop-shadow(5px 5px 5px #222);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+img:not(.logo) {
+  width: 40px;
   border-radius: 100%;
   cursor: pointer;
 }
@@ -37,9 +56,11 @@ ul.menu {
   text-align: end;
   position: absolute;
   right: 15px;
-  top: 50px;
+  top: 65px;
   background-color: white;
-  padding: 10px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  line-height: 2em;
   display: none;
 }
 

@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  justify-content: center;
+  margin: 75px 0px;
+  margin-bottom: 100px;
+}
+
+form {
+  width: 300px;
+}

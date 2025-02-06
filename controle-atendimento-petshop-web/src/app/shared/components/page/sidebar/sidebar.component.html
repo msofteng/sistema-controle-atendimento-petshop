@@ -1,14 +1,55 @@
-<a routerLink="/dashboard">Painel</a>
-<a routerLink="pets">Pets</a>
+<div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+  <div class="d-flex align-items-center text-dark text-decoration-none">
+    <span class="fs-5">Atendimento</span>
+    <span class="spacer"></span>
+    <button class="close" (click)="openMenuChange.emit(false)">
+      <i class="bi bi-x"></i>
+    </button>
+  </div>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <a routerLink="/dashboard" class="nav-link text-dark">
+        <i class="bi bi-house me-2"></i>
+        Painel
+      </a>
+    </li>
 
-@if (!isCliente) {
-  <a routerLink="atendimentos">Atendimentos</a>
-  <a routerLink="clientes">Clientes</a>
-  <a routerLink="racas">Raças</a>
-}
+    <li>
+      <a routerLink="pets" class="nav-link text-dark">
+        <i class="bi bi-tree me-2"></i>
+        Animais
+      </a>
+    </li>
 
-<br>
-<br>
-<a routerLink="conta">Minha Conta</a>
-
-<button (click)="openMenuChange.emit(false)">Fechar</button>
+    @if (!isCliente) {
+      <li>
+        <a routerLink="atendimentos" class="nav-link text-dark">
+          <i class="bi bi-calendar-date me-2"></i>
+          Atendimentos
+        </a>
+      </li>
+      <li>
+        <a routerLink="clientes" class="nav-link text-dark">
+          <i class="bi bi-people me-2"></i>
+          Clientes
+        </a>
+      </li>
+      <li>
+        <a routerLink="racas" class="nav-link text-dark">
+          <i class="bi bi-list-nested me-2"></i>
+          Raças
+        </a>
+      </li>
+    }
+  </ul>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <a routerLink="conta" class="nav-link text-dark">
+        <i class="bi bi-person-circle me-2"></i>
+        Minha Conta
+      </a>
+    </li>
+  </ul>
+</div>

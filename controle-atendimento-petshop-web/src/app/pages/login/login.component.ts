@@ -5,10 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { LoginResponse } from '../../shared/interfaces/login-response';
 import { ResponseError } from '../../shared/interfaces/response';
 import { PetshopService } from '../../shared/services/petshop.service';
+import { Router } from '@angular/router';
 
 import HttpErrorResponse from '../../core/errors/http-error-response';
-import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',

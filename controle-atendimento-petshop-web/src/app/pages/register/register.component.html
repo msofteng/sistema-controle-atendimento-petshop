@@ -1,34 +1,49 @@
-<form [formGroup]="cadastroForm" (submit)="enviarCadastro($event)">
-  Nome: <b title="Obrigatório" class="required">*</b><br>
-  <input type="text" formControlName="nome">
+<form class="row g-3 needs-validation" [formGroup]="cadastroForm" (submit)="enviarCadastro($event)">
+  <div class="col-12">
+    <label for="validationName" class="form-label">
+      Nome <b title="Obrigatório" class="required">*</b>
+    </label>
 
-  @if (cadastroForm.get('nome')?.touched && cadastroForm.get('nome')?.hasError('required')) {
-    <br>
-    <sup>O nome não pode ficar em branco</sup>
-  }
+    <input type="text" class="form-control" [class.is-invalid]="cadastroForm.get('nome')?.touched && cadastroForm.get('nome')?.hasError('required')" id="validationName" formControlName="nome">
 
-  <br><br>
-  Senha: <b title="Obrigatório" class="required">*</b><br>
-  <input type="password" formControlName="password">
+    @if (cadastroForm.get('nome')?.touched && cadastroForm.get('nome')?.hasError('required')) {
+      <div class="invalid-feedback">
+        O nome não pode ficar em branco
+      </div>
+    }
+  </div>
+  <div class="col-12">
+    <label for="validationPassword" class="form-label">
+      Senha <b title="Obrigatório" class="required">*</b>
+    </label>
+    <input type="password" class="form-control" [class.is-invalid]="cadastroForm.get('password')?.touched && cadastroForm.get('password')?.hasError('required')" id="validationPassword" formControlName="password">
+    @if (cadastroForm.get('password')?.touched && cadastroForm.get('password')?.hasError('required')) {
+      <div class="invalid-feedback">
+        A senha não pode ficar em branco
+      </div>
+    }
+  </div>
+  <div class="col-12">
+    <label for="validationCpf" class="form-label">
+      CPF <b title="Obrigatório" class="required">*</b>
+    </label>
+    
+    <input type="text" class="form-control" [class.is-invalid]="cadastroForm.get('cpf')?.touched && cadastroForm.get('cpf')?.hasError('required')" id="validationCpf" formControlName="cpf" maxlength="14">
 
-  @if (cadastroForm.get('password')?.touched && cadastroForm.get('password')?.hasError('required')) {
-    <br>
-    <sup>A senha não pode ficar em branco</sup>
-  }
+    @if (cadastroForm.get('cpf')?.touched && cadastroForm.get('cpf')?.hasError('required')) {
+      <div class="invalid-feedback">
+        O CPF não pode ficar em branco
+      </div>
+    }
+  </div>
+  <div class="col-12">
+    <label for="validationPhoto" class="form-label">
+      Foto
+    </label>
+    <input type="file" class="form-control" id="validationPhoto" (change)="onImagePicked($event)" accept="image/*" #fotoUsuario>
 
-  <br><br>
-  CPF: <b title="Obrigatório" class="required">*</b><br>
-  <input type="text" formControlName="cpf" maxlength="14">
-
-  @if (cadastroForm.get('cpf')?.touched && cadastroForm.get('cpf')?.hasError('required')) {
-    <br>
-    <sup>O CPF não pode ficar em branco</sup>
-  }
-
-  <br><br>
-  Foto: <br>
-  <input type="file" (change)="onImagePicked($event)" accept="image/*" #fotoUsuario>
-
-  <br><br>
-  <button type="submit" [disabled]="btnDisabled">Cadastrar</button>
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit" [disabled]="btnDisabled">Cadastrar</button>
+  </div>
 </form>
