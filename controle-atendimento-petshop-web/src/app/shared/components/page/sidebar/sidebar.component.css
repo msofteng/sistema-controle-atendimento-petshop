@@ -12,5 +12,6 @@ button.close {
   padding: 0;
   line-height: 0;
   background-color: transparent;
+  border: none;
   border-radius: 100%;
 }
