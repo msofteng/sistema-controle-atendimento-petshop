@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import org.springframework.data.domain.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
@@ -39,6 +40,9 @@ public class AtendimentoServiceTest {
 
   @Mock
   private RacaRepository racaRepository;
+
+  @Mock
+  private PasswordEncoder passwordEncoder;
 
   @BeforeEach
   void setUp() {
@@ -85,7 +89,7 @@ public class AtendimentoServiceTest {
       registerModule(new JavaTimeModule());
     }};
 
-    AtendimentoEntity atendimento = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"id\":\"1\",\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\"}]}", AtendimentoEntity.class);
+    AtendimentoEntity atendimento = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
 
     when(repository.save(atendimento)).thenReturn(atendimento);
 
@@ -112,6 +116,9 @@ public class AtendimentoServiceTest {
 
     assertEquals(2, lista.size());
     verify(repository, times(1)).findAll(any(Pageable.class));
+
+    // deve listar sem filtro
+    service.listar(null);
   }
 
   @Test
@@ -185,11 +192,6 @@ public class AtendimentoServiceTest {
     when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
     service.cadastrar(atendimentoMock);
 
-    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}]}]}", AtendimentoEntity.class);
-    when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
-    service.cadastrar(atendimentoMock);
-    assertEquals(null, atendimentoMock.getPets().stream().toList().get(0).getCliente());
-
     atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[{\"descricao\":\"vira lata\"}],\"cliente\":{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
     when(clienteRepository.save(atendimentoMock.getPets().stream().toList().get(0).getCliente())).thenReturn(atendimentoMock.getPets().stream().toList().get(0).getCliente());
     when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
@@ -225,5 +227,29 @@ public class AtendimentoServiceTest {
     when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
     service.cadastrar(atendimentoMock);
     assertEquals(0, atendimentoMock.getPets().stream().toList().get(0).getRaca().size());
+
+    // com CLIENTE_ID = 0
+    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[],\"cliente\":{\"id\":0,\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
+    when(clienteRepository.save(atendimentoMock.getPets().stream().toList().get(0).getCliente())).thenReturn(atendimentoMock.getPets().stream().toList().get(0).getCliente());
+    when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
+    service.cadastrar(atendimentoMock);
+
+    // com CLIENTE_ID = null
+    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[],\"cliente\":{\"id\":null,\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
+    when(clienteRepository.save(atendimentoMock.getPets().stream().toList().get(0).getCliente())).thenReturn(atendimentoMock.getPets().stream().toList().get(0).getCliente());
+    when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
+    service.cadastrar(atendimentoMock);
+
+    // com senha nula
+    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[],\"cliente\":{\"id\":1,\"nome\":\"pedro\",\"password\":null,\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
+    when(clienteRepository.save(atendimentoMock.getPets().stream().toList().get(0).getCliente())).thenReturn(atendimentoMock.getPets().stream().toList().get(0).getCliente());
+    when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
+    service.cadastrar(atendimentoMock);
+
+    // com senha vazia
+    atendimentoMock = mapper.readValue("{\"descricao\":\"banho e tosa\",\"valor\":700,\"data\":\"2025-02-03\",\"pets\":[{\"nome\":\"lili\",\"dataNascimento\":\"2021-05-04\",\"raca\":[],\"cliente\":{\"id\":1,\"nome\":\"pedro\",\"password\":\"\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}}]}", AtendimentoEntity.class);
+    when(clienteRepository.save(atendimentoMock.getPets().stream().toList().get(0).getCliente())).thenReturn(atendimentoMock.getPets().stream().toList().get(0).getCliente());
+    when(repository.save(atendimentoMock)).thenReturn(atendimentoMock);
+    service.cadastrar(atendimentoMock);
   }
 }

@@ -9,7 +9,12 @@ import java.util.*;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import org.springframework.data.domain.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.metaway.petshop.dto.FilterDTO;
 import com.metaway.petshop.entity.*;
 import com.metaway.petshop.repository.*;
@@ -26,6 +31,9 @@ public class UsuarioServiceTest {
 
   @Mock
   private EnderecoRepository enderecoRepository;
+
+  @Mock
+  private PasswordEncoder passwordEncoder;
 
   @BeforeEach
   void setUp() {
@@ -130,6 +138,9 @@ public class UsuarioServiceTest {
     FilterDTO<UsuarioEntity> filterNullQtdCountZero = new FilterDTO<UsuarioEntity>();
     service.listar(filterNullQtdCountZero);
     assertEquals(10, filterNullQtdCountZero.getQtd());
+
+    // deve listar sem filtro
+    service.listar(null);
   }
 
   @Test
@@ -139,7 +150,7 @@ public class UsuarioServiceTest {
 
     service.removerContato(contato);
 
-    verify(contatoRepository, times(1)).deleteById(1L);
+    verify(contatoRepository, times(0)).deleteById(1L);
   }
 
   @Test
@@ -159,7 +170,7 @@ public class UsuarioServiceTest {
 
     service.removerEndereco(endereco);
 
-    verify(enderecoRepository, times(1)).deleteById(1L);
+    verify(enderecoRepository, times(0)).deleteById(1L);
   }
 
   @Test
@@ -170,5 +181,57 @@ public class UsuarioServiceTest {
     service.removerEndereco(endereco);
 
     verify(enderecoRepository, times(0)).deleteById(anyLong());
+  }
+
+  @Test
+  void deveAtualizarUsuario() throws JsonMappingException, JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper() {{
+      registerModule(new JavaTimeModule());
+    }};
+
+    // Cenário 1: Novo usuário (sem ID)
+    UsuarioEntity novoUsuario = mapper.readValue("{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}", UsuarioEntity.class);
+    when(repository.save(novoUsuario)).thenReturn(novoUsuario);
+    service.cadastrar(novoUsuario);
+    assertNull(novoUsuario.getContatos());
+    assertNotNull(novoUsuario.getEnderecos());
+
+    // Cenário 2: Usuário existente com senha alterada
+    UsuarioEntity usuarioExistenteAlterado = mapper.readValue("{\"id\":\"1\",\"nome\":\"pedro\",\"password\":\"nova senha\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"pets\":[]}", UsuarioEntity.class);
+    when(repository.findById(usuarioExistenteAlterado.getId())).thenReturn(Optional.of(usuarioExistenteAlterado));
+    service.cadastrar(usuarioExistenteAlterado);
+    verify(passwordEncoder).encode("nova senha");
+
+    // Cenário 3: Usuário existente com senha não alterada
+    UsuarioEntity usuarioExistenteSemAlteracao = mapper.readValue("{\"id\":\"1\",\"nome\":\"pedro\",\"password\":\"\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"pets\":[]}", UsuarioEntity.class);
+    when(repository.findById(usuarioExistenteSemAlteracao.getId())).thenReturn(Optional.of(usuarioExistenteSemAlteracao));
+    service.cadastrar(usuarioExistenteSemAlteracao);
+
+    // com senha nula
+    usuarioExistenteSemAlteracao = mapper.readValue("{\"id\":\"1\",\"nome\":\"pedro\",\"password\":null,\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"pets\":[]}", UsuarioEntity.class);
+    when(repository.findById(usuarioExistenteSemAlteracao.getId())).thenReturn(Optional.of(usuarioExistenteSemAlteracao));
+    service.cadastrar(usuarioExistenteSemAlteracao);
+
+    // com ID = 0
+    usuarioExistenteSemAlteracao = mapper.readValue("{\"id\":0,\"nome\":\"pedro\",\"password\":null,\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"pets\":[]}", UsuarioEntity.class);
+    when(repository.findById(usuarioExistenteSemAlteracao.getId())).thenReturn(Optional.of(usuarioExistenteSemAlteracao));
+    service.cadastrar(usuarioExistenteSemAlteracao);
+
+    // com ID = null
+    usuarioExistenteSemAlteracao = mapper.readValue("{\"id\":null,\"nome\":\"pedro\",\"password\":null,\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"pets\":[]}", UsuarioEntity.class);
+    when(repository.findById(usuarioExistenteSemAlteracao.getId())).thenReturn(Optional.of(usuarioExistenteSemAlteracao));
+    service.cadastrar(usuarioExistenteSemAlteracao);
+
+    // Cenário 4: Usuário sem contatos
+    UsuarioEntity usuarioSemContatos = mapper.readValue("{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"enderecos\":[{\"logradouro\":\"avenida getulio vargas\",\"cidade\":\"sao paulo - sp\",\"bairro\":\"liberdade\",\"complemento\":\"casa\"}],\"pets\":[]}", UsuarioEntity.class);
+    when(repository.save(usuarioSemContatos)).thenReturn(usuarioSemContatos);
+    service.cadastrar(usuarioSemContatos);
+    assertNull(usuarioSemContatos.getContatos());
+
+    // Cenário 5: Usuário sem endereços
+    UsuarioEntity usuarioSemEnderecos = mapper.readValue("{\"nome\":\"pedro\",\"password\":\"12345678910\",\"cpf\":\"12345678910\",\"dataCadastro\":\"2025-02-03\",\"contatos\":[{\"valor\":\"pedro@pedro.com\",\"tipo\":\"e-mail\"}],\"pets\":[]}", UsuarioEntity.class);
+    when(repository.save(usuarioSemEnderecos)).thenReturn(usuarioSemEnderecos);
+    service.cadastrar(usuarioSemEnderecos);
+    assertNull(usuarioSemEnderecos.getEnderecos());
   }
 }

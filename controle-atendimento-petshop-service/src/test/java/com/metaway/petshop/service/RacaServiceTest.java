@@ -67,6 +67,9 @@ public class RacaServiceTest {
 
     assertEquals(2, lista.size());
     verify(repository, times(1)).findAll(any(Pageable.class));
+
+    // deve listar sem filtro
+    service.listar(null);
   }
 
   @Test

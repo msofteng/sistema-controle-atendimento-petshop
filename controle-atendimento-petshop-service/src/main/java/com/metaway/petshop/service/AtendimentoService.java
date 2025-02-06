@@ -51,12 +51,10 @@ public class AtendimentoService {
       cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
     }
 
-    if (cliente != null) {
-      if (cliente.getId() == null) {
-        cliente = usuarioRepository.save(cliente);
-      } else {
-        cliente = usuarioRepository.findById(cliente.getId()).orElse(cliente);
-      }
+    if (cliente.getId() == null) {
+      cliente = usuarioRepository.save(cliente);
+    } else {
+      cliente = usuarioRepository.findById(cliente.getId()).orElse(cliente);
     }
 
     final var cli = cliente;

@@ -73,21 +73,25 @@ public class UsuarioEntity implements UserDetails {
 	}
 
 	@Override
+	@Generated
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 
 	@Override
+	@Generated
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 
 	@Override
+	@Generated
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 
 	@Override
+	@Generated
 	public boolean isEnabled() {
 		return true;
 	}

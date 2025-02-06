@@ -33,7 +33,7 @@ public class UsuarioService {
     if (cliente.getId() != null && cliente.getId() > 0) {
       Optional<UsuarioEntity> clienteEncontrado = repository.findById(cliente.getId());
 
-      if (clienteEncontrado.isPresent() && cliente.getPassword() != null && !cliente.getPassword().equals("")) {
+      if (cliente.getPassword() != null && !cliente.getPassword().equals("")) {
         cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
       } else {
         cliente.setPassword(clienteEncontrado.get().getPassword());
