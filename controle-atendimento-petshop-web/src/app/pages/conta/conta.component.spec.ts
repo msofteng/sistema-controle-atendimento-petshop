@@ -34,8 +34,9 @@ describe('ContaComponent', () => {
 
   beforeEach(async () => {
     service = jasmine.createSpyObj('PetshopService', [
-      // 'login',
-      'cadastrarFuncionario'
+      'cadastrarCliente',
+      'getUsuario',
+      'setUsuario'
     ]);
 
     await TestBed.configureTestingModule({
@@ -55,7 +56,7 @@ describe('ContaComponent', () => {
 
     service = TestBed.inject(PetshopService) as jasmine.SpyObj<PetshopService>;
 
-    // service.login.and.returnValue(of(usuario));
+    service.getUsuario.and.returnValue(of(adminMock));
 
     fixture.detectChanges();
   });
@@ -69,13 +70,13 @@ describe('ContaComponent', () => {
     component.atualizacaoForm.get('cpf')?.patchValue(`${adminMock.cpf}`);
     component.atualizacaoForm.get('foto')?.patchValue('');
 
-    service.cadastrarFuncionario.and.returnValue(of(adminMock));
+    service.cadastrarCliente.and.returnValue(of(adminMock));
     component.atualizaCadastro(new SubmitEvent('submit'));
 
     expect(component.atualizacaoForm).toBeTruthy();
 
     // tratando cadastro com erro
-    service.cadastrarFuncionario.and.returnValue(throwError(() => errorMock));
+    service.cadastrarCliente.and.returnValue(throwError(() => errorMock));
     component.atualizaCadastro(new SubmitEvent('submit'));
 
     // enviando formulário vazio

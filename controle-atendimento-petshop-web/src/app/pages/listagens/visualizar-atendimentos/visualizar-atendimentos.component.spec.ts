@@ -53,7 +53,8 @@ describe('VisualizarAtendimentosComponent', () => {
       'listarRacas',
       'cadastrarAtendimento',
       'excluirAtendimento',
-      'listarPets'
+      'listarPets',
+      'getUsuario'
     ]);
 
     await TestBed.configureTestingModule({
@@ -76,6 +77,7 @@ describe('VisualizarAtendimentosComponent', () => {
     service.listarAtendimentos.and.returnValue(of([]));
     service.listarClientes.and.returnValue(of([]));
     service.listarRacas.and.returnValue(of([]));
+    service.getUsuario.and.returnValue(of(clienteMock));
 
     fixture.detectChanges();
   });

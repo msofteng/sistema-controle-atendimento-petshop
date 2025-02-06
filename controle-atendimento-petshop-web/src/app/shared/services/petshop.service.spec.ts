@@ -73,7 +73,7 @@ describe('PetshopService', () => {
       expect(response).toBeTruthy();
     });
   
-    const req = httpMock.expectOne('/NOT_IMPLEMENTED');
+    const req = httpMock.expectOne('/auth/login');
     expect(req.request.method).toBe('POST');
     req.flush(adminMock);
   });
@@ -84,7 +84,7 @@ describe('PetshopService', () => {
       expect(response.perfil).toBe(Perfil.ADMIN);
     });
   
-    const req = httpMock.expectOne('/funcionario/salvar');
+    const req = httpMock.expectOne('/auth/signup');
     expect(req.request.method).toBe('POST');
     req.flush(adminMock);
   });
@@ -104,7 +104,7 @@ describe('PetshopService', () => {
       expect(response).toBeTruthy();
     });
   
-    const req = httpMock.expectOne('/cliente/salvar');
+    const req = httpMock.expectOne('/usuario/salvar');
     expect(req.request.method).toBe('POST');
     req.flush(mockResponse);
   });
@@ -121,7 +121,7 @@ describe('PetshopService', () => {
       expect(response).toBeTruthy();
     });
   
-    const req = httpMock.expectOne('/cliente/salvar');
+    const req = httpMock.expectOne('/usuario/salvar');
     expect(req.request.method).toBe('POST');
     req.flush(mockResponse);
   });
@@ -210,7 +210,7 @@ describe('PetshopService', () => {
       expect(response).toBeTrue();
     });
   
-    const req = httpMock.expectOne('/cliente/excluir');
+    const req = httpMock.expectOne('/usuario/excluir');
     expect(req.request.method).toBe('DELETE');
     req.flush(mockResponse, { status: 204, statusText: 'No Content' });
   });
@@ -226,7 +226,7 @@ describe('PetshopService', () => {
       }
     });
   
-    const req = httpMock.expectOne('/cliente/excluir');
+    const req = httpMock.expectOne('/usuario/excluir');
     expect(req.request.method).toBe('DELETE');
     req.flush(null, mockError);
   });
@@ -243,7 +243,7 @@ describe('PetshopService', () => {
       expect(response).toBeTrue();
     });
   
-    const req = httpMock.expectOne('/cliente/endereco/excluir');
+    const req = httpMock.expectOne('/usuario/endereco/excluir');
     expect(req.request.method).toBe('DELETE');
     req.flush(mockResponse, { status: 204, statusText: 'No Content' });
   });
@@ -264,7 +264,7 @@ describe('PetshopService', () => {
       }
     });
   
-    const req = httpMock.expectOne('/cliente/endereco/excluir');
+    const req = httpMock.expectOne('/usuario/endereco/excluir');
     expect(req.request.method).toBe('DELETE');
     req.flush(null, mockError);
   });
@@ -281,7 +281,7 @@ describe('PetshopService', () => {
       expect(response).toBeTrue();
     });
   
-    const req = httpMock.expectOne('/cliente/contato/excluir');
+    const req = httpMock.expectOne('/usuario/contato/excluir');
     expect(req.request.method).toBe('DELETE');
     req.flush(mockResponse, { status: 204, statusText: 'No Content' });
   });
@@ -302,7 +302,7 @@ describe('PetshopService', () => {
       }
     });
   
-    const req = httpMock.expectOne('/cliente/contato/excluir');
+    const req = httpMock.expectOne('/usuario/contato/excluir');
     expect(req.request.method).toBe('DELETE');
     req.flush(null, mockError);
   });
@@ -484,5 +484,10 @@ describe('PetshopService', () => {
     const req = httpMock.expectOne('/atendimento/listar');
     expect(req.request.method).toBe('POST');
     req.flush(mockAtendimentos);
+  });
+
+  it('testando o método setUsuario', () => {
+    service.setUsuario(undefined);
+    expect(service['usuario'].value).toBeUndefined();
   });
 });

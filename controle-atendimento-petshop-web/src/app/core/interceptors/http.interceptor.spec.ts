@@ -24,16 +24,20 @@ describe('httpInterceptor', () => {
     };
 
     const mockNext: any = jasmine.createSpy('next').and.callFake((updatedReq) => {
+      // Verifique a URL e a configuração 'withCredentials' sem comparar os headers.
       expect(updatedReq.url).toBe('http://localhost:8080');
+      expect(updatedReq.withCredentials).toBeTrue();
       done();
     });
 
     interceptor(mockRequest, mockNext);
-    expect(mockRequest.clone).toHaveBeenCalledWith({
-      ...mockRequest,
-      url: 'http://localhost:8080',
-      withCredentials: true,
-    });
+
+    expect(mockRequest.clone).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        url: 'http://localhost:8080',
+        withCredentials: true,
+      })
+    );
   });
 
   it('deve habilitar "withCredentials"', (done) => {
@@ -51,10 +55,12 @@ describe('httpInterceptor', () => {
     });
 
     interceptor(mockRequest, mockNext);
-    expect(mockRequest.clone).toHaveBeenCalledWith({
-      ...mockRequest,
-      url: 'http://localhost:8080/api/secure',
-      withCredentials: true,
-    });
+
+    expect(mockRequest.clone).toHaveBeenCalledWith(
+      jasmine.objectContaining({
+        url: 'http://localhost:8080/api/secure',
+        withCredentials: true,
+      })
+    );
   });
 });

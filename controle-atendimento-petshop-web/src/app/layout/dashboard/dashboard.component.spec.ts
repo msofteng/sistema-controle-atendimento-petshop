@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -18,7 +20,9 @@ describe('DashboardComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: activatedRouteSpy
-        }
+        },
+        provideHttpClient(),
+        provideHttpClientTesting()
       ]
     }).compileComponents();
 

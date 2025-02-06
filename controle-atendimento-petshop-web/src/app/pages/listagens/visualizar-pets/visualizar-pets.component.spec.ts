@@ -5,6 +5,7 @@ import { PetshopService } from '../../../shared/services/petshop.service';
 import { VisualizarPetsComponent } from './visualizar-pets.component';
 
 import HttpErrorResponse from '../../../core/errors/http-error-response';
+import { ComponentRef } from '@angular/core';
 
 describe('VisualizarPetsComponent', () => {
   let component: VisualizarPetsComponent;
@@ -58,7 +59,8 @@ describe('VisualizarPetsComponent', () => {
       'listarRacas',
       'listarClientes',
       'cadastrarPet',
-      'excluirPet'
+      'excluirPet',
+      'getUsuario'
     ]);
 
     await TestBed.configureTestingModule({
@@ -81,6 +83,7 @@ describe('VisualizarPetsComponent', () => {
     service.listarPets.and.returnValue(of(Array.from({ length: 30 }).map((_, index) => ({ ...petMock, id: index + 1 }))));
     service.listarClientes.and.returnValue(of(Array.from({ length: 30 }).map((_, index) => ({ ...clienteMock, id: index + 1 }))));
     service.listarRacas.and.returnValue(of([]));
+    service.getUsuario.and.returnValue(of(clienteMock));
 
     fixture.detectChanges();
   });
@@ -96,11 +99,34 @@ describe('VisualizarPetsComponent', () => {
     component.petAdicionado(petMock);
     expect(service.cadastrarPet).toBeTruthy();
 
+    // com cliente nulo
+    service.cadastrarPet.and.returnValue(of(petMock));
+
+    component.petSelecionadoEdicao = petMock;
+    component.petAdicionado({
+      ...petMock,
+      cliente: null as any
+    });
+    expect(service.cadastrarPet).toBeTruthy();
+
     // com erro
     component.clientes = [];
     service.cadastrarPet.and.returnValue(throwError(() => errorMock));
 
     component.petAdicionado(petMock);
+    expect(service.cadastrarPet).toBeTruthy();
+
+    // com contatos e endereços nulos
+    component.petSelecionadoEdicao = {
+      ...petMock,
+      cliente: {
+        ...petMock.cliente,
+        contatos: null as any,
+        enderecos: null as any
+      }
+    };
+    component.clientes = [component.petSelecionadoEdicao.cliente];
+    component.petAdicionado(component.petSelecionadoEdicao);
     expect(service.cadastrarPet).toBeTruthy();
   });
 

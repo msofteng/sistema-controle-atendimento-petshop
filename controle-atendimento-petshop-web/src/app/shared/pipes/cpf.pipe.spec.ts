@@ -31,12 +31,12 @@ describe('CpfPipe', () => {
 
   it('deve remover caracteres não numéricos e formatar corretamente', () => {
     const resultado = pipe.transform('123.456.789-01');
-    expect(resultado).toEqual('NaN');
+    expect(resultado).toEqual('123.456.789-01');
   });
 
   it('deve retornar o mesmo valor como string se não for um CPF válido após a remoção de caracteres', () => {
     const resultado = pipe.transform('123.45a.bcd');
-    expect(resultado).toEqual('NaN');
+    expect(resultado).toEqual('123.45a.bcd');
   });
 
   it('testando valor maior do que os digitos do cpf', () => {

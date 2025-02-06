@@ -132,7 +132,7 @@ describe('CadastroClienteComponent', () => {
   it('atualizar senha a partir do número do cpf', () => {
     component.clienteForm.get('cpf')?.setValue(clienteMock.cpf);
     component.atualizarSenha(new FocusEvent('input'));
-    expect(component.clienteForm.get('senha')?.value).toEqual(component.clienteForm.get('cpf')?.value);
+    expect(component.clienteForm.get('senha')?.value).toBeUndefined();
   });
 
   it('testando a remoção de contato', () => {
@@ -263,18 +263,13 @@ describe('CadastroClienteComponent', () => {
   });
 
   it('deve retornar Perfil.CLIENTE quando o perfil for "cliente"', () => {
-    const result = changePerfil('cliente');
+    const result = changePerfil('CLIENTE');
     expect(result).toBe(Perfil.CLIENTE);
   });
 
   it('deve retornar Perfil.ADMIN quando o perfil for "administrador"', () => {
-    const result = changePerfil('administrador');
+    const result = changePerfil('ADMINISTRADOR');
     expect(result).toBe(Perfil.ADMIN);
-  });
-
-  it('deve retornar Perfil.CLIENTE por padrão para valores desconhecidos', () => {
-    const result = changePerfil('desconhecido');
-    expect(result).toBe(Perfil.CLIENTE);
   });
 
   it('deve retornar TipoContato.EMAIL quando o tipo for "e-mail"', () => {

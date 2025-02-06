@@ -34,7 +34,8 @@ describe('VisualizarClientesComponent', () => {
     service = jasmine.createSpyObj('PetshopService', [
       'listarClientes',
       'cadastrarCliente',
-      'excluirCliente'
+      'excluirCliente',
+      'getUsuario'
     ]);
     
     await TestBed.configureTestingModule({
@@ -55,6 +56,7 @@ describe('VisualizarClientesComponent', () => {
     service = TestBed.inject(PetshopService) as jasmine.SpyObj<PetshopService>;
 
     service.listarClientes.and.returnValue(of([]));
+    service.getUsuario.and.returnValue(of(clienteMock));
 
     fixture.detectChanges();
   });

@@ -42,7 +42,9 @@ export class VisualizarPetsComponent implements OnInit {
       else
         pet.cliente = this.petSelecionadoEdicao!.cliente;
       
-      if (pet.cliente.dataCadastro && pet.cliente.dataCadastro instanceof Date) pet.cliente.dataCadastro = (pet.cliente.dataCadastro as Date).toISOString().split('T')[0];
+      if (pet.cliente.dataCadastro && pet.cliente.dataCadastro instanceof Date)
+        pet.cliente.dataCadastro = (pet.cliente.dataCadastro as Date).toISOString().split('T')[0];
+      
       pet.cliente.pets = [];
 
       let cli = pet.cliente;

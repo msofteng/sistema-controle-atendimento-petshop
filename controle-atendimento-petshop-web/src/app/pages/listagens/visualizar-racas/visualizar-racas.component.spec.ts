@@ -4,6 +4,7 @@ import { PetshopService } from '../../../shared/services/petshop.service';
 import { VisualizarRacasComponent } from './visualizar-racas.component';
 
 import HttpErrorResponse from '../../../core/errors/http-error-response';
+import { Perfil } from '../../../shared/enums/perfil';
 
 describe('VisualizarRacasComponent', () => {
   let component: VisualizarRacasComponent;
@@ -23,11 +24,24 @@ describe('VisualizarRacasComponent', () => {
     }
   });
 
+  let adminMock = {
+    id: 1,
+    nome: 'mateus',
+    perfil: Perfil.ADMIN,
+    password: '123',
+    dataCadastro: new Date(),
+    cpf: '12345678910',
+    foto: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII=',
+    contatos: [],
+    enderecos: []
+  };
+
   beforeEach(async () => {
     service = jasmine.createSpyObj('PetshopService', [
       'listarRacas',
       'cadastrarRaca',
-      'excluirRaca'
+      'excluirRaca',
+      'getUsuario'
     ]);
 
     await TestBed.configureTestingModule({
@@ -48,8 +62,8 @@ describe('VisualizarRacasComponent', () => {
     service = TestBed.inject(PetshopService) as jasmine.SpyObj<PetshopService>;
 
     service.listarRacas.and.returnValue(of([]));
-
     service.excluirRaca.and.returnValue(of(true));
+    service.getUsuario.and.returnValue(of(adminMock));
 
     fixture.detectChanges();
   });
