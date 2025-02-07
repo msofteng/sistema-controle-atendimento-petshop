@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset class="shadow">
   <legend>
     {{ this.raca ? 'Atualizar' : 'Adicionar' }} Raça
   </legend>
@@ -9,7 +9,7 @@
         Descrição <b title="Obrigatório" class="required">*</b>
       </label>
 
-      <textarea class="form-control"
+      <textarea class="form-control shadow-sm"
         [class.is-invalid]="racaForm.get('descricao')?.touched && racaForm.get('descricao')?.hasError('required')"
         id="validationDescription" formControlName="descricao"
       ></textarea>
@@ -23,7 +23,7 @@
     
     <div class="col-12">
       <input type="hidden" formControlName="id">
-      <button class="btn btn-primary" type="submit">
+      <button class="btn btn-primary shadow" type="submit">
         {{ this.raca ? 'Atualizar' : 'Adicionar' }} Raça
       </button>
     </div>

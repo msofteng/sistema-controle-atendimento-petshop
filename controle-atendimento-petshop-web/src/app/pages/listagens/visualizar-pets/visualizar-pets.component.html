@@ -1,33 +1,34 @@
 <h3>Pets</h3>
 
 @if (isLoading) {
-  <b>Carregando ...</b>
+  <div class="spinner-border text-dark" role="status">
+    <span class="visually-hidden">Carregando ...</span>
+  </div>
 }
 
 @if (pets.length > 0 && !isLoading) {
-  <div class="grid-list">
+  <div class="grid-list mt-4">
     @for (pet of pets; track $index) {
-      <fieldset>
+      <fieldset class="shadow">
         <legend>
-          <img [src]="pet.foto ?? 'assets/img/dog.jpg'" alt="imagem">
+          <img class="shadow" [src]="pet.foto ?? 'assets/img/dog.jpg'" alt="imagem">
         </legend>
 
         {{ pet.nome }}
-        <hr>
 
-        <b>Raça:</b> {{ formatarRacas(pet.raca) }} <br>
-        <b>Cliente: </b> {{ pet.cliente.nome }}
-        <hr>
-
-        <button [disabled]="usuarioLogado?.perfil === 'CLIENTE' && pet.cliente.id !== usuarioLogado?.id" (click)="editarPet(pet)">Editar</button>
-        <button [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="excluirPet(pet)">Excluir</button>
+        <div class="btn-group mt-3" role="group">
+          <button class="btn btn-primary shadow" [disabled]="usuarioLogado?.perfil === 'CLIENTE' && pet.cliente.id !== usuarioLogado?.id" (click)="editarPet(pet)">Editar</button>
+          <button class="btn btn-danger shadow" [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="excluirPet(pet)">Excluir</button>
+        </div>
       </fieldset>
     }
   </div>
 
   <div class="pagination">
-    <button>Anterior</button>
-    <button>Próximo</button>
+    <div class="btn-group" role="group">
+      <button class="btn">Anterior</button>
+      <button class="btn">Próximo</button>
+    </div>
   </div>
 }
 

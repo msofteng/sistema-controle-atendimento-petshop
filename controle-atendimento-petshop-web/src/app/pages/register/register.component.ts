@@ -8,6 +8,7 @@ import { convertFileToBase64 } from '../../shared/utils/file';
 
 import HttpErrorResponse from '../../core/errors/http-error-response';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   service: PetshopService = inject(PetshopService);
+  toastr: ToastrService = inject(ToastrService);
   router: Router = inject(Router);
 
   cadastroForm: FormGroup = new FormGroup({
@@ -49,17 +51,13 @@ export class RegisterComponent {
 
       this.service.cadastrarFuncionario(this.cadastroForm.value).subscribe({
         next: (value: Usuario) => {
-          console.log(value);
           this.cadastroForm.reset();
           this.cadastroForm.get('perfil')?.setValue(Perfil.ADMIN);
           this.fotoUsuario.nativeElement.value = '';
           this.btnDisabled = false;
           this.router.navigate(['/login']);
         },
-        error: (err: HttpErrorResponse<ResponseError>) => {
-          console.error(err);
-          this.btnDisabled = false;
-        }
+        error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err)
       });
     } else {
       this.cadastroForm.markAllAsTouched();
@@ -75,5 +73,15 @@ export class RegisterComponent {
     } else {
       this.cadastroForm.get('foto')?.setValue('');
     }
+  }
+
+  mostrarErro(err: HttpErrorResponse<ResponseError>) {
+    this.toastr.error(`
+      <details>
+        <summary>Erro: ${err.error.message}</summary>
+        ${err.error.detail}
+      </details>
+    `);
+    this.btnDisabled = false;
   }
 }

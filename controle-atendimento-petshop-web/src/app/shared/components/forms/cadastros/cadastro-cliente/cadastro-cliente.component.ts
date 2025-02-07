@@ -7,6 +7,9 @@ import { PetshopService } from '../../../../services/petshop.service';
 import { base64ToFile, convertFileToBase64 } from '../../../../utils/file';
 import { CadastroContatoComponent } from "../cadastro-contato/cadastro-contato.component";
 import { CadastroEnderecoComponent } from "../cadastro-endereco/cadastro-endereco.component";
+import HttpErrorResponse from '../../../../../core/errors/http-error-response';
+import { ResponseError } from '../../../../interfaces/response';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cadastro-cliente',
@@ -32,6 +35,7 @@ export class CadastroClienteComponent {
   });
 
   service: PetshopService = inject(PetshopService);
+  toastr: ToastrService = inject(ToastrService);
 
   @Input()
   cliente?: Usuario;
@@ -142,7 +146,7 @@ export class CadastroClienteComponent {
 
     this.service.excluirContato(this.contatos.at(index).value).subscribe({
       next: () => this.contatos.removeAt(index),
-      error: error => console.error(error)
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err)
     });
   }
 
@@ -152,7 +156,7 @@ export class CadastroClienteComponent {
 
     this.service.excluirEndereco(this.enderecos.at(index).value).subscribe({
       next: () => this.enderecos.removeAt(index),
-      error: error => console.error(error)
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err)
     });
   }
 
@@ -171,5 +175,14 @@ export class CadastroClienteComponent {
       complemento: endereco.complemento ? endereco.complemento : undefined,
       tag: endereco.tag ? endereco.tag : undefined
     };
+  }
+
+  mostrarErro(err: HttpErrorResponse<ResponseError>) {
+    this.toastr.error(`
+      <details>
+        <summary>Erro: ${err.error.message}</summary>
+        ${err.error.detail}
+      </details>
+    `);
   }
 }

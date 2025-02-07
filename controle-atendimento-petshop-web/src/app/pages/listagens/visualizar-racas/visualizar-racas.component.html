@@ -1,26 +1,32 @@
 <h3>Raças</h3>
 
 @if (isLoading) {
-  <b>Carregando ...</b>
+  <div class="spinner-border text-dark" role="status">
+    <span class="visually-hidden">Carregando ...</span>
+  </div>
 }
 
 @if (racas.length > 0 && !isLoading) {
-  <div class="grid-list">
+  <div class="grid-list mt-4">
     @for (raca of racas; track $index) {
-      <fieldset>
+      <fieldset class="shadow">
         <legend>
           {{ raca.descricao }}
         </legend>
 
-        <button [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="editarRaca(raca)">Editar</button>
-        <button [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="excluirRaca(raca)">Excluir</button>
+        <div class="btn-group" role="group">
+          <button class="btn btn-primary shadow" [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="editarRaca(raca)">Editar</button>
+          <button class="btn btn-danger shadow" [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="excluirRaca(raca)">Excluir</button>
+        </div>
       </fieldset>
     }
   </div>
 
   <div class="pagination">
-    <button>Anterior</button>
-    <button>Próximo</button>
+    <div class="btn-group" role="group">
+      <button class="btn">Anterior</button>
+      <button class="btn">Próximo</button>
+    </div>
   </div>
 }
 

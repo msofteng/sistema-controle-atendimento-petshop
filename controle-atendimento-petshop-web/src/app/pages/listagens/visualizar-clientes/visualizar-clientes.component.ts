@@ -3,15 +3,14 @@ import { CadastroClienteComponent } from "../../../shared/components/forms/cadas
 import { ModalComponent } from "../../../shared/components/page/modal/modal.component";
 import { Usuario } from '../../../shared/interfaces/petshop.entities';
 import { ResponseError } from '../../../shared/interfaces/response';
-import { CpfPipe } from '../../../shared/pipes/cpf.pipe';
 import { PetshopService } from '../../../shared/services/petshop.service';
 
 import HttpErrorResponse from '../../../core/errors/http-error-response';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-visualizar-clientes',
   imports: [
-    CpfPipe,
     ModalComponent,
     CadastroClienteComponent
   ],
@@ -20,6 +19,7 @@ import HttpErrorResponse from '../../../core/errors/http-error-response';
 })
 export class VisualizarClientesComponent implements OnInit {
   service: PetshopService = inject(PetshopService);
+  toastr: ToastrService = inject(ToastrService);
 
   clientes: Usuario[] = [];
 
@@ -45,7 +45,7 @@ export class VisualizarClientesComponent implements OnInit {
         this.openModalAtualizarCliente = false;
         this.clienteSelecionadoEdicao = undefined;
       },
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
     });
   }
 
@@ -62,7 +62,7 @@ export class VisualizarClientesComponent implements OnInit {
 
     this.service.excluirCliente(cliente).subscribe({
       next: (res: boolean) => this.clientes = this.clientes.filter(a => a.id !== cliente.id),
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
       complete: () => this.isLoading = false,
     });
   }
@@ -72,8 +72,17 @@ export class VisualizarClientesComponent implements OnInit {
 
     this.service.listarClientes().subscribe({
       next: (clientes: Usuario[]) => this.clientes = clientes,
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
       complete: () => this.isLoading = false,
-    })
+    });
+  }
+
+  mostrarErro(err: HttpErrorResponse<ResponseError>) {
+    this.toastr.error(`
+      <details>
+        <summary>Erro: ${err.error.message}</summary>
+        ${err.error.detail}
+      </details>
+    `);
   }
 }

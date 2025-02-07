@@ -1,1 +1,5 @@
-@import url(../page.css);
+:host {
+  display: block;
+  padding: 0px 10px;
+  padding-bottom: 30px;
+}

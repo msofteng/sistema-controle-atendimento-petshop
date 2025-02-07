@@ -4,7 +4,7 @@
       Contato <b title="Obrigatório" class="required">*</b>
     </label>
 
-    <input type="text" class="form-control"
+    <input type="text" class="form-control shadow-sm"
       [class.is-invalid]="contatoForm.get('valor')?.touched && contatoForm.get('valor')?.hasError('required')"
       id="validationValue" formControlName="valor"
     />
@@ -21,7 +21,7 @@
       Tipo <b title="Obrigatório" class="required">*</b>
     </label>
 
-    <select class="form-control"
+    <select class="form-control shadow-sm"
       [class.is-invalid]="contatoForm.get('tipo')?.touched && contatoForm.get('tipo')?.hasError('required')"
       id="validationType" formControlName="tipo"
     >
@@ -42,12 +42,12 @@
       Tag
     </label>
 
-    <input type="text" class="form-control" [class.is-invalid]="" id="validationTagContact" formControlName="tag" />
+    <input type="text" class="form-control shadow-sm" id="validationTagContact" formControlName="tag" />
   </div>
   
   <div class="col-12">
     <input type="hidden" formControlName="id">
-    <button class="btn btn-primary" type="submit">
+    <button class="btn btn-primary shadow" type="submit">
       {{ this.contato ? 'Atualizar' : 'Adicionar' }} Contato
     </button>
   </div>

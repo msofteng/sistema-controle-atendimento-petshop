@@ -17,7 +17,21 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimations(),
     provideToastr({
-      positionClass: 'toast-bottom-center'
+      positionClass: 'toast-bottom-center',
+      toastClass: 'ngx-toastr',
+      iconClasses: {
+        error: 'toast-error',
+        info: 'toast-info',
+        success: 'toast-success',
+        warning: 'toast-warning'
+      },
+      preventDuplicates: true,
+      enableHtml: true,
+      timeOut: 10000,
+      autoDismiss: false,
+      closeButton: true,
+      tapToDismiss: false,
+      disableTimeOut: true
     })
   ]
 };

@@ -1,3 +1,17 @@
 :host {
   padding-top: 15px;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.spinner-border {
+  margin-top: 20px;
+}
+
+legend img {
+  border: 1px solid lightgray;
+}

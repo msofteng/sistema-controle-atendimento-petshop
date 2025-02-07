@@ -1,31 +1,34 @@
 <h3>Clientes</h3>
 
 @if (isLoading) {
-  <b>Carregando ...</b>
+  <div class="spinner-border text-dark" role="status">
+    <span class="visually-hidden">Carregando ...</span>
+  </div>
 }
 
 @if (clientes.length > 0 && !isLoading) {
-  <div class="grid-list">
+  <div class="grid-list mt-4">
     @for (cliente of clientes; track $index) {
-      <fieldset>
+      <fieldset class="shadow">
         <legend>
-          <img [src]="cliente.foto ?? 'assets/img/woman.png'" alt="imagem">
+          <img class="shadow" [src]="cliente.foto ?? 'assets/img/woman.png'" alt="imagem">
         </legend>
 
-        {{ cliente.nome }} <br>
+        {{ cliente.nome }}
 
-        <sup>{{ cliente.cpf | cpf }}</sup>
-
-        <br>
-        <button [disabled]="usuarioLogado?.perfil === 'CLIENTE' && cliente.id !== usuarioLogado?.id" (click)="editarCliente(cliente)">Editar</button>
-        <button [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="excluirCliente(cliente)">Excluir</button>
+        <div class="btn-group mt-3" role="group">
+          <button class="btn btn-primary shadow" [disabled]="usuarioLogado?.perfil === 'CLIENTE' && cliente.id !== usuarioLogado?.id" (click)="editarCliente(cliente)">Editar</button>
+          <button class="btn btn-danger shadow" [disabled]="usuarioLogado?.perfil === 'CLIENTE'" (click)="excluirCliente(cliente)">Excluir</button>
+        </div>
       </fieldset>
     }
   </div>
 
   <div class="pagination">
-    <button>Anterior</button>
-    <button>Próximo</button>
+    <div class="btn-group" role="group">
+      <button class="btn">Anterior</button>
+      <button class="btn">Próximo</button>
+    </div>
   </div>
 }
 

@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset class="shadow">
   <legend>{{ this.cliente ? 'Atualizar' : 'Adicionar' }} Cliente</legend>
 
   <form class="row g-3" [formGroup]="clienteForm" (submit)="adicionarCliente($event)">
@@ -7,7 +7,7 @@
         Nome <b title="Obrigatório" class="required">*</b>
       </label>
 
-      <input type="text" class="form-control"
+      <input type="text" class="form-control shadow-sm"
         [class.is-invalid]="clienteForm.get('nome')?.touched && clienteForm.get('nome')?.hasError('required')"
         id="validationName" formControlName="nome"
       />
@@ -24,7 +24,7 @@
         Senha
       </label>
 
-      <input type="text" class="form-control" id="validationPassword" formControlName="password"/>
+      <input type="text" class="form-control shadow-sm" id="validationPassword" formControlName="password"/>
     </div>
 
     <div class="col-12">
@@ -32,7 +32,7 @@
         CPF
       </label>
 
-      <input type="text" class="form-control" id="validationCpf" formControlName="cpf" maxlength="14" (blur)="atualizarSenha($event)" />
+      <input type="text" class="form-control shadow-sm" id="validationCpf" formControlName="cpf" maxlength="14" (blur)="atualizarSenha($event)" />
     </div>
 
     <div class="col-12">
@@ -40,18 +40,18 @@
         Foto
       </label>
 
-      <input type="file" class="form-control" id="validationImage" (change)="onImagePicked($event)" accept="image/*" #fotoCliente />
+      <input type="file" class="form-control shadow-sm" id="validationImage" (change)="onImagePicked($event)" accept="image/*" #fotoCliente />
     </div>
 
     <div class="col-12 pt-3">
-      <fieldset>
+      <fieldset class="shadow-sm">
         <legend>Adicionar Contato</legend>
 
         <app-cadastro-contato (contatoAdicionado)="adicionarContato($event)"></app-cadastro-contato>
 
         <br>
 
-        <fieldset>
+        <fieldset class="shadow-sm">
           <legend>Contatos (Cliente)</legend>
 
           <table class="table">
@@ -67,7 +67,7 @@
               @for (contato of contatos.controls; track contato.value.valor; let idx = $index) {
                 <tr [formGroupName]="$index">
                   <td>
-                    <input type="text" class="form-control"
+                    <input type="text" class="form-control shadow-sm"
                       [class.is-invalid]="contato.get('valor')?.touched && contato.get('valor')?.hasError('required')"
                       formControlName="valor"
                     />
@@ -79,7 +79,7 @@
                     }
                   </td>
                   <td>
-                    <select class="form-control" [class.is-invalid]="contato.get('tipo')?.touched && contato.get('tipo')?.hasError('required')" formControlName="tipo">
+                    <select class="form-control shadow-sm" [class.is-invalid]="contato.get('tipo')?.touched && contato.get('tipo')?.hasError('required')" formControlName="tipo">
                       <option value="">--- Selecione ---</option>
                       <option value="telefone">Telefone</option>
                       <option value="e-mail">E-mail</option>
@@ -92,11 +92,11 @@
                     }
                   </td>
                   <td>
-                    <input class="form-control" type="text" formControlName="tag">
+                    <input class="form-control shadow-sm" type="text" formControlName="tag">
                   </td>
                   <td>
                     <input type="hidden" formControlName="id">
-                    <button class="btn btn-danger" (click)="removerContato($event, idx)">Excluir</button>
+                    <button class="btn btn-danger shadow" (click)="removerContato($event, idx)">Excluir</button>
                   </td>
                 </tr>
               }
@@ -107,14 +107,14 @@
     </div>
 
     <div class="col-12 pt-3">
-      <fieldset>
+      <fieldset class="shadow-sm">
         <legend>Adicionar Endereço</legend>
 
         <app-cadastro-endereco (enderecoAdicionado)="adicionarEndereco($event)"></app-cadastro-endereco>
 
         <br>
 
-        <fieldset>
+        <fieldset class="shadow-sm">
           <legend>Endereços (Cliente)</legend>
 
           <table class="table">
@@ -132,7 +132,7 @@
               @for (endereco of enderecos.controls; track endereco.value.logradouro; let idx = $index) {
                 <tr [formGroupName]="$index">
                   <td>
-                    <input type="text" class="form-control"
+                    <input type="text" class="form-control shadow-sm"
                       [class.is-invalid]="endereco.get('logradouro')?.touched && endereco.get('logradouro')?.hasError('required')"
                       formControlName="logradouro"
                     />
@@ -144,7 +144,7 @@
                     }
                   </td>
                   <td>
-                    <input type="text" class="form-control"
+                    <input type="text" class="form-control shadow-sm"
                       [class.is-invalid]="endereco.get('cidade')?.touched && endereco.get('cidade')?.hasError('required')"
                       formControlName="cidade"
                     />
@@ -156,7 +156,7 @@
                     }
                   </td>
                   <td>
-                    <input type="text" class="form-control"
+                    <input type="text" class="form-control shadow-sm"
                       [class.is-invalid]="endereco.get('bairro')?.touched && endereco.get('bairro')?.hasError('required')"
                       formControlName="bairro"
                     />
@@ -168,14 +168,14 @@
                     }
                   </td>
                   <td>
-                    <input type="text" class="form-control" formControlName="complemento">
+                    <input type="text" class="form-control shadow-sm" formControlName="complemento">
                   </td>
                   <td>
-                    <input type="text" class="form-control" formControlName="tag">
+                    <input type="text" class="form-control shadow-sm" formControlName="tag">
                   </td>
                   <td>
                     <input type="hidden" formControlName="id">
-                    <button class="btn btn-danger" (click)="removerEndereco($event, idx)">Excluir</button>
+                    <button class="btn btn-danger shadow" (click)="removerEndereco($event, idx)">Excluir</button>
                   </td>
                 </tr>
               }
@@ -187,7 +187,7 @@
     
     <div class="col-12">
       <input type="hidden" formControlName="id">
-      <button class="btn btn-primary" type="submit">
+      <button class="btn btn-primary shadow" type="submit">
         {{ this.cliente ? 'Atualizar' : 'Adicionar' }} Cliente
       </button>
     </div>

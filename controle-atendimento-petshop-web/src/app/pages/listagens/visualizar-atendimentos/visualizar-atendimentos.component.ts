@@ -1,4 +1,4 @@
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CadastroAtendimentoComponent } from '../../../shared/components/forms/cadastros/cadastro-atendimento/cadastro-atendimento.component';
 import { ModalComponent } from '../../../shared/components/page/modal/modal.component';
@@ -8,11 +8,13 @@ import { ResponseError } from '../../../shared/interfaces/response';
 import { PetshopService } from '../../../shared/services/petshop.service';
 
 import HttpErrorResponse from '../../../core/errors/http-error-response';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-visualizar-atendimentos',
   imports: [
     CurrencyPipe,
+    DatePipe,
     ModalComponent,
     CadastroAtendimentoComponent
   ],
@@ -21,6 +23,7 @@ import HttpErrorResponse from '../../../core/errors/http-error-response';
 })
 export class VisualizarAtendimentosComponent implements OnInit {
   service: PetshopService = inject(PetshopService);
+  toastr: ToastrService = inject(ToastrService);
 
   atendimentos: Atendimento[] = [];
   clientes: Usuario[] = [];
@@ -60,7 +63,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
         this.pets = [];
         this.atendimentoSelecionadoEdicao = undefined;
       },
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
     });
   }
 
@@ -84,7 +87,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
 
     this.service.excluirAtendimento(atendimento).subscribe({
       next: (res: boolean) => this.atendimentos = this.atendimentos.filter(a => a.id !== atendimento.id),
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
       complete: () => this.isLoading = false,
     });
   }
@@ -94,8 +97,6 @@ export class VisualizarAtendimentosComponent implements OnInit {
   }
 
   buscarAnimaisCliente(cliente?: Usuario) {
-    console.log(cliente?.dataCadastro);
-
     if (cliente && cliente.dataCadastro && cliente.dataCadastro instanceof Date)
       cliente.dataCadastro = (cliente.dataCadastro as Date).toISOString().split('T')[0];
 
@@ -104,7 +105,7 @@ export class VisualizarAtendimentosComponent implements OnInit {
     if (cliente) {
       this.service.listarPets({ filter: { cliente: cliente } }).subscribe({
         next: (pets: Pet[]) => this.pets = pets,
-        error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+        error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
         complete: () => this.isLoading = false,
       });
     }
@@ -115,20 +116,29 @@ export class VisualizarAtendimentosComponent implements OnInit {
 
     this.service.listarAtendimentos().subscribe({
       next: (atendimentos: Atendimento[]) => this.atendimentos = atendimentos,
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
       complete: () => this.isLoading = false,
     });
 
     this.service.listarClientes().subscribe({
       next: (clientes: Usuario[]) => this.clientes = clientes,
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
       complete: () => {},
     });
 
     this.service.listarRacas().subscribe({
       next: (racas: Raca[]) => this.racas = racas,
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
       complete: () => {},
     });
+  }
+
+  mostrarErro(err: HttpErrorResponse<ResponseError>) {
+    this.toastr.error(`
+      <details>
+        <summary>Erro: ${err.error.message}</summary>
+        ${err.error.detail}
+      </details>
+    `);
   }
 }

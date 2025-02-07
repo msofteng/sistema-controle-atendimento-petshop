@@ -6,6 +6,7 @@ import { ResponseError } from '../../../shared/interfaces/response';
 import { PetshopService } from '../../../shared/services/petshop.service';
 
 import HttpErrorResponse from '../../../core/errors/http-error-response';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-visualizar-pets',
@@ -18,6 +19,7 @@ import HttpErrorResponse from '../../../core/errors/http-error-response';
 })
 export class VisualizarPetsComponent implements OnInit {
   service: PetshopService = inject(PetshopService);
+  toastr: ToastrService = inject(ToastrService);
 
   pets: Pet[] = [];
   racas: Raca[] = [];
@@ -35,7 +37,6 @@ export class VisualizarPetsComponent implements OnInit {
   }
 
   petAdicionado(pet: Pet) {
-    console.log(pet);
     if (pet.id && pet.id > 0) {
       if (pet.cliente)
         pet.cliente = this.clientes.find(cli => cli.nome === pet.cliente.nome) ?? pet.cliente;
@@ -63,7 +64,7 @@ export class VisualizarPetsComponent implements OnInit {
         this.openModalAtualizarPet = false;
         this.petSelecionadoEdicao = undefined;
       },
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
     });
   }
 
@@ -80,7 +81,7 @@ export class VisualizarPetsComponent implements OnInit {
 
     this.service.excluirPet(pet).subscribe({
       next: (res: boolean) => this.pets = this.pets.filter(a => a.id !== pet.id),
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
       complete: () => this.isLoading = false,
     });
   }
@@ -94,18 +95,18 @@ export class VisualizarPetsComponent implements OnInit {
 
     this.service.listarPets().subscribe({
       next: (pets: Pet[]) => this.pets = pets,
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
       complete: () => this.isLoading = false,
     });
 
     this.service.listarClientes().subscribe({
       next: (clientes: Usuario[]) => this.clientes = clientes,
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
     });
 
     this.service.listarRacas().subscribe({
       next: (racas: Raca[]) => this.racas = racas,
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
     });
   }
 
@@ -121,5 +122,14 @@ export class VisualizarPetsComponent implements OnInit {
       ...endereco,
       cliente
     }));
+  }
+
+  mostrarErro(err: HttpErrorResponse<ResponseError>) {
+    this.toastr.error(`
+      <details>
+        <summary>Erro: ${err.error.message}</summary>
+        ${err.error.detail}
+      </details>
+    `);
   }
 }

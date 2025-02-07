@@ -4,7 +4,7 @@
       Logradouro <b title="Obrigatório" class="required">*</b>
     </label>
     
-    <input type="text" class="form-control"
+    <input type="text" class="form-control shadow-sm"
       [class.is-invalid]="enderecoForm.get('logradouro')?.touched && enderecoForm.get('logradouro')?.hasError('required')"
       id="validationAddress" formControlName="logradouro"
     />
@@ -21,7 +21,7 @@
       Cidade <b title="Obrigatório" class="required">*</b>
     </label>
 
-    <input type="text" class="form-control"
+    <input type="text" class="form-control shadow-sm"
       [class.is-invalid]="enderecoForm.get('cidade')?.touched && enderecoForm.get('cidade')?.hasError('required')"
       id="validationCity" formControlName="cidade"
     />
@@ -38,7 +38,7 @@
       Bairro <b title="Obrigatório" class="required">*</b>
     </label>
 
-    <input type="text" class="form-control"
+    <input type="text" class="form-control shadow-sm"
       [class.is-invalid]="enderecoForm.get('bairro')?.touched && enderecoForm.get('bairro')?.hasError('required')"
       id="validationRegion" formControlName="bairro"
     />
@@ -55,7 +55,7 @@
       Complemento:
     </label>
 
-    <input type="text" class="form-control" id="validationCompl" formControlName="complemento" />
+    <input type="text" class="form-control shadow-sm" id="validationCompl" formControlName="complemento" />
   </div>
 
   <div class="col-12">
@@ -63,12 +63,12 @@
       Tag:
     </label>
 
-    <input type="text" class="form-control" id="validationTagAddress" formControlName="tag" />
+    <input type="text" class="form-control shadow-sm" id="validationTagAddress" formControlName="tag" />
   </div>
   
   <div class="col-12">
     <input type="hidden" formControlName="id">
-    <button class="btn btn-primary" type="submit">
+    <button class="btn btn-primary shadow" type="submit">
       {{ this.endereco ? 'Atualizar' : 'Adicionar' }} Endereço
     </button>
   </div>

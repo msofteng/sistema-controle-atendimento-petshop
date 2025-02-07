@@ -1,13 +1,13 @@
-<fieldset>
+<fieldset class="shadow">
   <legend>{{ this.pet ? 'Atualizar' : 'Adicionar' }} Pet</legend>
 
   <form class="row g-3" [formGroup]="petForm" (submit)="adicionarPet($event)">
-    <div class="col-12">
+    <div class="col-7">
       <label for="validationPetName" class="form-label">
         Nome <b title="Obrigatório" class="required">*</b>
       </label>
 
-      <input type="text" class="form-control"
+      <input type="text" class="form-control shadow-sm"
         [class.is-invalid]="petForm.get('nome')?.touched && petForm.get('nome')?.hasError('required')"
         id="validationPetName" formControlName="nome"
       />
@@ -19,12 +19,12 @@
       }
     </div>
 
-    <div class="col-12">
+    <div class="col-5">
       <label for="validationBirthDate" class="form-label">
         Data de Nascimento <b title="Obrigatório" class="required">*</b>
       </label>
 
-      <input type="date" class="form-control"
+      <input type="date" class="form-control shadow-sm"
         [class.is-invalid]="petForm.get('dataNascimento')?.touched && petForm.get('dataNascimento')?.hasError('required')"
         id="validationBirthDate" formControlName="dataNascimento"
       />
@@ -36,18 +36,18 @@
       }
     </div>
 
-    <div class="col-12">
+    <div class="col-5 pt-2 pb-2">
       <label for="validationBreed" class="form-label">
         Raça <b title="Obrigatório" class="required">*</b>
       </label>
 
-      <select class="form-control mb-3" id="validationBreed" multiple #selectRacas>
+      <select class="form-control shadow-sm mb-3" id="validationBreed" multiple #selectRacas>
         @for (raca of racas; track $index) {
           <option [value]="raca.id" [innerHTML]="raca.descricao"></option>
         }
       </select>
 
-      <button class="btn btn-danger" (click)="removerRacasSelecionadas($event)">
+      <button class="btn btn-danger shadow" (click)="removerRacasSelecionadas($event)">
         Excluir Selecionados
       </button>
 
@@ -58,7 +58,7 @@
       }
     </div>
 
-    <div class="col-12 pt-3 pb-4">
+    <div class="col-7 pt-2 pb-2">
       <app-cadastro-raca (racaAdicionada)="adicionarRacaPet($event)"></app-cadastro-raca>
     </div>
 
@@ -67,14 +67,14 @@
         Foto:
       </label>
 
-      <input type="file" class="form-control"
+      <input type="file" class="form-control shadow-sm"
         id="validationImage" (change)="onImagePicked($event)" accept="image/*" #fotoPet
       />
     </div>
     
     <div class="col-12">
       <input type="hidden" formControlName="id">
-      <button class="btn btn-primary" type="submit">
+      <button class="btn btn-primary shadow" type="submit">
         {{ this.pet ? 'Atualizar' : 'Adicionar' }} Pet
       </button>
     </div>

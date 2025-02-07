@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 import { Perfil } from '../enums/perfil';
 import { corrigeData } from '../functions/date';
 import { LoginResponse } from '../interfaces/login-response';
-import { Atendimento, Usuario, Contato, Endereco, Pet, Raca } from '../interfaces/petshop.entities';
+import { Atendimento, Contato, Endereco, Pet, Raca, Usuario } from '../interfaces/petshop.entities';
 import { LoginParams, PageParams } from '../interfaces/request';
 import { changePerfil, changeTipoContato } from '../utils/change-enum';
 

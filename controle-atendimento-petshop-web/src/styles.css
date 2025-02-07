@@ -36,16 +36,6 @@ b.required {
   border-radius: 100%;
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination button:not(:first-child) {
-  margin-left: 10px;
-}
-
 fieldset {
   border: 1px solid lightgray;
   padding: 20px 20px;
@@ -57,4 +47,33 @@ legend {
   float: none;
   width: auto;
   padding: 0px 15px;
+}
+
+.toast-container {
+  padding: 20px;
+}
+
+.toast-container .ngx-toastr {
+  width: 75% !important;
+  padding-left: 25px !important;
+}
+
+div[toast-component] {
+  padding: 15px;
+  background-image: none;
+}
+
+button.toast-close-button {
+  top: 0em;
+  right: 0em;
+}
+
+button.toast-close-button span {
+  font-weight: 100;
+  font-size: 1.75em;
+  line-height: 0;
+}
+
+details[open] summary {
+  margin-bottom: 10px;
 }

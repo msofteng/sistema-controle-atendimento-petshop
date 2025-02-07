@@ -6,6 +6,7 @@ import { ResponseError } from '../../../shared/interfaces/response';
 import { PetshopService } from '../../../shared/services/petshop.service';
 
 import HttpErrorResponse from '../../../core/errors/http-error-response';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-visualizar-racas',
@@ -18,12 +19,13 @@ import HttpErrorResponse from '../../../core/errors/http-error-response';
 })
 export class VisualizarRacasComponent implements OnInit {
   service: PetshopService = inject(PetshopService);
+  toastr: ToastrService = inject(ToastrService);
 
   racas: Raca[] = [];
 
   isLoading = false;
-
   openModalAtualizarRaca = false;
+
   racaSelecionadoEdicao?: Raca;
   usuarioLogado?: Usuario;
 
@@ -40,7 +42,7 @@ export class VisualizarRacasComponent implements OnInit {
         this.openModalAtualizarRaca = false;
         this.racaSelecionadoEdicao = undefined;
       },
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
     });
   }
 
@@ -54,7 +56,7 @@ export class VisualizarRacasComponent implements OnInit {
 
     this.service.excluirRaca(raca).subscribe({
       next: (res: boolean) => this.racas = this.racas.filter(a => a.id !== raca.id),
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
       complete: () => this.isLoading = false,
     });
   }
@@ -64,8 +66,17 @@ export class VisualizarRacasComponent implements OnInit {
 
     this.service.listarRacas().subscribe({
       next: (racas: Raca[]) => this.racas = racas,
-      error: (err: HttpErrorResponse<ResponseError>) => console.error(err),
+      error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err),
       complete: () => this.isLoading = false,
     });
+  }
+
+  mostrarErro(err: HttpErrorResponse<ResponseError>) {
+    this.toastr.error(`
+      <details>
+        <summary>Erro: ${err.error.message}</summary>
+        ${err.error.detail}
+      </details>
+    `);
   }
 }

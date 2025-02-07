@@ -1,12 +1,15 @@
 <h3>Minha Conta</h3>
 
-<form class="row g-3" [formGroup]="atualizacaoForm" (submit)="atualizaCadastro($event)">
+<form class="row g-3 pt-3" [formGroup]="atualizacaoForm" (submit)="atualizaCadastro($event)">
   <div class="col-12">
     <label for="validationName" class="form-label">
       Nome <b title="Obrigatório" class="required">*</b>
     </label>
 
-    <input type="text" class="form-control" [class.is-invalid]="" id="validationName" formControlName="nome" />
+    <input type="text" class="form-control shadow-sm"
+      [class.is-invalid]="atualizacaoForm.get('nome')?.touched && atualizacaoForm.get('nome')?.hasError('required')"
+      id="validationName" formControlName="nome"
+    />
 
     @if (atualizacaoForm.get('nome')?.touched && atualizacaoForm.get('nome')?.hasError('required')) {
       <div class="invalid-feedback">
@@ -20,7 +23,7 @@
       Senha
     </label>
 
-    <input type="password" class="form-control"
+    <input type="password" class="form-control shadow-sm"
       id="validationPassword" formControlName="password"
     />
   </div>
@@ -30,7 +33,7 @@
       CPF
     </label>
 
-    <input type="text" class="form-control"
+    <input type="text" class="form-control shadow-sm"
       id="validationCpf" formControlName="cpf" maxlength="14"
     />
   </div>
@@ -40,13 +43,13 @@
       Foto
     </label>
 
-    <input type="file" class="form-control"
+    <input type="file" class="form-control shadow-sm"
       id="validationImage" (change)="onImagePicked($event)" accept="image/*" #fotoUsuario
     />
   </div>
 
   <div class="col-12">
-    <button class="btn btn-primary" type="submit" [disabled]="btnDisabled">
+    <button class="btn btn-primary shadow" type="submit" [disabled]="btnDisabled">
       Atualizar
     </button>
   </div>

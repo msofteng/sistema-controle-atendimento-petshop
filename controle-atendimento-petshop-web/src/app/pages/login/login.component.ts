@@ -19,8 +19,8 @@ import HttpErrorResponse from '../../core/errors/http-error-response';
 })
 export class LoginComponent {
   service: PetshopService = inject(PetshopService);
-  toastr: ToastrService = inject(ToastrService);
   cookieService: CookieService = inject(CookieService);
+  toastr: ToastrService = inject(ToastrService);
   router: Router = inject(Router);
 
   loginForm: FormGroup = new FormGroup({
@@ -41,7 +41,12 @@ export class LoginComponent {
           this.btnDisabled = false;
         },
         error: (err: HttpErrorResponse<ResponseError>) => {
-          console.log(err.error.message);
+          this.toastr.error(`
+            <details>
+              <summary>Erro: ${err.error.message}</summary>
+              ${err.error.detail}
+            </details>
+          `);
           this.btnDisabled = false;
         }
       });

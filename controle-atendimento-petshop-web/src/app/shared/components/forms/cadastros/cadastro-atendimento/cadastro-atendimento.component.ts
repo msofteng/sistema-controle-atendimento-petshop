@@ -1,8 +1,9 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Atendimento, Usuario, Pet, Raca } from '../../../../interfaces/petshop.entities';
 import { CadastroClienteComponent } from "../cadastro-cliente/cadastro-cliente.component";
 import { CadastroPetComponent } from "../cadastro-pet/cadastro-pet.component";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cadastro-atendimento',
@@ -26,20 +27,22 @@ export class CadastroAtendimentoComponent implements OnChanges {
   @Input()
   atendimento?: Atendimento;
 
-  @Output()
-  atendimentoAdicionado: EventEmitter<Atendimento> = new EventEmitter<Atendimento>();
-
   @Input({ required: true })
   clientes!: Usuario[];
 
   @Input({ required: true })
   pets!: Pet[];
 
+  @Input({ required: true })
+  racas!: Raca[];
+
+  @Output()
+  atendimentoAdicionado: EventEmitter<Atendimento> = new EventEmitter<Atendimento>();
+
   @Output()
   buscarPetsCliente: EventEmitter<Usuario> = new EventEmitter<Usuario>();
 
-  @Input({ required: true })
-  racas!: Raca[];
+  toastr: ToastrService = inject(ToastrService);
 
   @ViewChild('selectPets')
   private selectPets!: ElementRef<HTMLSelectElement>;
@@ -65,9 +68,8 @@ export class CadastroAtendimentoComponent implements OnChanges {
   }
 
   adicionarAtendimento(event: SubmitEvent) {
-    if (this.getPetsSelecionados.length == 0) {
-      console.log('selecione um pet ou adicione um na lista');
-    }
+    if (this.getPetsSelecionados.length == 0)
+      this.toastr.info('Selecione um pet ou adicione um na lista');
 
     if (this.atendimentoForm.valid && this.getPetsSelecionados().length > 0) {
       if (!this.atendimentoForm.value.id && !this.atendimento)
