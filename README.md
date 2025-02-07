@@ -77,7 +77,7 @@ classDiagram
     AtendimentoEntity "*" -- "*" PetEntity : inclui
     ContatoEntity "*" -- "1" UsuarioEntity : pertence a
     EnderecoEntity "*" -- "1" UsuarioEntity : pertence a
-    PetEntity "*" -- "1" ClienteEntity : pertence a
+    PetEntity "*" -- "1" UsuarioEntity : pertence a
 ```
 
 ## Instruções de uso
