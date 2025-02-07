@@ -132,7 +132,7 @@ Abra este repositório na sua máquina local ou no ambiente IDX e rode os comand
 
 <br>
 
-> _Se tiver avaliando esse projeto dentro do IDX, na documentação da API tem os links para acessar o percentual de cobertura dos testes:_
+> _Se tiver avaliando esse projeto dentro do IDX, na documentação da API tem os links para acessar o percentual de cobertura dos testes_ **(não funciona no Docker)**:
 >
 > ![image](https://github.com/user-attachments/assets/484e0cbc-73e4-4a94-8ca0-a869a4ce003a)
 > <br>
