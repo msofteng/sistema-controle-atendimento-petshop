@@ -1,12 +1,14 @@
 import { provideHttpClient } from '@angular/common/http';
 import { ElementRef, SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ToastrService } from 'ngx-toastr';
 import { Perfil } from '../../../../enums/perfil';
 import { CadastroAtendimentoComponent } from './cadastro-atendimento.component';
 
 describe('CadastroAtendimentoComponent', () => {
   let component: CadastroAtendimentoComponent;
   let fixture: ComponentFixture<CadastroAtendimentoComponent>;
+  let toastrService: jasmine.SpyObj<ToastrService>;
 
   let clienteMock = {
     id: 1,
@@ -45,12 +47,23 @@ describe('CadastroAtendimentoComponent', () => {
   };
 
   beforeEach(async () => {
+    toastrService = jasmine.createSpyObj('ToastrService', [
+      'success',
+      'error',
+      'info',
+      'warning'
+    ]);
+
     await TestBed.configureTestingModule({
       imports: [
         CadastroAtendimentoComponent
       ],
       providers: [
-        provideHttpClient()
+        provideHttpClient(),
+        {
+          provide: ToastrService,
+          useValue: toastrService
+        },
       ]
     }).compileComponents();
 

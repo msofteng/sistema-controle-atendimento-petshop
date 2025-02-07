@@ -39,9 +39,6 @@ export class RegisterComponent {
 
   enviarCadastro(event: SubmitEvent) {
     if (this.cadastroForm.valid) {
-      if (!this.cadastroForm.value.cpf)
-        delete this.cadastroForm.value.cpf;
-
       if (!this.cadastroForm.value.foto)
         delete this.cadastroForm.value.foto;
 

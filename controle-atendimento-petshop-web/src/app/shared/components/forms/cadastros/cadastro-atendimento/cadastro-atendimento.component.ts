@@ -68,9 +68,6 @@ export class CadastroAtendimentoComponent implements OnChanges {
   }
 
   adicionarAtendimento(event: SubmitEvent) {
-    if (this.getPetsSelecionados.length == 0)
-      this.toastr.info('Selecione um pet ou adicione um na lista');
-
     if (this.atendimentoForm.valid && this.getPetsSelecionados().length > 0) {
       if (!this.atendimentoForm.value.id && !this.atendimento)
         delete this.atendimentoForm.value.id;

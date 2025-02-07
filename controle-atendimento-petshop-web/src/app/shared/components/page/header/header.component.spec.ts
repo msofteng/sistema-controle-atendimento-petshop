@@ -72,4 +72,9 @@ describe('HeaderComponent', () => {
     component.onClickOutside(new MouseEvent('click'));
     expect(component.showMenu).toBeFalse();
   });
+
+  it('testando o método sair (desautenticar)', () => {
+    component.sair();
+    expect(component.cookieService.check('token')).toBeFalse();
+  });
 });

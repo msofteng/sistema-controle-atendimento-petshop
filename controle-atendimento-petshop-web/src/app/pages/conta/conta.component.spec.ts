@@ -71,8 +71,15 @@ describe('ContaComponent', () => {
     component.atualizacaoForm.get('foto')?.patchValue('');
 
     service.cadastrarCliente.and.returnValue(of(adminMock));
-    component.atualizaCadastro(new SubmitEvent('submit'));
 
+    component.atualizaCadastro(new SubmitEvent('submit'));
+    expect(component.atualizacaoForm).toBeTruthy();
+
+    // com CPF vazio
+    component.atualizacaoForm.get('foto')?.patchValue(adminMock.foto);
+    component.atualizacaoForm.get('cpf')?.setValue('');
+
+    component.atualizaCadastro(new SubmitEvent('submit'));
     expect(component.atualizacaoForm).toBeTruthy();
 
     // tratando cadastro com erro
@@ -95,5 +102,16 @@ describe('ContaComponent', () => {
     component.onImagePicked({ target: { files: new DataTransfer().files } } as unknown as Event);
 
     expect(component.atualizacaoForm).toBeTruthy();
+  });
+
+  it('verifica se foto está sendo definida corretamente no input de arquivo', (done) => {
+    service.getUsuario.and.returnValue(of(adminMock));
+
+    component.ngOnInit();
+
+    setTimeout(() => {
+      expect(component['fotoUsuario'].nativeElement.files?.length).toBe(1);
+      done();
+    }, 1000);
   });
 });

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { of, throwError } from 'rxjs';
 import { Usuario } from '../../shared/interfaces/petshop.entities';
@@ -64,12 +65,14 @@ describe('LoginComponent', () => {
       dataCadastro: '2025-01-01'
     };
 
-    component.loginForm.get('nomeCpf')?.setValue(usuario.cpf?.toString());
-    component.loginForm.get('senha')?.setValue(usuario.cpf?.toString());
+    component.loginForm = new FormGroup({
+      nomeCpf: new FormControl<string>(usuario.cpf ?? '', []),
+      password: new FormControl<string>(usuario.password, [])
+    });
 
     service.login.and.returnValue(of({
-      token: '',
-      expiresIn: 0
+      token: '123',
+      expiresIn: 600
     }));
 
     component.enviarLogin(new SubmitEvent('submit'));
@@ -78,7 +81,7 @@ describe('LoginComponent', () => {
 
     // testando o método enviarLogin com erro
 
-    let error = new HttpErrorResponse({
+    let errorMock = new HttpErrorResponse({
       status: 401,
       statusText: 'Unauthorized',
       error: {
@@ -86,14 +89,17 @@ describe('LoginComponent', () => {
       }
     });
 
-    service.login.and.returnValue(throwError(() => error));
+    service.login.and.returnValue(throwError(() => errorMock));
 
     component.enviarLogin(new SubmitEvent('submit'));
-  });
 
-  it('testando o método enviarLogin com formulário vazio', () => {
+    // com formulário vazio
+    component.loginForm = new FormGroup({
+      nomeCpf: new FormControl<string>(usuario.cpf ?? '', [Validators.required]),
+      password: new FormControl<string>(usuario.password, [Validators.required])
+    });
+    component.loginForm.reset();
     component.enviarLogin(new SubmitEvent('submit'));
-
     expect(component.enviarLogin).toBeTruthy();
   });
 });

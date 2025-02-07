@@ -40,18 +40,20 @@ export class LoginComponent {
           this.router.navigate(['/dashboard']);
           this.btnDisabled = false;
         },
-        error: (err: HttpErrorResponse<ResponseError>) => {
-          this.toastr.error(`
-            <details>
-              <summary>Erro: ${err.error.message}</summary>
-              ${err.error.detail}
-            </details>
-          `);
-          this.btnDisabled = false;
-        }
+        error: (err: HttpErrorResponse<ResponseError>) => this.mostrarErro(err)
       });
     } else {
       this.loginForm.markAllAsTouched();
     }
+  }
+
+  mostrarErro(err: HttpErrorResponse<ResponseError>) {
+    this.toastr.error(`
+      <details>
+        <summary>Erro: ${err.error.message}</summary>
+        ${err.error.detail}
+      </details>
+    `);
+    this.btnDisabled = false;
   }
 }

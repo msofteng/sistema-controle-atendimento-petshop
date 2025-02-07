@@ -1,6 +1,6 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpHeaders, HttpInterceptorFn } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { httpInterceptor } from './http.interceptor';
+import { httpInterceptor, setHeaders } from './http.interceptor';
 
 describe('httpInterceptor', () => {
   const interceptor: HttpInterceptorFn = (req, next) =>
@@ -62,5 +62,11 @@ describe('httpInterceptor', () => {
         withCredentials: true,
       })
     );
+  });
+
+  it('não deve adicionar o header Authorization se não houver token', (done) => {
+    let headers = setHeaders(new HttpHeaders(), '/auth/login', 'teste');
+    expect(headers.has('Authorization')).toBeFalse();
+    done();
   });
 });

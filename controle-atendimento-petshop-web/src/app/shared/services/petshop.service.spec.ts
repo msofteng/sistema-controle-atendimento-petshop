@@ -7,6 +7,7 @@ import { Atendimento, Usuario, Contato, Pet, Raca } from '../interfaces/petshop.
 import { LoginParams, PageParams } from '../interfaces/request';
 import { changePerfil, changeTipoContato } from '../utils/change-enum';
 import { PetshopService } from './petshop.service';
+import { firstValueFrom, of } from 'rxjs';
 
 describe('PetshopService', () => {
   let service: PetshopService;
@@ -489,5 +490,20 @@ describe('PetshopService', () => {
   it('testando o método setUsuario', () => {
     service.setUsuario(undefined);
     expect(service['usuario'].value).toBeUndefined();
+  });
+
+  it('testando o método getUsuario', async () => {
+    service.setUsuario(adminMock);
+    expect(await firstValueFrom(service.getUsuario())).toBe(adminMock);
+  });
+
+  it('deve listar o usuário autenticado', () => {
+    service.getUsuarioLogado().subscribe(response => {
+      expect(adminMock.nome).toBe(response.nome);
+    });
+  
+    const req = httpMock.expectOne('/auth/me');
+    expect(req.request.method).toBe('GET');
+    req.flush(adminMock);
   });
 });

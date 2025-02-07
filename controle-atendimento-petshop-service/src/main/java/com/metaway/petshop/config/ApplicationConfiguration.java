@@ -14,6 +14,7 @@ import lombok.Generated;
 
 @Configuration
 @Generated
+@ComponentScan(basePackages = "com.metaway.petshop.repository")
 public class ApplicationConfiguration {
   @Autowired
   private UsuarioRepository usuarioRepository;

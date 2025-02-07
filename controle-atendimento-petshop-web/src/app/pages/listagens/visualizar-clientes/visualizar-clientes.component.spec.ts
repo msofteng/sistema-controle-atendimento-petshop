@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ToastrService } from 'ngx-toastr';
 import { of, throwError } from 'rxjs';
 import { Perfil } from '../../../shared/enums/perfil';
 import { PetshopService } from '../../../shared/services/petshop.service';
@@ -10,6 +11,7 @@ describe('VisualizarClientesComponent', () => {
   let component: VisualizarClientesComponent;
   let fixture: ComponentFixture<VisualizarClientesComponent>;
   let service: jasmine.SpyObj<PetshopService>;
+  let toastrService: jasmine.SpyObj<ToastrService>;
 
   let clienteMock = {
     id: 1,
@@ -37,6 +39,12 @@ describe('VisualizarClientesComponent', () => {
       'excluirCliente',
       'getUsuario'
     ]);
+    toastrService = jasmine.createSpyObj('ToastrService', [
+      'success',
+      'error',
+      'info',
+      'warning'
+    ]);
     
     await TestBed.configureTestingModule({
       imports: [
@@ -46,6 +54,10 @@ describe('VisualizarClientesComponent', () => {
         {
           provide: PetshopService,
           useValue: service
+        },
+        {
+          provide: ToastrService,
+          useValue: toastrService
         }
       ]
     }).compileComponents();
@@ -73,6 +85,11 @@ describe('VisualizarClientesComponent', () => {
     component.clienteAdicionado(clienteMock);
     expect(service.cadastrarCliente).toBeTruthy();
 
+    // com data de cadastro sendo um objeto date
+    clienteMock.dataCadastro = new Date();
+    component.clienteAdicionado(clienteMock);
+    expect(service.cadastrarCliente).toBeTruthy();
+
     // com erro
     service.cadastrarCliente.and.returnValue(throwError(() => errorMock));
 
@@ -93,6 +110,10 @@ describe('VisualizarClientesComponent', () => {
     component.excluirCliente(clienteMock);
     
     expect(service.excluirCliente).toBeTruthy();
+
+    // com data de cadastro do cliente como objeto Date
+    clienteMock.dataCadastro = new Date();
+    component.excluirCliente(clienteMock);
     
     // com erro
     service.excluirCliente.and.returnValue(throwError(() => errorMock));

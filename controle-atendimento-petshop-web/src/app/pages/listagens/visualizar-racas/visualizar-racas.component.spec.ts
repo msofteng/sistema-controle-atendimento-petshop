@@ -1,15 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ToastrService } from 'ngx-toastr';
 import { of, throwError } from 'rxjs';
+import { Perfil } from '../../../shared/enums/perfil';
 import { PetshopService } from '../../../shared/services/petshop.service';
 import { VisualizarRacasComponent } from './visualizar-racas.component';
 
 import HttpErrorResponse from '../../../core/errors/http-error-response';
-import { Perfil } from '../../../shared/enums/perfil';
 
 describe('VisualizarRacasComponent', () => {
   let component: VisualizarRacasComponent;
   let fixture: ComponentFixture<VisualizarRacasComponent>;
   let service: jasmine.SpyObj<PetshopService>;
+  let toastrService: jasmine.SpyObj<ToastrService>;
 
   let racaMock = {
     id: 1,
@@ -43,6 +45,12 @@ describe('VisualizarRacasComponent', () => {
       'excluirRaca',
       'getUsuario'
     ]);
+    toastrService = jasmine.createSpyObj('ToastrService', [
+      'success',
+      'error',
+      'info',
+      'warning'
+    ]);
 
     await TestBed.configureTestingModule({
       imports: [
@@ -52,7 +60,11 @@ describe('VisualizarRacasComponent', () => {
         {
           provide: PetshopService,
           useValue: service
-        }
+        },
+        {
+          provide: ToastrService,
+          useValue: toastrService
+        },
       ]
     }).compileComponents();
 

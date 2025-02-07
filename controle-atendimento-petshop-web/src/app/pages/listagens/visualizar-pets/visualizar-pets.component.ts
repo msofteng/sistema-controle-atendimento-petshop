@@ -53,8 +53,8 @@ export class VisualizarPetsComponent implements OnInit {
       cli.enderecos = [];
       cli.pets = [];
 
-      pet.cliente.contatos = this.adicionarClienteContatos(cli, pet.cliente.contatos ?? []);
-      pet.cliente.enderecos = this.adicionarClienteEnderecos(cli, pet.cliente.enderecos ?? []);
+      pet.cliente.contatos = this.adicionarClienteContatos(cli, pet.cliente.contatos);
+      pet.cliente.enderecos = this.adicionarClienteEnderecos(cli, pet.cliente.enderecos);
     }
 
     this.service.cadastrarPet(pet).subscribe({
@@ -110,15 +110,15 @@ export class VisualizarPetsComponent implements OnInit {
     });
   }
 
-  adicionarClienteContatos(cliente: Usuario, contatos: Contato[]): Contato[] {
-    return contatos.map(contato => ({
+  adicionarClienteContatos(cliente: Usuario, contatos?: Contato[]): Contato[] {
+    return (contatos ?? []).map(contato => ({
       ...contato,
       cliente
     }));
   }
   
-  adicionarClienteEnderecos(cliente: Usuario, enderecos: Endereco[]): Endereco[] {
-    return enderecos.map(endereco => ({
+  adicionarClienteEnderecos(cliente: Usuario, enderecos?: Endereco[]): Endereco[] {
+    return (enderecos ?? []).map(endereco => ({
       ...endereco,
       cliente
     }));

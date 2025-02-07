@@ -1,5 +1,6 @@
 import { SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ToastrService } from 'ngx-toastr';
 import { of, throwError } from 'rxjs';
 import { Perfil } from '../../../../enums/perfil';
 import { TipoContato } from '../../../../enums/tipo-contato';
@@ -14,6 +15,7 @@ describe('CadastroClienteComponent', () => {
   let component: CadastroClienteComponent;
   let fixture: ComponentFixture<CadastroClienteComponent>;
   let service: jasmine.SpyObj<PetshopService>;
+  let toastrService: jasmine.SpyObj<ToastrService>;
 
   let contatoMock = {
     id: 1,
@@ -54,6 +56,12 @@ describe('CadastroClienteComponent', () => {
       'excluirContato',
       'excluirEndereco'
     ]);
+    toastrService = jasmine.createSpyObj('ToastrService', [
+      'success',
+      'error',
+      'info',
+      'warning'
+    ]);
 
     await TestBed.configureTestingModule({
       imports: [
@@ -63,6 +71,10 @@ describe('CadastroClienteComponent', () => {
         {
           provide: PetshopService,
           useValue: service
+        },
+        {
+          provide: ToastrService,
+          useValue: toastrService
         }
       ]
     }).compileComponents();

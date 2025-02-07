@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ToastrService } from 'ngx-toastr';
 import { of, throwError } from 'rxjs';
 import { Perfil } from '../../../shared/enums/perfil';
 import { PetshopService } from '../../../shared/services/petshop.service';
@@ -10,6 +11,7 @@ describe('VisualizarAtendimentosComponent', () => {
   let component: VisualizarAtendimentosComponent;
   let fixture: ComponentFixture<VisualizarAtendimentosComponent>;
   let service: jasmine.SpyObj<PetshopService>;
+  let toastrService: jasmine.SpyObj<ToastrService>;
 
   let clienteMock = {
     id: 1,
@@ -56,6 +58,12 @@ describe('VisualizarAtendimentosComponent', () => {
       'listarPets',
       'getUsuario'
     ]);
+    toastrService = jasmine.createSpyObj('ToastrService', [
+      'success',
+      'error',
+      'info',
+      'warning'
+    ]);
 
     await TestBed.configureTestingModule({
       imports: [
@@ -65,7 +73,11 @@ describe('VisualizarAtendimentosComponent', () => {
         {
           provide: PetshopService,
           useValue: service
-        }
+        },
+        {
+          provide: ToastrService,
+          useValue: toastrService
+        },
       ]
     }).compileComponents();
 
