@@ -1,0 +1,13 @@
+services:
+  web:
+    container_name: petshop-web
+    build:
+      context: ./controle-atendimento-petshop-web
+    ports:
+      - 4200:4200
+  service:
+    container_name: petshop-service
+    build:
+      context: ./controle-atendimento-petshop-service
+    ports:
+      - 8080:8080
